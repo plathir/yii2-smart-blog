@@ -4,7 +4,7 @@ namespace plathir\smartblog;
 
 class Module extends \yii\base\Module
 {
-    public $controllerNamespace = 'app\modules\smartblog\controllers';
+    public $controllerNamespace = 'plathir\smartblog\controllers';
 
     public function init()
     {
