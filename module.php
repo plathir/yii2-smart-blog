@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\smartblog;
+namespace plathir\smartblog;
 
 class Module extends \yii\base\Module
 {
