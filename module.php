@@ -1,18 +1,15 @@
 <?php
 
-namespace plathir\smartblog;
+namespace app\modules\smartblog;
 
-class module extends \yii\base\Module
+class Module extends \yii\base\Module
 {
-    public $controllerNamespace = 'plathir\smartblog\controllers';
+    public $controllerNamespace = 'app\modules\smartblog\controllers';
 
     public function init()
     {
-                
         parent::init();
 
-        
-        
         // custom initialization code goes here
     }
 }
