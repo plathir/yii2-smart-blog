@@ -15,7 +15,7 @@ php composer.phar require --prefer-dist plathir/yii2-smartblog "*"
 or add
 
 ```
-"plathir/yii2-mytest": "*"
+"plathir/yii2-smartblog": "*"
 ```
 
 to the require section of your `composer.json` file.
