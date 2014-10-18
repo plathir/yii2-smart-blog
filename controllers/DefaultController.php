@@ -10,4 +10,11 @@ class DefaultController extends Controller
     {
         return $this->render('index');
     }
+    
+    public function actionNewpost() {
+        
+         return $this->render('newpost');
+        
+        
+    }
 }
