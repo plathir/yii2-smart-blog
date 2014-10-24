@@ -20,21 +20,19 @@ use Yii;
  * @property integer $publish
  * @property string $categories
  */
-class Posts extends \yii\db\ActiveRecord
-{
+class Posts extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'smartblog_posts';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['description', 'intro_text', 'full_text', 'user_created', 'date_created'], 'required'],
             [['intro_text', 'full_text'], 'string'],
@@ -47,8 +45,7 @@ class Posts extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => Yii::t('app', 'ID'),
             'description' => Yii::t('app', 'Description'),
@@ -64,4 +61,5 @@ class Posts extends \yii\db\ActiveRecord
             'categories' => Yii::t('app', 'Categories'),
         ];
     }
+
 }

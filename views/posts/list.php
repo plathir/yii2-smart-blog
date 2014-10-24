@@ -19,6 +19,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Posts', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
+    <?php
+    foreach ($dataProvider->getModels() as $pdata) {
+        echo $pdata['description'] . '<br>';
+    }   
+    ?>
+
+
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,

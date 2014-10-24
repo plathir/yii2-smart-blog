@@ -10,13 +10,12 @@ use plathir\smartblog\models\Posts;
 /**
  * Posts_s represents the model behind the search form about `app\models\Posts`.
  */
-class Posts_s extends Posts
-{
+class Posts_s extends Posts {
+
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['id', 'full_image', 'user_created', 'user_last_change', 'publish'], 'integer'],
             [['description', 'intro_text', 'full_text', 'intro_image', 'date_created', 'date_last_change', 'categories'], 'safe'],
@@ -26,8 +25,7 @@ class Posts_s extends Posts
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -39,8 +37,7 @@ class Posts_s extends Posts
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search($params) {
         $query = Posts::find();
 
         $dataProvider = new ActiveDataProvider([
@@ -62,11 +59,12 @@ class Posts_s extends Posts
         ]);
 
         $query->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'intro_text', $this->intro_text])
-            ->andFilterWhere(['like', 'full_text', $this->full_text])
-            ->andFilterWhere(['like', 'intro_image', $this->intro_image])
-            ->andFilterWhere(['like', 'categories', $this->categories]);
+                ->andFilterWhere(['like', 'intro_text', $this->intro_text])
+                ->andFilterWhere(['like', 'full_text', $this->full_text])
+                ->andFilterWhere(['like', 'intro_image', $this->intro_image])
+                ->andFilterWhere(['like', 'categories', $this->categories]);
 
         return $dataProvider;
     }
+
 }
