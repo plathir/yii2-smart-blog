@@ -21,32 +21,42 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php
     foreach ($dataProvider->getModels() as $pdata) {
-        echo $pdata['description'] . '<br>';
-    }   
+        ?>
+        <div class ="well">
+            <?php
+            echo Html::a('<h1>' . $pdata['description'] . '</h1>', ['view', 'id' => $pdata['id']]);
+            echo "<img src=" . $pdata['intro_image'] . ">";
+            echo $pdata['intro_text'] . '<br>';
+            echo Html::a('More', ['view', 'id' => $pdata['id']], ['class' => 'btn btn-primary']);
+            ?>
+        </div>
+        <?php
+    }
     ?>
 
 
-    <?=
-    GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            'id',
-            'description',
-            'intro_text:ntext',
-            'full_text:ntext',
-            'intro_image',
-            // 'full_image',
-            // 'user_created',
-            // 'date_created',
-            // 'user_last_change',
-            // 'date_last_change',
-            // 'publish',
-            // 'categories',
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]);
+    <?php
+    //echo
+//    GridView::widget([
+//        'dataProvider' => $dataProvider,
+//        'filterModel' => $searchModel,
+//        'columns' => [
+//            ['class' => 'yii\grid\SerialColumn'],
+//            'id',
+//            'description',
+//            'intro_text:ntext',
+//            'full_text:ntext',
+//            'intro_image',
+//            // 'full_image',
+//            // 'user_created',
+//            // 'date_created',
+//            // 'user_last_change',
+//            // 'date_last_change',
+//            // 'publish',
+//            // 'categories',
+//            ['class' => 'yii\grid\ActionColumn'],
+//        ],
+//    ]);
     ?>
 
 </div>
