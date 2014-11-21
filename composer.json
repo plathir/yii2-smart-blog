@@ -13,7 +13,7 @@
         "php": ">=5.4.0",
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap": "*",
-        "asofter/yii2-imperavi-redactor": "*"
+        "vova07/yii2-imperavi-widget": "*"
 
     },
     "autoload": {
