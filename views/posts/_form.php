@@ -17,10 +17,14 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'intro_text')->textarea(['rows' => 6]) ?>
 
     <?php //= //$form->field($model, 'full_text')->textarea(['rows' => 6])  ?>
+
     <?php
-    echo \vova07\imperavi\Widget::widget([
+
+    use vova07\imperavi\Widget;
+
+echo $form->field($model, 'full_text')->widget(Widget::className(), [
         'settings' => [
-            'lang' => 'ru',
+            'lang' => 'en',
             'minHeight' => 200,
             'pastePlainText' => true,
             'plugins' => [
@@ -45,12 +49,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'publish')->textInput() ?>
 
-    <?= $form->field($model, 'categories')->textInput(['maxlength' => 255]) ?>
+<?= $form->field($model, 'categories')->textInput(['maxlength' => 255]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
+<?php ActiveForm::end(); ?>
 
 </div>
