@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\imperavi\Widget;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Posts */
@@ -17,16 +16,18 @@ use yii\imperavi\Widget;
 
     <?= $form->field($model, 'intro_text')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'full_text')->textarea(['rows' => 6]) ?>
-    <?=
-    yii\imperavi\Widget::widget([
-        // You can either use it for model attribute
-        'model' => $model,
-        'attribute' => 'full_text',
-        'options' => [
-            'toolbar' => true,
-            'css' => 'wym.css',
-        ],
+    <?php //= //$form->field($model, 'full_text')->textarea(['rows' => 6])  ?>
+    <?php
+    echo \vova07\imperavi\Widget::widget([
+        'settings' => [
+            'lang' => 'ru',
+            'minHeight' => 200,
+            'pastePlainText' => true,
+            'plugins' => [
+                'clips',
+                'fullscreen'
+            ]
+        ]
     ]);
     ?>
 
