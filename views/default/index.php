@@ -9,4 +9,6 @@
         You may customize this page by editing the following file:<br>
         <code><?= __FILE__ ?></code>
     </p>
+
+    <?php //print_r($postsList); ?>
 </div>
