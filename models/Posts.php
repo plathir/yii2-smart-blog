@@ -36,7 +36,7 @@ class Posts extends \yii\db\ActiveRecord {
         return [
             [['description', 'intro_text', 'full_text', 'user_created', 'date_created'], 'required'],
             [['intro_text', 'full_text'], 'string'],
-            [['full_image', 'user_created', 'user_last_change', 'publish'], 'integer'],
+            [['user_created', 'user_last_change', 'publish'], 'integer'],
             [['date_created', 'date_last_change'], 'safe'],
             [['description', 'intro_image', 'categories'], 'string', 'max' => 255]
         ];
