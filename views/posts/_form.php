@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 use kartik\widgets\DatePicker;
 use kartik\widgets\SwitchInput;
 use kartik\widgets\FileInput;
-    use vova07\imperavi\Widget;
+use vova07\imperavi\Widget;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Posts */
@@ -78,8 +78,8 @@ echo $form->field($model, 'full_text')->widget(Widget::className(), [
     ]);
     ?>
 
-    <?= ''// $form->field($model, 'publish')->textInput() ?>
-    <?= $form->field($model, 'publish')->widget(SwitchInput::classname(), []); ?>
+    <?=  $form->field($model, 'publish')->textInput() ?>
+    <?php echo $form->field($model, 'publish')->widget(SwitchInput::classname(), []); ?>
 
 <?= $form->field($model, 'categories')->textInput(['maxlength' => 255]) ?>
 
