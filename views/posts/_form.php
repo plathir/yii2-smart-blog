@@ -26,7 +26,7 @@ use kartik\widgets\DateTimePicker;
         'options' => ['accept' => 'image/*'
         ],
         'pluginOptions' => [
-          //  'overwriteInitial' => true,
+            //  'overwriteInitial' => true,
             'showUpload' => false,
             'showRemove' => true,
         ]
@@ -57,26 +57,34 @@ use kartik\widgets\DateTimePicker;
     ]);
     ?>
 
-    <?= $form->field($model, 'user_created')->textInput() ?>
+    <?= ''// $form->field($model, 'user_created')->textInput() ?>
 
-    <?php
-    echo $form->field($model, 'date_created')->widget(DateTimePicker::classname(), [
-        'options' => ['placeholder' => 'Enter event time ...'],
-        'pluginOptions' => [
-            'autoclose' => true
-        ]
-    ]);
-    ?>
-    <?= $form->field($model, 'user_last_change')->textInput() ?>
+    <div class="col-md-6 column">
+        <?php
+        echo $form->field($model, 'date_created')->widget(DateTimePicker::classname(), [
+            'options' => ['placeholder' => 'Enter event time ...'],
+            'readonly' => true,
+            'pluginOptions' => [
+                'autoclose' => true
+            ]
+        ]);
+        ?>
+    </div>
+    <div class="col-md-6 column">
+        <?php
+        echo $form->field($model, 'date_last_change')->widget(DateTimePicker::classname(), [
+            'options' => ['placeholder' => 'Enter event time ...'],
+            'readonly' => true,
+            'pluginOptions' => [
+                'autoclose' => true
+            ]
+        ]);
+        ?>
+    </div>
 
-    <?php
-    echo $form->field($model, 'date_last_change')->widget(DateTimePicker::classname(), [
-        'options' => ['placeholder' => 'Enter event time ...'],
-        'pluginOptions' => [
-            'autoclose' => true
-        ]
-    ]);
-    ?>
+    <?= ''// $form->field($model, 'user_last_change')->textInput()  ?>
+
+
     <?php echo $form->field($model, 'publish')->widget(SwitchInput::classname(), []); ?>
 
     <?= $form->field($model, 'categories')->textInput(['maxlength' => 255]) ?>
