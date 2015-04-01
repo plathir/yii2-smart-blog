@@ -1,4 +1,4 @@
-yii2-smartblog
+yii2-smart-blog
 ==============
 
 Installation
