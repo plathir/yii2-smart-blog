@@ -26,7 +26,7 @@ class PostsController extends Controller {
                 'class' => \yii\filters\AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['list'],
+                        'actions' => ['list', 'view'],
                         'allow' => true,
                     ],
                     [
@@ -147,4 +147,7 @@ class PostsController extends Controller {
         }
     }
 
+    protected function testMethod() {
+        return 'sdd';
+    }
 }
