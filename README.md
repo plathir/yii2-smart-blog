@@ -9,13 +9,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist plathir/yii2-smartblog "*"
+php composer.phar require --prefer-dist plathir/yii2-smart-blog "*"
 ```
 
 or add
 
 ```
-"plathir/yii2-smartblog": "*"
+"plathir/yii2-smart-blog": "*"
 ```
 
 to the require section of your `composer.json` file.
