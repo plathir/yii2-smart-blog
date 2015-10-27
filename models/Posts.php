@@ -26,7 +26,7 @@ class Posts extends \yii\db\ActiveRecord {
      * @inheritdoc
      */
     public static function tableName() {
-        return 'smartblog_posts';
+        return 'posts';
     }
 
     /**
