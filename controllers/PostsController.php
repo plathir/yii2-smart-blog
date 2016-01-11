@@ -8,12 +8,22 @@ use plathir\smartblog\models\Posts_s;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use vova07\fileapi\actions\UploadAction as FileAPIUpload;
 
 /**
  * PostsController implements the CRUD actions for Posts model.
  */
+
+/**
+ * @property \plathir\smartblog\Module $module
+ * 
+ */
 class PostsController extends Controller {
 
+        public function __construct($id, $module) {
+        parent::__construct($id, $module);
+    }
+    
     public function behaviors() {
         return [
             'verbs' => [
@@ -30,11 +40,20 @@ class PostsController extends Controller {
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['create', 'update', 'index', 'view', 'delete'],
+                        'actions' => ['create', 'update', 'index', 'view', 'delete', 'fileapi-upload'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
                 ],
+            ],
+        ];
+    }
+
+    public function actions() {
+        return [
+            'fileapi-upload' => [
+                'class' => FileAPIUpload::className(),
+                'path' => $this->module->ImageTempPath,
             ],
         ];
     }
@@ -147,7 +166,4 @@ class PostsController extends Controller {
         }
     }
 
-    protected function testMethod() {
-        return 'sdd';
-    }
 }

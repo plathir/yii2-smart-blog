@@ -2,6 +2,8 @@
 
 namespace plathir\smartblog\models;
 
+use vova07\fileapi\behaviors\UploadBehavior;
+use plathir\smartblog\traits\ModuleTrait;
 use Yii;
 
 /**
@@ -22,11 +24,34 @@ use Yii;
  */
 class Posts extends \yii\db\ActiveRecord {
 
+    use ModuleTrait;
+
     /**
      * @inheritdoc
      */
     public static function tableName() {
         return 'posts';
+    }
+
+    public function behaviors() {
+        return [
+            //     TimestampBehavior::className(),
+            'uploadBehavior' => [
+                'class' => UploadBehavior::className(),
+                'attributes' => [
+                    'intro_image' => [
+                        'path' => $this->module->ImagePath . DIRECTORY_SEPARATOR . $this->id,
+                        'tempPath' => $this->module->ImageTempPath,
+                        'url' => $this->module->ImagePathPreview . '/' . $this->id
+                    ],
+                    'full_image' => [
+                        'path' => $this->module->ImagePath . DIRECTORY_SEPARATOR . $this->id,
+                        'tempPath' => $this->module->ImageTempPath,
+                        'url' => $this->module->ImagePathPreview . '/' . $this->id
+                    ]
+                ]
+            ]
+        ];
     }
 
     /**

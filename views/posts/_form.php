@@ -4,9 +4,9 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\widgets\DatePicker;
 use kartik\widgets\SwitchInput;
-use kartik\widgets\FileInput;
 use vova07\imperavi\Widget;
 use kartik\widgets\DateTimePicker;
+use vova07\fileapi\Widget as FileAPI;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Posts */
@@ -22,17 +22,17 @@ use kartik\widgets\DateTimePicker;
     <?= $form->field($model, 'intro_text')->textarea(['rows' => 6]) ?>
 
     <?php
-    echo $form->field($model, 'intro_image')->widget(FileInput::classname(), [
-        'options' => ['accept' => 'image/*'
-        ],
-        'pluginOptions' => [
-            //  'overwriteInitial' => true,
-            'showUpload' => false,
-            'showRemove' => true,
-        ]
-    ]);
-    ?>
-
+            echo $form->field($model, 'intro_image')->widget(FileAPI::className(), [
+            'settings' => [
+                'url' => ['posts/fileapi-upload'],
+                'autoUpload' => true,
+            ],
+            'crop' => true,
+        //    'cropResizeWidth' => 200,
+        //    'cropResizeHeight' => 200
+        ]);
+        ?>
+    
     <?php
     echo $form->field($model, 'full_text')->widget(Widget::className(), [
         'settings' => [
@@ -47,15 +47,17 @@ use kartik\widgets\DateTimePicker;
     ]);
     ?>
 
-
-
-    <?= ''// $form->field($model, 'full_image')->textInput()  ?>
-
-    <?php
-    echo $form->field($model, 'full_image')->widget(FileInput::classname(), [
-        'options' => ['accept' => 'image/*'],
-    ]);
-    ?>
+        <?php
+            echo $form->field($model, 'full_image')->widget(FileAPI::className(), [
+            'settings' => [
+                'url' => ['posts/fileapi-upload'],
+                'autoUpload' => true,
+            ],
+            'crop' => true,
+        //    'cropResizeWidth' => 200,
+        //    'cropResizeHeight' => 200
+        ]);
+        ?>
 
     <?= ''// $form->field($model, 'user_created')->textInput() ?>
 

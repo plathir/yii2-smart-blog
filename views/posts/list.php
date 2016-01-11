@@ -19,13 +19,15 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Posts', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php
+    <?php   
     foreach ($dataProvider->getModels() as $pdata) {
         ?>
         <div class ="well">
             <?php
             echo Html::a('<h1>' . $pdata['description'] . '</h1>', ['view', 'id' => $pdata['id']]);
-            echo "<img src=" . $pdata['intro_image'] . ">";
+            if ($pdata['intro_image'] != null) {
+                echo "<img src=" . plathir\smartblog\helpers\PostHelper::getPostIntroImage($pdata['id']) . " width=200>";
+            }
             echo $pdata['intro_text'] . '<br>';
             echo Html::a('More', ['view', 'id' => $pdata['id']], ['class' => 'btn btn-primary']);
             ?>
