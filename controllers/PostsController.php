@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use vova07\fileapi\actions\UploadAction as FileAPIUpload;
+use vova07\imperavi\actions\UploadAction;
 
 /**
  * PostsController implements the CRUD actions for Posts model.
@@ -20,16 +21,17 @@ use vova07\fileapi\actions\UploadAction as FileAPIUpload;
  */
 class PostsController extends Controller {
 
-        public function __construct($id, $module) {
+    public function __construct($id, $module) {
         parent::__construct($id, $module);
     }
-    
+
     public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                    'clipupl' => ['post'],
                 ],
             ],
             'access' => [
@@ -40,7 +42,17 @@ class PostsController extends Controller {
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['create', 'update', 'index', 'view', 'delete', 'fileapi-upload'],
+                        'actions' => ['create',
+                            'update',
+                            'index',
+                            'view',
+                            'delete',
+                            'fileapi-upload',
+                            'get',
+                            'image-upload',
+                            'file-upload',
+                            'clipupl'
+                        ],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -51,9 +63,27 @@ class PostsController extends Controller {
 
     public function actions() {
         return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
             'fileapi-upload' => [
                 'class' => FileAPIUpload::className(),
                 'path' => $this->module->ImageTempPath,
+            ],
+            'get' => [
+                'class' => 'vova07\imperavi\actions\GetAction',
+                'url' => $this->module->ImagePathPreview, // Directory URL address, where files are stored.
+                'path' => $this->module->ImagePath, // Or absolute path to directory where files are stored.
+            ],
+            'image-upload' => [
+                'class' => 'vova07\imperavi\actions\UploadAction',
+                'url' => $this->module->ImagePathPreview, // Directory URL address, where files are stored.
+                'path' => $this->module->ImagePath // Or absolute path to directory where files are stored.
+            ],
+            'file-upload' => [
+                'class' => 'vova07\imperavi\actions\UploadAction',
+                'url' => $this->module->ImagePathPreview, // Directory URL address, where files are stored.
+                'path' => $this->module->ImagePath // Or absolute path to directory where files are stored.
             ],
         ];
     }
@@ -164,6 +194,22 @@ class PostsController extends Controller {
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionClipupl() {
+
+        $dir = $this->module->ImagePath;
+        $url = $this->module->ImagePathPreview;
+
+        $contentType = $_POST['contentType'];
+        $data = base64_decode($_POST['data']);
+
+        $filename = md5(date('YmdHis')) . '.png';
+        $file = $dir . DIRECTORY_SEPARATOR . $filename;
+
+        file_put_contents($file, $data);
+
+        return json_encode(array('filelink' => $url . $filename));
     }
 
 }

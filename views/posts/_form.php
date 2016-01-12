@@ -7,6 +7,7 @@ use kartik\widgets\SwitchInput;
 use vova07\imperavi\Widget;
 use kartik\widgets\DateTimePicker;
 use vova07\fileapi\Widget as FileAPI;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Posts */
@@ -22,42 +23,62 @@ use vova07\fileapi\Widget as FileAPI;
     <?= $form->field($model, 'intro_text')->textarea(['rows' => 6]) ?>
 
     <?php
-            echo $form->field($model, 'intro_image')->widget(FileAPI::className(), [
-            'settings' => [
-                'url' => ['posts/fileapi-upload'],
-                'autoUpload' => true,
-            ],
-            'crop' => true,
-        //    'cropResizeWidth' => 200,
-        //    'cropResizeHeight' => 200
-        ]);
-        ?>
-    
-    <?php
-    echo $form->field($model, 'full_text')->widget(Widget::className(), [
+    echo $form->field($model, 'intro_image')->widget(FileAPI::className(), [
         'settings' => [
-            'lang' => 'en',
+            'url' => ['/posts/fileapi-upload'],
+            'autoUpload' => true,
+        ],
+        'crop' => true,
+            //    'cropResizeWidth' => 200,
+            //    'cropResizeHeight' => 200
+    ]);
+    ?>
+
+    <?php
+//    echo $form->field($model, 'full_text')->widget(Widget::className(), [
+//        'settings' => [
+//            'lang' => 'en',
+//            'minHeight' => 200,
+//            'pastePlainText' => true,
+//            'plugins' => [
+//                'clips',
+//                'fullscreen'
+//            ]
+//        ]
+//    ]);
+    ?>
+
+    <?php
+    echo
+    $form->field($model, 'full_text')->widget(\vova07\imperavi\Widget::className(), [
+        'settings' => [
+         //   'lang' => 'en',
             'minHeight' => 200,
-            'pastePlainText' => true,
+            //    'pastePlainText' => true,
+          //  'pasteImages' => true,
             'plugins' => [
                 'clips',
                 'fullscreen'
-            ]
+            ],
+            'imageGetJson' => Url::to(['/blog/posts/get']),
+            'imageUpload' => Url::to(['/blog/posts/image-upload']),
+            'fileUpload' => Url::to(['/blog/posts/file-upload']),
+            'clipboardUploadUrl' => Url::to(['/blog/posts/clipupl'])
         ]
     ]);
     ?>
 
-        <?php
-            echo $form->field($model, 'full_image')->widget(FileAPI::className(), [
-            'settings' => [
-                'url' => ['posts/fileapi-upload'],
-                'autoUpload' => true,
-            ],
-            'crop' => true,
-        //    'cropResizeWidth' => 200,
-        //    'cropResizeHeight' => 200
-        ]);
-        ?>
+    <?php
+    echo $form->field($model, 'full_image')->widget(FileAPI::className(), [
+        'settings' => [
+            'url' => ['posts/fileapi-upload'],
+            'autoUpload' => true,
+        ],
+        'crop' => true,
+            //    'cropResizeWidth' => 200,
+            //    'cropResizeHeight' => 200
+    ]);
+    ?>
 
     <?= ''// $form->field($model, 'user_created')->textInput() ?>
 
