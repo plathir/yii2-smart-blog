@@ -25,8 +25,9 @@ use yii\helpers\Url;
     <?php
     echo $form->field($model, 'intro_image')->widget(FileAPI::className(), [
         'settings' => [
-            'url' => ['/posts/fileapi-upload'],
-            'autoUpload' => true,
+            'url' => Url::to(['/blog/posts/fileapi-upload']),
+      //      'autoUpload' => true,
+            'uploadOnlyImage' => true
         ],
         'crop' => true,
             //    'cropResizeWidth' => 200,
@@ -71,8 +72,9 @@ use yii\helpers\Url;
     <?php
     echo $form->field($model, 'full_image')->widget(FileAPI::className(), [
         'settings' => [
-            'url' => ['posts/fileapi-upload'],
-            'autoUpload' => true,
+            'url' => Url::to(['/blog/posts/fileapi-upload']),
+       //     'autoUpload' => true,
+            'uploadOnlyImage' => true
         ],
         'crop' => true,
             //    'cropResizeWidth' => 200,
