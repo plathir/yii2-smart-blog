@@ -5,7 +5,7 @@ namespace plathir\smartblog\models;
 use vova07\fileapi\behaviors\UploadBehavior;
 use plathir\smartblog\traits\ModuleTrait;
 use Yii;
-
+use karpoff\icrop\CropImageUploadBehavior;
 
 /**
  * This is the model class for table "smartblog_posts".
@@ -38,16 +38,16 @@ class Posts extends \yii\db\ActiveRecord {
         return [
             //     TimestampBehavior::className(),
 //            'newBehavior'=>
-//            [
-//                'class' => CropImageUploadBehavior::className(),
-//                'attribute' => 'intro_image',
-//           //     'scenarios' => ['insert', 'update'],
-//                'path' => $this->module->ImagePath,
-//                'url' => $this->module->ImagePathPreview,
-//                'ratio' => 1,
-////                'crop_field' => 'intro_image',
-////                'cropped_field' => 'photo_cropped',
-//            ],
+            [
+                'class' => CropImageUploadBehavior::className(),
+                'attribute' => 'intro_image',
+           //     'scenarios' => ['insert', 'update'],
+                'path' => $this->module->ImagePath,
+                'url' => $this->module->ImagePathPreview,
+                'ratio' => 1,
+//                'crop_field' => 'intro_image',
+//                'cropped_field' => 'photo_cropped',
+            ],
 //            'uploadBehavior' => [
 //                'class' => UploadBehavior::className(),
 //                'attributes' => [

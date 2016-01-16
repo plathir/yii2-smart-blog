@@ -8,7 +8,10 @@ use plathir\smartblog\models\Posts_s;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use plathir\cropper\actions\UploadAction;
+use vova07\fileapi\actions\UploadAction as FileAPIUpload;
+use vova07\fileapi\actions\UploadAction as FileAPIUpload1;
+//use vova07\imperavi\actions\UploadAction;
+use budyaga\cropper\actions\UploadAction;
 
 
 /**
@@ -32,7 +35,9 @@ class PostsController extends Controller {
                 'actions' => [
                     'delete' => ['post'],
                     'clipupl' => ['post'],
-                    'uploadphoto' => ['post']
+                    'fileapi-upload' => ['post'],
+                    'fileapi-upload1' => ['post'],
+             //       'uploadPhoto' => ['post']
                 ],
             ],
             'access' => [
@@ -48,11 +53,13 @@ class PostsController extends Controller {
                             'index',
                             'view',
                             'delete',
+                            'fileapi-upload',
+                            'fileapi-upload1',
                             'get',
                             'image-upload',
                             'file-upload',
                             'clipupl',
-                            'uploadphoto'
+                            'uploadPhoto'
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -63,17 +70,41 @@ class PostsController extends Controller {
     }
 
     public function actions() {
+echo $this->module->ImagePathPreview . '<br>';
+echo $this->module->ImagePath.'<br>';
+//die();
         $actions = [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
-            'uploadphoto' => [
-                'class' => \plathir\cropper\actions\UploadAction::className(), 
+            'uploadPhoto' => [
+                'class' => 'budyaga\cropper\actions\UploadAction',
                 'url' => $this->module->ImagePathPreview,
                 'path' =>  $this->module->ImagePath,
-                //'uploadParam' => 'image',
             ],
- 
+            'fileapi-upload' => [
+                'class' => FileAPIUpload::className(),
+                'path' => $this->module->ImageTempPath,
+            ],
+            'fileapi-upload1' => [
+                'class' => FileAPIUpload1::className(),
+                'path' => $this->module->ImageTempPath,
+            ],
+            'get' => [
+                'class' => 'vova07\imperavi\actions\GetAction',
+                //       'url' => $this->module->ImagePathPreview, // Directory URL address, where files are stored.
+                'path' => $this->module->ImagePath, // Or absolute path to directory where files are stored.
+            ],
+            'image-upload' => [
+                'class' => 'vova07\imperavi\actions\UploadAction',
+                //       'url' => $this->module->ImagePathPreview, // Directory URL address, where files are stored.
+                'path' => $this->module->ImagePath // Or absolute path to directory where files are stored.
+            ],
+            'file-upload' => [
+                'class' => 'vova07\imperavi\actions\UploadAction',
+                //     'url' => $this->module->ImagePathPreview, // Directory URL address, where files are stored.
+                'path' => $this->module->ImagePath // Or absolute path to directory where files are stored.
+            ],
         ];
 
         return $actions;

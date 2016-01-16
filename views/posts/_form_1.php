@@ -2,10 +2,15 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\widgets\DatePicker;
 use kartik\widgets\SwitchInput;
+use vova07\imperavi\Widget;
 use kartik\widgets\DateTimePicker;
+use vova07\fileapi\Widget as FileAPI;
+use vova07\fileapi\Widget as FileAPI1;
 use yii\helpers\Url;
-use plathir\cropper\Widget as NewWidget;
+use karpoff\icrop\CropImageUpload;
+use budyaga\cropper\Widget as NewWidget;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Posts */
@@ -15,13 +20,31 @@ use plathir\cropper\Widget as NewWidget;
 <div class="posts-form">
 
     <?php $form = ActiveForm::begin(); ?>
+
     <?= $form->field($model, 'description')->textInput(['maxlength' => 255]) ?>
+
     <?= $form->field($model, 'intro_text')->textarea(['rows' => 6]) ?>
 
+    
     <?= $form->field($model, 'intro_image')->widget(NewWidget::className(), [
-       'uploadUrl' => Url::toRoute(['/blog/posts/uploadphoto'])
+        'uploadUrl' => Url::toRoute(['/blog/posts/uploadPhoto'])
             ]);
     ?>
+    <?php
+    
+//    echo $form->field($model, 'intro_image')->widget(FileAPI::className(), [
+//        'id' => 'image1',
+//        'settings' => [
+//            'url' => Url::to(['/blog/posts/fileapi-upload']),
+//              'autoUpload' => false,
+//        //      'uploadOnlyImage' => true
+//        ],
+//        'crop' => true,
+//            //    'cropResizeWidth' => 200,
+//            //    'cropResizeHeight' => 200
+//    ]);
+    ?>
+
     <?php
     echo
     $form->field($model, 'full_text')->widget(\vova07\imperavi\Widget::className(), [
@@ -83,9 +106,7 @@ use plathir\cropper\Widget as NewWidget;
     </div>
 
     <?= ''// $form->field($model, 'user_last_change')->textInput()  ?>
-<?php $extensions = explode(', ', 'jpeg, jpg, png, gif'); 
-print_r($extensions);
-?>
+
 
     <?php echo $form->field($model, 'publish')->widget(SwitchInput::classname(), []); ?>
 
