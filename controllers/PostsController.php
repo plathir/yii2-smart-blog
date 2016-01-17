@@ -68,7 +68,7 @@ class PostsController extends Controller {
                 'class' => 'yii\web\ErrorAction',
             ],
             'uploadphoto' => [
-                'class' => \plathir\cropper\actions\UploadAction::className(), 
+                'class' => '\plathir\actions\UploadAction', 
                 'url' => $this->module->ImagePathPreview,
                 'path' =>  $this->module->ImagePath,
                 //'uploadParam' => 'image',
