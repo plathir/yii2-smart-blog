@@ -6,7 +6,6 @@ use vova07\fileapi\behaviors\UploadBehavior;
 use plathir\smartblog\traits\ModuleTrait;
 use Yii;
 
-
 /**
  * This is the model class for table "smartblog_posts".
  *
@@ -15,7 +14,7 @@ use Yii;
  * @property string $intro_text
  * @property string $full_text
  * @property string $intro_image
- * @property integer $full_image
+ * @property string $full_image
  * @property integer $user_created
  * @property string $date_created
  * @property integer $user_last_change
@@ -27,6 +26,8 @@ class Posts extends \yii\db\ActiveRecord {
 
     use ModuleTrait;
 
+    public $intro_image_file;
+
     /**
      * @inheritdoc
      */
@@ -36,7 +37,7 @@ class Posts extends \yii\db\ActiveRecord {
 
     public function behaviors() {
         return [
-            //     TimestampBehavior::className(),
+                //     TimestampBehavior::className(),
 //            'newBehavior'=>
 //            [
 //                'class' => CropImageUploadBehavior::className(),
@@ -73,9 +74,10 @@ class Posts extends \yii\db\ActiveRecord {
         return [
             [['description', 'intro_text', 'full_text', 'user_created', 'date_created'], 'required'],
             [['intro_text', 'full_text'], 'string'],
+            [['intro_image', 'full_image'], 'string'],
             [['user_created', 'user_last_change', 'publish'], 'integer'],
             [['date_created', 'date_last_change'], 'safe'],
-            [['description', 'intro_image', 'categories'], 'string', 'max' => 255]
+            [['description', 'categories'], 'string', 'max' => 255]
         ];
     }
 

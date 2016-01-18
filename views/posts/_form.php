@@ -18,16 +18,37 @@ use plathir\cropper\Widget as NewWidget;
     <?= $form->field($model, 'description')->textInput(['maxlength' => 255]) ?>
     <?= $form->field($model, 'intro_text')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'intro_image')->widget(NewWidget::className(), [
-       'uploadUrl' => Url::toRoute(['/blog/posts/uploadphoto'])
+    <div class="row">
+        <div class="col-md-4 column">
+            <?=
+            $form->field($model, 'intro_image')->widget(NewWidget::className(), [
+                'uploadUrl' => Url::toRoute(['/blog/posts/uploadphoto']),
+                'previewUrl' =>$model->module->ImagePathPreview,    
             ]);
-    ?>
+            ?>
+
+        </div>
+
+        <div class="col-md-4 column">
+            <?=
+            $form->field($model, 'full_image')->widget(NewWidget::className(), [
+                'uploadUrl' => Url::toRoute(['/blog/posts/uploadphoto']),
+                'previewUrl' =>$model->module->ImagePathPreview,    
+            ]);
+            ?>
+
+        </div>
+        <div class="col-md-4 column">
+
+        </div>
+    </div>
+
     <?php
     echo
     $form->field($model, 'full_text')->widget(\vova07\imperavi\Widget::className(), [
-        
+
         'settings' => [
-          //  'lang' => 'en',
+            //  'lang' => 'en',
             'minHeight' => 200,
             //    'pastePlainText' => true,
             //  'pasteImages' => true,
@@ -82,10 +103,11 @@ use plathir\cropper\Widget as NewWidget;
         ?>
     </div>
 
-    <?= ''// $form->field($model, 'user_last_change')->textInput()  ?>
-<?php $extensions = explode(', ', 'jpeg, jpg, png, gif'); 
-print_r($extensions);
-?>
+    <?= ''// $form->field($model, 'user_last_change')->textInput()   ?>
+    <?php
+    $extensions = explode(', ', 'jpeg, jpg, png, gif');
+    print_r($extensions);
+    ?>
 
     <?php echo $form->field($model, 'publish')->widget(SwitchInput::classname(), []); ?>
 
