@@ -2,7 +2,7 @@
 
 namespace plathir\smartblog\models;
 
-use vova07\fileapi\behaviors\UploadBehavior;
+use plathir\cropper\behaviors\UploadImageBehavior;
 use plathir\smartblog\traits\ModuleTrait;
 use Yii;
 
@@ -37,33 +37,23 @@ class Posts extends \yii\db\ActiveRecord {
 
     public function behaviors() {
         return [
-                //     TimestampBehavior::className(),
-//            'newBehavior'=>
-//            [
-//                'class' => CropImageUploadBehavior::className(),
-//                'attribute' => 'intro_image',
-//           //     'scenarios' => ['insert', 'update'],
-//                'path' => $this->module->ImagePath,
-//                'url' => $this->module->ImagePathPreview,
-//                'ratio' => 1,
-////                'crop_field' => 'intro_image',
-////                'cropped_field' => 'photo_cropped',
-//            ],
-//            'uploadBehavior' => [
-//                'class' => UploadBehavior::className(),
-//                'attributes' => [
-//                    'intro_image' => [
-//                        'path' => $this->module->ImagePath,
-//                        'tempPath' => $this->module->ImageTempPath,
-//                        'url' => $this->module->ImagePathPreview,
-//                    ],
-//                    'full_image' => [
-//                        'path' => $this->module->ImagePath,
-//                        'tempPath' => $this->module->ImageTempPath,
-//                        'url' => $this->module->ImagePathPreview
-//                    ]
-//                ]
-//            ]
+            'uploadImageBehavior' => [
+                'class' => UploadImageBehavior::className(),
+                'attributes' => [
+                    'intro_image' => [
+                        'path' => $this->module->ImagePath,
+                        'temp_path' => $this->module->ImageTempPath,
+                        'url' => $this->module->ImagePathPreview,
+                        'key_folder' => 'id',
+                    ],
+                    'full_image' => [
+                        'path' => $this->module->ImagePath,
+                        'temp_path' => $this->module->ImageTempPath,
+                        'url' => $this->module->ImagePathPreview,
+                        'key_folder' => 'id',
+                    ]
+                ]
+            ]
         ];
     }
 

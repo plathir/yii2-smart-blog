@@ -8,7 +8,6 @@ use plathir\smartblog\models\Posts_s;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use plathir\cropper\actions\UploadAction;
 
 
 /**
@@ -69,10 +68,8 @@ class PostsController extends Controller {
             ],
             'uploadphoto' => [
                 'class' => '\plathir\cropper\actions\UploadAction', 
-                'url' => $this->module->ImagePathPreview,
-                'path' =>  $this->module->ImagePath,
+                'temp_path' =>  $this->module->ImageTempPath,
             ],
- 
         ];
 
         return $actions;

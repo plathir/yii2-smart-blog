@@ -16,53 +16,66 @@ use plathir\cropper\Widget as NewWidget;
 
     <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($model, 'description')->textInput(['maxlength' => 255]) ?>
-    <?= $form->field($model, 'intro_text')->textarea(['rows' => 6]) ?>
 
+
+    
     <div class="row">
         <div class="col-md-4 column">
             <?=
             $form->field($model, 'intro_image')->widget(NewWidget::className(), [
                 'uploadUrl' => Url::toRoute(['/blog/posts/uploadphoto']),
-                'previewUrl' =>$model->module->ImagePathPreview,    
+                'previewUrl' => $model->module->ImagePathPreview,
+                'tempPreviewUrl' => $model->module->ImageTempPathPreview,
             ]);
             ?>
-
-        </div>
-
-        <div class="col-md-4 column">
-            <?=
-            $form->field($model, 'full_image')->widget(NewWidget::className(), [
-                'uploadUrl' => Url::toRoute(['/blog/posts/uploadphoto']),
-                'previewUrl' =>$model->module->ImagePathPreview,    
-            ]);
-            ?>
-
-        </div>
-        <div class="col-md-4 column">
 
         </div>
     </div>
 
-    <?php
-    echo
-    $form->field($model, 'full_text')->widget(\vova07\imperavi\Widget::className(), [
+    <div class="row">
+        <div class="col-lg-12 column">
+            <?= $form->field($model, 'intro_text')->textarea(['rows' => 6]) ?>        
+        </div>
+    </div>
+        
+    
+    <div class="row">
+        <div class="col-md-4 column">
+            <?=
+            $form->field($model, 'full_image')->widget(NewWidget::className(), [
+                'uploadUrl' => Url::toRoute(['/blog/posts/uploadphoto']),
+                'previewUrl' => $model->module->ImagePathPreview,
+                'tempPreviewUrl' => $model->module->ImageTempPathPreview,
+            ]);
+            ?>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <?php
+            echo
+            $form->field($model, 'full_text')->widget(\vova07\imperavi\Widget::className(), [
 
-        'settings' => [
-            //  'lang' => 'en',
-            'minHeight' => 200,
-            //    'pastePlainText' => true,
-            //  'pasteImages' => true,
-            'plugins' => [
-                'clips',
-                'fullscreen'
-            ],
+                'settings' => [
+                    //  'lang' => 'en',
+                    'minHeight' => 200,
+                    //    'pastePlainText' => true,
+                    //  'pasteImages' => true,
+                    'plugins' => [
+                        'clips',
+                        'fullscreen'
+                    ],
 //            'imageGetJson' => Url::to(['/blog/posts/get']),
 //            'imageUpload' => Url::to(['/blog/posts/image-upload']),
 //            'fileUpload' => Url::to(['/blog/posts/file-upload']),
 //            'clipboardUploadUrl' => Url::to(['/blog/posts/clipupl'])
-        ]
-    ]);
-    ?>
+                ]
+            ]);
+            ?>
+        </div>
+    </div>
+
 
     <?php
 //    echo $form->field($model, 'full_image')->widget(FileAPI1::className(), [
