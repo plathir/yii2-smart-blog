@@ -8,7 +8,7 @@ class PostHelper {
 
     public function getLatestPosts($numOfPosts) {
         $posts = Posts::find()
-                ->orderBy(['date_created' => SORT_DESC])
+                ->orderBy(['created_at' => SORT_DESC])
                 ->limit($numOfPosts)
                 ->all();
         if ($posts) {

@@ -4,6 +4,7 @@ namespace plathir\smartblog\models;
 
 use plathir\cropper\behaviors\UploadImageBehavior;
 use plathir\smartblog\traits\ModuleTrait;
+use yii\behaviors\TimestampBehavior;
 use Yii;
 
 /**
@@ -16,9 +17,9 @@ use Yii;
  * @property string $intro_image
  * @property string $full_image
  * @property integer $user_created
- * @property string $date_created
+ * @property string $created_at
  * @property integer $user_last_change
- * @property string $date_last_change
+ * @property string $updated_at
  * @property integer $publish
  * @property string $categories
  */
@@ -37,6 +38,15 @@ class Posts extends \yii\db\ActiveRecord {
 
     public function behaviors() {
         return [
+            TimestampBehavior::className(),
+//            'timestamp' => [
+//                'class' => TimestampBehavior::className(),
+//                'attributes' => [
+//                   'date_last_change' => 'date_last_change',
+//                    'date_created' => 'date_created',
+//
+//                ],
+//            ],
             'uploadImageBehavior' => [
                 'class' => UploadImageBehavior::className(),
                 'attributes' => [
@@ -62,11 +72,11 @@ class Posts extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['description', 'intro_text', 'full_text', 'user_created', 'date_created'], 'required'],
+            [['description', 'intro_text', 'full_text', 'user_created', 'created_at'], 'required'],
             [['intro_text', 'full_text'], 'string'],
             [['intro_image', 'full_image'], 'string'],
             [['user_created', 'user_last_change', 'publish'], 'integer'],
-            [['date_created', 'date_last_change'], 'safe'],
+            [['created_at', 'updated_at'], 'safe'],
             [['description', 'categories'], 'string', 'max' => 255]
         ];
     }
@@ -83,9 +93,9 @@ class Posts extends \yii\db\ActiveRecord {
             'intro_image' => Yii::t('app', 'Intro Image'),
             'full_image' => Yii::t('app', 'Full Image'),
             'user_created' => Yii::t('app', 'User Created'),
-            'date_created' => Yii::t('app', 'Date Created'),
+            'created_at' => Yii::t('app', 'Date Created'),
             'user_last_change' => Yii::t('app', 'User Last Change'),
-            'date_last_change' => Yii::t('app', 'Date Last Change'),
+            'updated_at' => Yii::t('app', 'Date Last Change'),
             'publish' => Yii::t('app', 'Publish'),
             'categories' => Yii::t('app', 'Categories'),
         ];

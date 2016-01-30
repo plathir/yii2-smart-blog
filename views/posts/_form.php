@@ -95,7 +95,7 @@ use plathir\cropper\Widget as NewWidget;
 
     <div class="col-md-6 column">
         <?php
-        echo $form->field($model, 'date_created')->widget(DateTimePicker::classname(), [
+        echo $form->field($model, 'created_at')->widget(DateTimePicker::classname(), [
             'options' => ['placeholder' => 'Enter event time ...'],
             'readonly' => true,
             'pluginOptions' => [
@@ -106,7 +106,7 @@ use plathir\cropper\Widget as NewWidget;
     </div>
     <div class="col-md-6 column">
         <?php
-        echo $form->field($model, 'date_last_change')->widget(DateTimePicker::classname(), [
+        echo $form->field($model, 'updated_at')->widget(DateTimePicker::classname(), [
             'options' => ['placeholder' => 'Enter event time ...'],
             'readonly' => true,
             'pluginOptions' => [
@@ -118,8 +118,8 @@ use plathir\cropper\Widget as NewWidget;
 
     <?= ''// $form->field($model, 'user_last_change')->textInput()   ?>
     <?php
-    $extensions = explode(', ', 'jpeg, jpg, png, gif');
-    print_r($extensions);
+//    $extensions = explode(', ', 'jpeg, jpg, png, gif');
+//    print_r($extensions);
     ?>
 
     <?php echo $form->field($model, 'publish')->widget(SwitchInput::classname(), []); ?>

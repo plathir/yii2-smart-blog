@@ -118,12 +118,9 @@ class PostsController extends Controller {
     public function actionCreate() {
         $model = new Posts();
         $model->user_created = \Yii::$app->user->getId();
-        $model->date_created = date("Y-m-d H:i:s");
         $model->user_last_change = \Yii::$app->user->getId();
-        $model->date_last_change = date("Y-m-d H:i:s");
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->user_created = \Yii::$app->user->getId();
-            $model->date_created = date("Y-m-d H:i:s");
             $model->user_last_change = \Yii::$app->user->getId();
             $model->update();
             return $this->redirect(['view', 'id' => $model->id]);
@@ -143,11 +140,9 @@ class PostsController extends Controller {
     public function actionUpdate($id) {
         $model = $this->findModel($id);
         $model->user_last_change = \Yii::$app->user->getId();
-        $model->date_last_change = date("Y-m-d H:i:s");
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->user_last_change = \Yii::$app->user->getId();
-            $model->date_last_change = date("Y-m-d H:i:s");
-            $model->update();
+              $model->update();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
