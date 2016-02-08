@@ -14,11 +14,11 @@ use plathir\cropper\Widget as NewWidget;
 
 <div class="posts-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
     <?= $form->field($model, 'description')->textInput(['maxlength' => 255]) ?>
 
 
-    
+
     <div class="row">
         <div class="col-md-4 column">
             <?=
@@ -26,6 +26,9 @@ use plathir\cropper\Widget as NewWidget;
                 'uploadUrl' => Url::toRoute(['/blog/posts/uploadphoto']),
                 'previewUrl' => $model->module->ImagePathPreview,
                 'tempPreviewUrl' => $model->module->ImageTempPathPreview,
+                'KeyFolder' => $model->id,
+                'width' => 400,
+                'height' => 400,
             ]);
             ?>
 
@@ -37,8 +40,8 @@ use plathir\cropper\Widget as NewWidget;
             <?= $form->field($model, 'intro_text')->textarea(['rows' => 6]) ?>        
         </div>
     </div>
-        
-    
+
+
     <div class="row">
         <div class="col-md-4 column">
             <?=
@@ -46,11 +49,14 @@ use plathir\cropper\Widget as NewWidget;
                 'uploadUrl' => Url::toRoute(['/blog/posts/uploadphoto']),
                 'previewUrl' => $model->module->ImagePathPreview,
                 'tempPreviewUrl' => $model->module->ImageTempPathPreview,
+                'KeyFolder' => $model->id,
+                'width' => 400,
+                'height' => 400,
             ]);
             ?>
         </div>
     </div>
-    
+
     <div class="row">
         <div class="col-lg-12">
             <?php
@@ -91,7 +97,7 @@ use plathir\cropper\Widget as NewWidget;
 //    ]);
     ?>
 
-    <?= ''// $form->field($model, 'user_created')->textInput() ?>
+    <?= ''// $form->field($model, 'user_created')->textInput()  ?>
 
     <div class="col-md-6 column">
         <?php
@@ -116,7 +122,7 @@ use plathir\cropper\Widget as NewWidget;
         ?>
     </div>
 
-    <?= ''// $form->field($model, 'user_last_change')->textInput()   ?>
+    <?= ''// $form->field($model, 'user_last_change')->textInput()    ?>
     <?php
 //    $extensions = explode(', ', 'jpeg, jpg, png, gif');
 //    print_r($extensions);
@@ -126,6 +132,8 @@ use plathir\cropper\Widget as NewWidget;
 
     <?= $form->field($model, 'categories')->textInput(['maxlength' => 255]) ?>
 
+    <?= $form->field($model, 'attachmentFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
+    
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

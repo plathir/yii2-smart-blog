@@ -4,11 +4,12 @@ namespace plathir\smartblog\controllers;
 
 use Yii;
 use plathir\smartblog\models\Posts;
-use plathir\smartblog\models\Posts_s;
+use plathir\smartblog\models\search\Posts_s;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\web\UploadedFile;
+use yii\helpers\FileHelper;
 
 /**
  * PostsController implements the CRUD actions for Posts model.
@@ -67,8 +68,10 @@ class PostsController extends Controller {
                 'class' => 'yii\web\ErrorAction',
             ],
             'uploadphoto' => [
-                'class' => '\plathir\cropper\actions\UploadAction', 
-                'temp_path' =>  $this->module->ImageTempPath,
+                'class' => '\plathir\cropper\actions\UploadAction',
+                'width' => 600,
+                'height' => 600,
+                'temp_path' => $this->module->ImageTempPath,
             ],
         ];
 
@@ -119,10 +122,20 @@ class PostsController extends Controller {
         $model = new Posts();
         $model->user_created = \Yii::$app->user->getId();
         $model->user_last_change = \Yii::$app->user->getId();
+
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->user_created = \Yii::$app->user->getId();
             $model->user_last_change = \Yii::$app->user->getId();
-            $model->update();
+            if (isset($model->attachmentFiles)) {
+                $model->attachmentFiles = UploadedFile::getInstances($model, 'attachmentFiles');
+                $model->attachments = $this->uploadToTemp($model);
+                $this->moveToFolder($model);
+                $model->update();
+            } else {
+                $model->update();
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -140,9 +153,18 @@ class PostsController extends Controller {
     public function actionUpdate($id) {
         $model = $this->findModel($id);
         $model->user_last_change = \Yii::$app->user->getId();
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->user_last_change = \Yii::$app->user->getId();
-              $model->update();
+            if (isset($model->attachmentFiles)) {
+                $model->attachmentFiles = UploadedFile::getInstances($model, 'attachmentFiles');
+                $model->attachments = $this->uploadToTemp($model);
+                $this->moveToFolder($model);
+                $model->update();
+            } else {
+                $model->update();
+            }
+
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -194,4 +216,80 @@ class PostsController extends Controller {
         return json_encode(array('filelink' => $url . $filename));
     }
 
+    /**
+     * 
+     * @param type $model
+     * @return boolean
+     */
+    public function uploadToTemp($model) {
+        $FilesArray = '';
+        if ($model->validate()) {
+            foreach ($model->attachmentFiles as $file) {
+                $this->movetoTempFolder($file);
+                $FilesArray[] = $file->baseName . '.' . $file->extension;
+            }
+            if ($FilesArray) {
+                return implode(",", $FilesArray);
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 
+     * @param type $model
+     * @return boolean
+     */
+    public function moveToFolder($model) {
+        $FilesArray = '';
+        if ($model->validate()) {
+            foreach ($model->attachmentFiles as $file) {
+                $this->movefiletoFolder($file->name, $model->id);
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 
+     * @param type $file
+     */
+    public function movetoTempFolder($file) {
+        $file->saveAs(Yii::getAlias($this->module->ImageTempPath) . DIRECTORY_SEPARATOR . $file->baseName . '.' . $file->extension);
+    }
+
+    /**
+     * 
+     * @param type $file
+     * @param type $KeyFolder
+     * @return boolean
+     */
+    public function movefiletoFolder($file, $KeyFolder) {
+        $tempFile = FileHelper::normalizePath(Yii::getAlias($this->module->ImageTempPath) . DIRECTORY_SEPARATOR . $file);
+
+        if ($KeyFolder) {
+            $newPath = FileHelper::normalizePath(Yii::getAlias($this->module->ImagePath) . DIRECTORY_SEPARATOR . $KeyFolder);
+            $newFile = FileHelper::normalizePath($newPath . DIRECTORY_SEPARATOR . $file);
+        } else {
+            $newPath = FileHelper::normalizePath(Yii::getAlias($this->module->ImagePath));
+            $newFile = FileHelper::normalizePath($newPath . DIRECTORY_SEPARATOR . $file);
+        }
+        if (is_file($tempFile) && FileHelper::createDirectory($newPath)) {
+            if (rename($tempFile, $newFile)) {
+                return true;
+            }
+        }
+    }
+
+    public function deleteOldFiles() {
+        
+    }
+    
+    
+    
 }

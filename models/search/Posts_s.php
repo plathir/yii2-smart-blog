@@ -1,6 +1,6 @@
 <?php
 
-namespace plathir\smartblog\models;
+namespace plathir\smartblog\models\search;
 
 use Yii;
 use yii\base\Model;
@@ -18,7 +18,7 @@ class Posts_s extends Posts {
     public function rules() {
         return [
             [['id', 'full_image', 'user_created', 'user_last_change', 'publish'], 'integer'],
-            [['description', 'intro_text', 'full_text', 'intro_image', 'date_created', 'date_last_change', 'categories'], 'safe'],
+            [['description', 'intro_text', 'full_text', 'intro_image', 'created_at', 'updated_at', 'categories'], 'safe'],
         ];
     }
 
@@ -52,9 +52,9 @@ class Posts_s extends Posts {
             'id' => $this->id,
             'full_image' => $this->full_image,
             'user_created' => $this->user_created,
-            'date_created' => $this->date_created,
+            'created_at' => $this->date_created,
             'user_last_change' => $this->user_last_change,
-            'date_last_change' => $this->date_last_change,
+            'updated_at' => $this->date_last_change,
             'publish' => $this->publish,
         ]);
 

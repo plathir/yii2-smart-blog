@@ -9,6 +9,7 @@ class Module extends \yii\base\Module {
     public $ImageTempPath = '@media/temp/images/blog/posts';
     public $ImagePathPreview = '/my-yii-adv/frontend/web/media/images/blog/posts';
     public $ImageTempPathPreview = '/my-yii-adv/frontend/web/media/temp/images/blog/posts';
+    public $KeyFolder = 'id';
 
     public function init() {
         $this->modules = [

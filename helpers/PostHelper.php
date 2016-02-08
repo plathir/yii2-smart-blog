@@ -24,8 +24,9 @@ class PostHelper {
                 ->one();
         if ($post) {
             if ($post->intro_image != null) {
-                $post->module->ImagePathPreview;
-                return $post->module->ImagePathPreview . '/' . $post->intro_image;
+                $key = $post->module->KeyFolder;
+                $key_folder = $$key;
+                return $post->module->ImagePathPreview . '/' . $key_folder . '/' . $post->intro_image;
             } else {
                 return null;
             }
@@ -40,8 +41,9 @@ class PostHelper {
                 ->one();
         if ($post) {
             if ($post->full_image != null) {
-                $post->module->ImagePathPreview;
-                return $post->module->ImagePathPreview . '/' . $post->full_image;
+                $key = $post->module->KeyFolder;
+                $key_folder = $$key;
+                return $post->module->ImagePathPreview . '/' . $key_folder . '/' . $post->full_image;
             } else {
                 return null;
             }

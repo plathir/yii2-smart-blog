@@ -1,6 +1,6 @@
 <?php
 
-namespace plathir\smartblog\models;
+namespace plathir\smartblog\models\search;
 
 use Yii;
 use yii\base\Model;

@@ -6,6 +6,7 @@ use plathir\cropper\behaviors\UploadImageBehavior;
 use plathir\smartblog\traits\ModuleTrait;
 use yii\behaviors\TimestampBehavior;
 use Yii;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "smartblog_posts".
@@ -22,12 +23,14 @@ use Yii;
  * @property string $updated_at
  * @property integer $publish
  * @property string $categories
+ * @property string $attachments
  */
 class Posts extends \yii\db\ActiveRecord {
 
     use ModuleTrait;
 
     public $intro_image_file;
+    public $attachmentFiles;
 
     /**
      * @inheritdoc
@@ -39,14 +42,6 @@ class Posts extends \yii\db\ActiveRecord {
     public function behaviors() {
         return [
             TimestampBehavior::className(),
-//            'timestamp' => [
-//                'class' => TimestampBehavior::className(),
-//                'attributes' => [
-//                   'date_last_change' => 'date_last_change',
-//                    'date_created' => 'date_created',
-//
-//                ],
-//            ],
             'uploadImageBehavior' => [
                 'class' => UploadImageBehavior::className(),
                 'attributes' => [
@@ -72,12 +67,14 @@ class Posts extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['description', 'intro_text', 'full_text', 'user_created', 'created_at'], 'required'],
+            [['description', 'intro_text', 'full_text', 'user_created'], 'required'],
             [['intro_text', 'full_text'], 'string'],
+            [['attachments', 'full_text'], 'string'],
             [['intro_image', 'full_image'], 'string'],
             [['user_created', 'user_last_change', 'publish'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['description', 'categories'], 'string', 'max' => 255]
+            [['description', 'categories'], 'string', 'max' => 255],
+            [['attachmentFiles'], 'file', 'maxFiles' => 4]
         ];
     }
 
@@ -98,7 +95,10 @@ class Posts extends \yii\db\ActiveRecord {
             'updated_at' => Yii::t('app', 'Date Last Change'),
             'publish' => Yii::t('app', 'Publish'),
             'categories' => Yii::t('app', 'Categories'),
+            'attachments' => Yii::t('app', 'Attachments'),
         ];
     }
+
+   
 
 }
