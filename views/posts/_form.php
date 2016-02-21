@@ -27,8 +27,8 @@ use plathir\cropper\Widget as NewWidget;
                 'previewUrl' => $model->module->ImagePathPreview,
                 'tempPreviewUrl' => $model->module->ImageTempPathPreview,
                 'KeyFolder' => $model->id,
-                'width' => 400,
-                'height' => 400,
+                'width' => 200,
+                'height' => 200,
             ]);
             ?>
 
@@ -50,8 +50,8 @@ use plathir\cropper\Widget as NewWidget;
                 'previewUrl' => $model->module->ImagePathPreview,
                 'tempPreviewUrl' => $model->module->ImageTempPathPreview,
                 'KeyFolder' => $model->id,
-                'width' => 400,
-                'height' => 400,
+                'width' => 200,
+                'height' => 200,
             ]);
             ?>
         </div>
@@ -133,7 +133,7 @@ use plathir\cropper\Widget as NewWidget;
     <?= $form->field($model, 'categories')->textInput(['maxlength' => 255]) ?>
 
     <?= $form->field($model, 'attachmentFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
-    
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

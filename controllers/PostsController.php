@@ -67,6 +67,7 @@ class PostsController extends Controller {
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
+            //Upload cropped image into temp directory
             'uploadphoto' => [
                 'class' => '\plathir\cropper\actions\UploadAction',
                 'width' => 600,
