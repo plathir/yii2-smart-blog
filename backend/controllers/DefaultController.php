@@ -1,6 +1,6 @@
 <?php
 
-namespace plathir\smartblog\controllers;
+namespace plathir\smartblog\backend\controllers;
 
 use yii\web\Controller;
 

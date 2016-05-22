@@ -1,0 +1,183 @@
+<?php
+
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+use kartik\widgets\SwitchInput;
+use kartik\datecontrol\DateControl;
+use yii\helpers\Url;
+use plathir\cropper\Widget as NewWidget;
+use plathir\upload\Widget as UplWidget;
+use dosamigos\selectize\SelectizeTextInput;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\Posts */
+/* @var $form yii\widgets\ActiveForm */
+?>
+
+
+<div class="panel panel-primary">
+    <div class="panel-heading">Blog Post</div>
+    <div class="panel-body">
+        <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdPost']]); ?>
+        <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-9">
+                <?= $form->field($model, 'description')->textInput(['maxlength' => 255]) ?>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <?=
+                        $form->field($model, 'intro_image')->widget(NewWidget::className(), [
+                            'uploadUrl' => Url::toRoute(['/blog/posts/uploadphoto']),
+                            'previewUrl' => $model->module->ImagePathPreview,
+                            'tempPreviewUrl' => $model->module->ImageTempPathPreview,
+                            'KeyFolder' => $model->id,
+                            'width' => 200,
+                            'height' => 200,
+                        ]);
+                        ?>
+
+                    </div>
+
+                    <div class="col-lg-8 col-md-8 col-sm-8">
+
+                    </div>
+                </div>
+
+                <?= $form->field($model, 'intro_text')->textarea(['rows' => 6]) ?>        
+
+                <div class="row">
+
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <?=
+                        $form->field($model, 'full_image')->widget(NewWidget::className(), [
+                            'uploadUrl' => Url::toRoute(['/blog/posts/uploadphoto']),
+                            'previewUrl' => $model->module->ImagePathPreview,
+                            'tempPreviewUrl' => $model->module->ImageTempPathPreview,
+                            'KeyFolder' => $model->id,
+                            'width' => 200,
+                            'height' => 200,
+                        ]);
+                        ?>
+                    </div>
+
+                    <div class="col-lg-8 col-md-8 col-sm-8">
+
+                    </div>
+                </div>
+
+
+                <?php
+                echo
+                $form->field($model, 'full_text')->widget(\vova07\imperavi\Widget::className(), [
+
+                    'settings' => [
+                        //  'lang' => 'en',
+                        'minHeight' => 200,
+                        //    'pastePlainText' => true,
+                        //  'pasteImages' => true,
+                        'plugins' => [
+                            'clips',
+                            'fullscreen'
+                        ],
+//            'imageGetJson' => Url::to(['/blog/posts/get']),
+//            'imageUpload' => Url::to(['/blog/posts/image-upload']),
+//            'fileUpload' => Url::to(['/blog/posts/file-upload']),
+//            'clipboardUploadUrl' => Url::to(['/blog/posts/clipupl'])
+                    ]
+                ]);
+                ?>
+                <?= $form->field($model, 'categories')->textInput(['maxlength' => 255]) ?>
+
+                <?=
+                $form->field($model, 'tags')->widget(SelectizeTextInput::className(), [
+                    'loadUrl' => ['/blog/posts/tagslist'],
+                    'options' => ['class' => 'form-control'],
+                    'clientOptions' => [
+                        'plugins' => ['remove_button'],
+                        'valueField' => 'tags',
+                        'labelField' => 'tags',
+                        'searchField' => ['tags'],
+                        'create' => true,
+                    ],
+                ])
+                ?>
+                <div class="row-fluid">
+                    <?php
+                    echo $form->field($model, 'attachments')->widget(UplWidget::className(), [
+                        'uploadUrl' => Url::toRoute(['/blog/posts/uploadfile']),
+                        'previewUrl' => $model->module->ImagePathPreview,
+                        'tempPreviewUrl' => $model->module->ImageTempPathPreview,
+                        'KeyFolder' => $model->id,
+                    ]);
+                    ?>
+                </div>
+                <div class="row-fluid">
+                    <?php
+                    echo $form->field($model, 'gallery')->widget(UplWidget::className(), [
+                        'uploadUrl' => Url::toRoute(['/blog/posts/uploadfile']),
+                        'previewUrl' => $model->module->ImagePathPreview,
+                        'tempPreviewUrl' => $model->module->ImageTempPathPreview,
+                        'KeyFolder' => $model->id,
+                        'galleryType' =>true,
+                    ]);
+                    ?>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <div class="panel panel-info">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">Post Infos</div>
+                    <div class="panel-body">
+                        <?php echo $form->field($model, 'publish')->widget(SwitchInput::classname(), []); ?>
+
+                        <?php
+                        echo $form->field($model, 'created_at')->widget(DateControl::classname(), [
+                            'type' => DateControl::FORMAT_DATETIME,
+                            'ajaxConversion' => true,
+                            'saveFormat' => 'php:U',
+                            'options' => [
+                                'pluginOptions' => [
+                                    'autoclose' => true,
+                                    'todayBtn' => true,
+                                ]
+                            ]
+                        ]);
+                        ?>
+                        <?php
+                        $userModel = new $model->module->userModel();
+                        $items = \yii\helpers\ArrayHelper::map($userModel::find()->where('status = 10')->all(), 'id', $model->module->userNameField);
+                        echo $form->field($model, 'user_created')->dropDownList($items)
+                        ?>
+
+                        <?php
+                        echo $form->field($model, 'updated_at')->widget(DateControl::classname(), [
+                            'type' => DateControl::FORMAT_DATETIME,
+                            'ajaxConversion' => true,
+                            'saveFormat' => 'php:U',
+                            'options' => [
+                                'pluginOptions' => [
+                                    'autoclose' => true,
+                                    'todayBtn' => true,
+                                ]
+                            ]
+                        ]);
+                        ?>
+                        <?php
+                        $items1 = \yii\helpers\ArrayHelper::map($userModel::find()->where('status = 10')->all(), 'id', $model->module->userNameField);
+                        echo $form->field($model, 'user_last_change')->dropDownList($items1)
+                        ?>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Create' : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        </div>
+
+        <?php ActiveForm::end(); ?>        
+
+    </div>
+
+</div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace plathir\smartblog\models;
+namespace plathir\smartblog\common\models;
 
 use Yii;
 
@@ -12,21 +12,25 @@ use Yii;
  * @property string $intro_text
  * @property string $full_text
  * @property string $intro_image
- * @property integer $full_image
+ * @property string $full_image
  * @property integer $user_created
- * @property string $date_created
+ * @property string $created_at
  * @property integer $user_last_change
- * @property string $date_last_change
+ * @property string $updated_at
  * @property integer $publish
  * @property string $categories
+ * @property string $tags
+ * @property string $attachments
+ * @property string $gallery
  */
-class Categories extends \yii\db\ActiveRecord {
+class Posts extends \yii\db\ActiveRecord {
 
     /**
      * @inheritdoc
      */
     public static function tableName() {
-        return 'smartblog_posts';
+        return '{{%posts}}';
+        
     }
 
     /**
@@ -34,11 +38,15 @@ class Categories extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['description', 'intro_text', 'full_text', 'user_created', 'date_created'], 'required'],
+            [['description', 'intro_text', 'full_text', 'user_created'], 'required'],
             [['intro_text', 'full_text'], 'string'],
-            [['full_image', 'user_created', 'user_last_change', 'publish'], 'integer'],
-            [['date_created', 'date_last_change'], 'safe'],
-            [['description', 'intro_image', 'categories'], 'string', 'max' => 255]
+            [['tags', 'full_text'], 'string'],
+            [['attachments', 'full_text'], 'string'],
+            [['gallery', 'full_text'], 'string'],
+            [['intro_image', 'full_image'], 'string'],
+            [['user_created', 'user_last_change', 'publish'], 'integer'],
+            [['created_at', 'updated_at'], 'safe'],
+            [['description', 'categories'], 'string', 'max' => 255],
         ];
     }
 
@@ -54,11 +62,14 @@ class Categories extends \yii\db\ActiveRecord {
             'intro_image' => Yii::t('app', 'Intro Image'),
             'full_image' => Yii::t('app', 'Full Image'),
             'user_created' => Yii::t('app', 'User Created'),
-            'date_created' => Yii::t('app', 'Date Created'),
+            'created_at' => Yii::t('app', 'Date Created'),
             'user_last_change' => Yii::t('app', 'User Last Change'),
-            'date_last_change' => Yii::t('app', 'Date Last Change'),
+            'updated_at' => Yii::t('app', 'Date Last Change'),
             'publish' => Yii::t('app', 'Publish'),
             'categories' => Yii::t('app', 'Categories'),
+            'tags' => Yii::t('app', 'Tags'),
+            'attachments' => Yii::t('app', 'Attachments'),
+            'gallery' => Yii::t('app', 'Gallery'),
         ];
     }
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace plathir\smartblog\traits;
+namespace plathir\smartblog\backend\traits;
 
-use plathir\smartblog\Module;
+use plathir\smartblog\backend\Module;
 use Yii;
 
 /**
