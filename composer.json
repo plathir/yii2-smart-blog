@@ -15,7 +15,13 @@
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap": "*",
         "vova07/yii2-imperavi-widget": "*",
-        "kartik-v/yii2-widgets": "*"
+        "kartik-v/yii2-widgets": "*",
+        "2amigos/yii2-selectize-widget": "~1.0",
+        "2amigos/yii2-gallery-widget": "~1.0",
+        "kartik-v/yii2-datecontrol": "dev-master",
+        "justinvoelker/yii2-tagging": "*",
+        "plathir/yii2-smart-cropper": "@dev"
+
     },
     "autoload": {
         "psr-4": {
