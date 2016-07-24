@@ -6,6 +6,7 @@ use plathir\cropper\behaviors\UploadImageBehavior;
 use plathir\upload\behaviors\MultipleUploadBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\behaviors\SluggableBehavior;
 
 class Posts extends \plathir\smartblog\common\models\Posts {
 
@@ -59,7 +60,14 @@ class Posts extends \plathir\smartblog\common\models\Posts {
                         'galleryType' => true,
                     ],
                 ]
-            ]
+            ],
+            'slagBehavior' => [
+                'class' => SluggableBehavior::className(),
+                'attribute' => 'description',
+                'slugAttribute' => 'slug',
+                'ensureUnique' => true,
+            ],                   
+                    
         ];
     }
 

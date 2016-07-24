@@ -8,6 +8,8 @@ use yii\helpers\Url;
 use plathir\cropper\Widget as NewWidget;
 use plathir\upload\Widget as UplWidget;
 use dosamigos\selectize\SelectizeTextInput;
+use kartik\tree\TreeViewInput;
+use plathir\smartblog\backend\models\Categorytree as Category;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Posts */
@@ -23,7 +25,7 @@ use dosamigos\selectize\SelectizeTextInput;
             <div class="col-lg-9 col-md-9 col-sm-9">
                 <?= $form->field($model, 'description')->textInput(['maxlength' => 255]) ?>
                 <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
                         <?=
                         $form->field($model, 'intro_image')->widget(NewWidget::className(), [
                             'uploadUrl' => Url::toRoute(['/blog/posts/uploadphoto']),
@@ -37,16 +39,14 @@ use dosamigos\selectize\SelectizeTextInput;
 
                     </div>
 
-                    <div class="col-lg-8 col-md-8 col-sm-8">
 
-                    </div>
                 </div>
 
                 <?= $form->field($model, 'intro_text')->textarea(['rows' => 6]) ?>        
 
                 <div class="row">
 
-                    <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
                         <?=
                         $form->field($model, 'full_image')->widget(NewWidget::className(), [
                             'uploadUrl' => Url::toRoute(['/blog/posts/uploadphoto']),
@@ -59,33 +59,55 @@ use dosamigos\selectize\SelectizeTextInput;
                         ?>
                     </div>
 
-                    <div class="col-lg-8 col-md-8 col-sm-8">
-
-                    </div>
                 </div>
+<?php
+                use dosamigos\ckeditor\CKEditor;
+?>
 
-
+                <?=
+                $form->field($model, 'full_text')->widget(CKEditor::className(), [
+                    'options' => ['rows' => 6],
+                    'preset' => 'basic'
+                ])
+                ?>
                 <?php
-                echo
-                $form->field($model, 'full_text')->widget(\vova07\imperavi\Widget::className(), [
-
-                    'settings' => [
-                        //  'lang' => 'en',
-                        'minHeight' => 200,
-                        //    'pastePlainText' => true,
-                        //  'pasteImages' => true,
-                        'plugins' => [
-                            'clips',
-                            'fullscreen'
-                        ],
-//            'imageGetJson' => Url::to(['/blog/posts/get']),
-//            'imageUpload' => Url::to(['/blog/posts/image-upload']),
-//            'fileUpload' => Url::to(['/blog/posts/file-upload']),
-//            'clipboardUploadUrl' => Url::to(['/blog/posts/clipupl'])
-                    ]
+//                echo
+//                $form->field($model, 'full_text')->widget(\vova07\imperavi\Widget::className(), [
+//
+//                    'settings' => [
+//                        //  'lang' => 'en',
+//                        'minHeight' => 200,
+//                        //    'pastePlainText' => true,
+//                        //  'pasteImages' => true,
+//                        'plugins' => [
+//                            'clips',
+//                            'fullscreen'
+//                        ],
+////            'imageGetJson' => Url::to(['/blog/posts/get']),
+////            'imageUpload' => Url::to(['/blog/posts/image-upload']),
+////            'fileUpload' => Url::to(['/blog/posts/file-upload']),
+////            'clipboardUploadUrl' => Url::to(['/blog/posts/clipupl'])
+//                    ]
+//                ]);
+                ?>
+                <?=
+                $form->field($model, 'category')->widget(TreeViewInput::className(), [
+                    'model' => $model,
+                    'attribute' => 'category',
+                    'query' => Category::find()->addOrderBy('root, lft'),
+                    'headingOptions' => ['label' => 'Categories'],
+                    //  'name' => 'categories', // input name
+                    //  'value'             => '1,2,3',         // values selected (comma separated for multiple select)
+                    'asDropdown' => true, // will render the tree input widget as a dropdown.
+                    'multiple' => false, // set to false if you do not need multiple selection
+                    'fontAwesome' => true, // render font awesome icons
+                    'rootOptions' => [
+                        'label' => '<i class="fa fa-tree"></i>',
+                        'class' => 'text-success'
+                    ], // custom root label
+                        //'options'         => ['disabled' => true],
                 ]);
                 ?>
-                <?= $form->field($model, 'categories')->textInput(['maxlength' => 255]) ?>
 
                 <?=
                 $form->field($model, 'tags')->widget(SelectizeTextInput::className(), [
@@ -117,7 +139,7 @@ use dosamigos\selectize\SelectizeTextInput;
                         'previewUrl' => $model->module->ImagePathPreview,
                         'tempPreviewUrl' => $model->module->ImageTempPathPreview,
                         'KeyFolder' => $model->id,
-                        'galleryType' =>true,
+                        'galleryType' => true,
                     ]);
                     ?>
                 </div>
@@ -135,6 +157,7 @@ use dosamigos\selectize\SelectizeTextInput;
                             'ajaxConversion' => true,
                             'saveFormat' => 'php:U',
                             'options' => [
+                                'layout' => '{picker}{input}',
                                 'pluginOptions' => [
                                     'autoclose' => true,
                                     'todayBtn' => true,
@@ -154,9 +177,12 @@ use dosamigos\selectize\SelectizeTextInput;
                             'ajaxConversion' => true,
                             'saveFormat' => 'php:U',
                             'options' => [
+                                // 'pickerButton' => false,
+                                'layout' => '{picker}{input}',
                                 'pluginOptions' => [
                                     'autoclose' => true,
                                     'todayBtn' => true,
+                                //    'pickerButton' => false,
                                 ]
                             ]
                         ]);

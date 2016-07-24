@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\Posts_s */
@@ -55,7 +54,6 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
         <?php
-        // echo Html::a('More', ['view', 'id' => $pdata['id']], ['class' => 'btn btn-primary']);
     }
     ?>
 

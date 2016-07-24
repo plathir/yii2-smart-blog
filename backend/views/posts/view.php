@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?php
             $userModel = new $model->module->userModel();
+            $categoryModel = new plathir\smartblog\backend\models\Category();
             echo Tabs::widget([
                 'items' => [
                     [
@@ -46,6 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attributes' => [
                                 'id',
                                 'description',
+                                'slug',
                                 'intro_text:ntext',
                                 'full_text:html',
                                 [
@@ -75,8 +77,19 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'value' => $model->publish == true ? '<span class="label label-success">Published</span>' : '<span class="label label-danger">Unpublished</span>',
                                     'format' => 'html'
                                 ],
-                                'categories',
+                                
+                                [
+                                    'attribute' => 'category',
+                                    'value' => $categoryModel::findOne(['id' => $model->category])->name,
+                                    'format' => 'text'
+                                ],                                            
                             ],
+                        ]) .
+                        TagsWidget::widget([
+                            'tags' => $model->tags,
+                        ]) .
+                        SimilarPostsWidget::widget([
+                            'postID' => $model->id,
                         ]),
                         'active' => true
                     ],
@@ -91,31 +104,27 @@ $this->params['breadcrumbs'][] = $this->title;
                         //    'headerOptions' => [...],
                         'options' => ['id' => 'myveryownID'],
                     ],
+//                    [
+//                        'label' => 'Similar Posts',
+//                        'content' => SimilarPostsWidget::widget([
+//                            'postID' => $model->id,
+//                        ]),
+//                        //    'headerOptions' => [...],
+//                        'options' => ['id' => 'myveryownID1'],
+//                    ],
+                    [
+                        'label' => 'Gallery',
+                        'content' => GalleryWidget::widget([
+                            'galleryItems' => $model->gallery,
+                            'imagePath' => $model->module->ImagePath . '/' . $model->id,
+                            'previewUrl' => $model->module->ImagePathPreview . '/' . $model->id,
+                        ]),
+                        //    'headerOptions' => [...],
+                        'options' => ['id' => 'myveryownID2'],
+                    ],
                 ],
             ]);
             ?>
-
-            <?=
-            TagsWidget::widget([
-                'tags' => $model->tags,
-            ]);
-            ?>
-
-
-            <?=
-            SimilarPostsWidget::widget([
-                'postID' => $model->id,
-            ]);
-            ?>
-
-            <?=
-            GalleryWidget::widget([
-                'galleryItems' => $model->gallery,
-                'imagePath' => $model->module->ImagePath. '/' .$model->id,
-                'previewUrl' => $model->module->ImagePathPreview. '/' .$model->id,
-            ]);
-            ?>
-
         </div>
     </div>
 </div>

@@ -9,6 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property string $description
+ * @property string $slug
  * @property string $intro_text
  * @property string $full_text
  * @property string $intro_image
@@ -18,7 +19,7 @@ use Yii;
  * @property integer $user_last_change
  * @property string $updated_at
  * @property integer $publish
- * @property string $categories
+ * @property integer $category
  * @property string $tags
  * @property string $attachments
  * @property string $gallery
@@ -30,7 +31,6 @@ class Posts extends \yii\db\ActiveRecord {
      */
     public static function tableName() {
         return '{{%posts}}';
-        
     }
 
     /**
@@ -38,7 +38,7 @@ class Posts extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['description', 'intro_text', 'full_text', 'user_created'], 'required'],
+            [['description', 'intro_text', 'full_text', 'user_created', 'category' ], 'required'],
             [['intro_text', 'full_text'], 'string'],
             [['tags', 'full_text'], 'string'],
             [['attachments', 'full_text'], 'string'],
@@ -46,7 +46,8 @@ class Posts extends \yii\db\ActiveRecord {
             [['intro_image', 'full_image'], 'string'],
             [['user_created', 'user_last_change', 'publish'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['description', 'categories'], 'string', 'max' => 255],
+            [['category'], 'integer'],
+            [['description'], 'string', 'max' => 255],
         ];
     }
 
@@ -57,6 +58,7 @@ class Posts extends \yii\db\ActiveRecord {
         return [
             'id' => Yii::t('app', 'ID'),
             'description' => Yii::t('app', 'Description'),
+            'slug'=> Yii::t('app', 'Slug'),
             'intro_text' => Yii::t('app', 'Intro Text'),
             'full_text' => Yii::t('app', 'Full Text'),
             'intro_image' => Yii::t('app', 'Intro Image'),
@@ -66,11 +68,10 @@ class Posts extends \yii\db\ActiveRecord {
             'user_last_change' => Yii::t('app', 'User Last Change'),
             'updated_at' => Yii::t('app', 'Date Last Change'),
             'publish' => Yii::t('app', 'Publish'),
-            'categories' => Yii::t('app', 'Categories'),
+            'category' => Yii::t('app', 'Category'),
             'tags' => Yii::t('app', 'Tags'),
             'attachments' => Yii::t('app', 'Attachments'),
             'gallery' => Yii::t('app', 'Gallery'),
         ];
     }
-
 }

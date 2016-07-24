@@ -8,9 +8,7 @@ use plathir\smartblog\backend\models\search\Posts_s;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\helpers\FileHelper;
 use yii\data\ArrayDataProvider;
-use justinvoelker\tagging\TaggingQuery;
 
 /**
  * PostsController implements the CRUD actions for Posts model.
