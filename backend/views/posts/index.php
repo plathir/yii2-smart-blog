@@ -46,7 +46,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'category',
                         'value' => function ($model) {
-                            return Category::findOne(['id' => $model->category])->name;
+                            if ($model->category) {
+                                return Category::findOne(['id' => $model->category])->name;
+                            }
                         },
                                 'contentOptions' => ['style' => 'width: 15%;'],
                                 'filter' =>
