@@ -25,14 +25,6 @@ class CategoryController extends Controller {
     public function behaviors() {
         parent::behaviors();
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                //      'uploadphoto' => ['post'],
-                //      'deletetempfile' => ['post'],
-                //   'remove' => ['post'],
-                ],
-            ],
             'access' => [
                 'class' => \yii\filters\AccessControl::className(),
                 'rules' => [
@@ -40,10 +32,9 @@ class CategoryController extends Controller {
                     [
                         'actions' => [
                             'index',
-                            'uploadphoto',
-//                            'deletetempfile',
                             'update',
-//                            'test',
+//                            'uploadphoto',
+//                            'deletetempfile',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -53,42 +44,23 @@ class CategoryController extends Controller {
         ];
     }
 
-        public function actions() {
-
-        $actions = [
-            'uploadphoto' => [
-                'class' => '\plathir\cropper\actions\UploadAction',
-                'width' => 600,
-                'height' => 600,
-                'temp_path' => $this->module->CategoryImageTempPath,
-            ],
-            'deletetempfile' => [
-                'class' => '\plathir\upload\actions\FileDeleteAction',
-                'uploadDir' => $this->module->CategoryImageTempPath,
-            ],
-        ];
-        return $actions;
-    }
     public function actionIndex() {
         $searchModel = new \plathir\smartblog\backend\models\search\Category_s();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
+        $dataProvider->setSort(['defaultOrder' => [
+        'root' => SORT_ASC,
+        'lft' => SORT_ASC
+        ]]);
+
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
-            
         ]);
     }
 
     public function actionUpdate($id) {
-//        $model = $this->findModel($id);
-//              return $this->render('update', [
-//                    'model' => $model
-//        ]);
         $model = $this->findModel($id);
-
         if ($model->load(Yii::$app->request->post())) {
-
             if ($model->save()) {
                 return $this->redirect(['index']);
             } else {

@@ -16,7 +16,7 @@ class Category_s extends Category {
      */
     public function rules() {
         return [
-            [['id'], 'integer'],
+            [['id', 'active'], 'integer'],
             [['name', 'description'], 'string'],
         ];
     }
@@ -38,12 +38,14 @@ class Category_s extends Category {
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
-
-        $query->andFilterWhere([
+         
+                $query->andFilterWhere([
             'id' => $this->id,
-            'name' => $this->name,
-            'description' => $this->description,
+            'active' => $this->active,
         ]);
+                
+        $query->andFilterWhere(['like', 'name', $this->name])
+              ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }

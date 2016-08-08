@@ -1,10 +1,10 @@
 <?php
 
-namespace plathir\smartblog\backend\controllers;
+namespace plathir\smartblog\frontend\controllers;
 
 use Yii;
-use plathir\smartblog\backend\models\Posts;
-use plathir\smartblog\backend\models\search\Posts_s;
+use plathir\smartblog\frontend\models\Posts;
+use plathir\smartblog\frontend\models\search\Posts_s;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -111,9 +111,9 @@ class PostsController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
+
         $searchModel = new Posts_s();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
@@ -196,21 +196,25 @@ class PostsController extends Controller {
      * @return mixed
      */
     public function actionCreate() {
-        $model = new Posts();
-        $model->user_created = \Yii::$app->user->getId();
-        $model->user_last_change = \Yii::$app->user->getId();
+        if (\yii::$app->user->can('BlogCreatePost')) {
+            $model = new Posts();
+            $model->user_created = \Yii::$app->user->getId();
+            $model->user_last_change = \Yii::$app->user->getId();
 
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            //      $model->user_created = \Yii::$app->user->getId();
-            //      $model->user_last_change = \Yii::$app->user->getId();
-            $model->update();
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                //      $model->user_created = \Yii::$app->user->getId();
+                //      $model->user_last_change = \Yii::$app->user->getId();
+                $model->update();
 
-            return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                return $this->render('create', [
+                            'model' => $model,
+                ]);
+            }
         } else {
-            return $this->render('create', [
-                        'model' => $model,
-            ]);
+            throw new \yii\web\NotAcceptableHttpException('No Permission to create new post');
         }
     }
 
@@ -222,23 +226,28 @@ class PostsController extends Controller {
      */
     public function actionUpdate($id) {
         $model = $this->findModel($id);
+        if ((\yii::$app->user->can('BlogUpdateOwnPost', ['post' => $model])) || (\yii::$app->user->can('BlogUpdatePost'))) {
 
-        if ($model->load(Yii::$app->request->post())) {
-            if (!isset($model->user_last_change)) {
-                $model->user_last_change = \Yii::$app->user->getId();
-            }
 
-            if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load(Yii::$app->request->post())) {
+                if (!isset($model->user_last_change)) {
+                    $model->user_last_change = \Yii::$app->user->getId();
+                }
+
+                if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    return $this->render('update', [
+                                'model' => $model,
+                    ]);
+                }
             } else {
                 return $this->render('update', [
                             'model' => $model,
                 ]);
             }
         } else {
-            return $this->render('update', [
-                        'model' => $model,
-            ]);
+            throw new \yii\web\NotAcceptableHttpException('No Permission to update post');
         }
     }
 

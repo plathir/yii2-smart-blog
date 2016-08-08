@@ -25,7 +25,7 @@ class CategorytreeController extends NodeController {
                 'actions' => [
                     'uploadphoto' => ['post'],
                     'deletetempfile' => ['post'],
-                 //   'remove' => ['post'],
+                    'remove' => ['post'],
                 ],
             ],
             'access' => [
@@ -51,7 +51,7 @@ class CategorytreeController extends NodeController {
         ];
     }
 
-    public function actions() {
+        public function actions() {
 
         $actions = [
             'uploadphoto' => [
@@ -67,7 +67,7 @@ class CategorytreeController extends NodeController {
         ];
         return $actions;
     }
-
+     
     public function actionIndex() {
         $searchModel = new \plathir\smartblog\backend\models\search\Category_s();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -78,8 +78,8 @@ class CategorytreeController extends NodeController {
         ]);
     }
 
-        public function actionUpdate($id) {
-            
+    public function actionUpdate($id) {
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -98,12 +98,12 @@ class CategorytreeController extends NodeController {
         }
     }
 
-
-       protected function findModel($id) {
+    protected function findModel($id) {
         if (($model = \plathir\smartblog\backend\models\Categorytree::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 }

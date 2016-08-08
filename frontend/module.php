@@ -1,12 +1,12 @@
 <?php
 
-namespace plathir\smartblog\backend;
+namespace plathir\smartblog\frontend;
 
 use yii\helpers\Url;
 
 class Module extends \yii\base\Module {
 
-    public $controllerNamespace = 'plathir\smartblog\backend\controllers';
+    public $controllerNamespace = 'plathir\smartblog\frontend\controllers';
     public $mediaUrl = '';
     public $mediaPath = '';
     

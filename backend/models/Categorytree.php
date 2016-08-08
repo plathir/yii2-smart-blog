@@ -34,21 +34,4 @@ class Categorytree extends \kartik\tree\models\Tree {
         ];
     }
 
-    public function behaviors() {
-
-        $new_behavior = parent::behaviors();
-        $new_behavior['uploadImageBehavior'] = [
-            'class' => 'plathir\cropper\behaviors\UploadImageBehavior',
-            'attributes' => [
-                'image' => [
-                    'path' => $this->module->CategoryImagePath,
-                    'temp_path' => $this->module->CategoryImageTempPath,
-                    'url' => $this->module->CategoryImagePathPreview,
-                    'key_folder' => 'id',
-                ],
-            ]
-        ];
-        return $new_behavior;
-    }
-
 }

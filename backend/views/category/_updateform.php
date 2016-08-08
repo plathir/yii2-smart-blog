@@ -24,7 +24,7 @@ use yii\widgets\Pjax;
 
                         <?=
                         $form->field($model, 'image')->widget(NewWidget::className(), [
-                            'uploadUrl' => Url::toRoute(['/blog/category/uploadphoto']),
+                            'uploadUrl' => Url::toRoute(['/blog/categorytree/uploadphoto']),
                             'previewUrl' => $model->module->CategoryImagePathPreview,
                             'tempPreviewUrl' => $model->module->CategoryImageTempPathPreview,
                             'KeyFolder' => $model->id,

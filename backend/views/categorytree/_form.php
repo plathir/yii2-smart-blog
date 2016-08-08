@@ -209,12 +209,15 @@ echo $renderContent(Module::VIEW_PART_1);
     <?php else: ?>
         <?= $keyField ?>
         <?= $form->field($node, $nameAttribute)->textInput($inputOpts) ?>
-        <?= $form->field($node, 'description')->textInput($inputOpts) ?>
-        <?=
-        $this->render('_category_image', [
-            'form' => $form,
-            'model' => $node,
-        ])
+        <div class="col-sm-8">
+            <?=
+            $this->render('_category_extra_fields', [
+                'form' => $form,
+                'model' => $node,
+                'inputOpts' => $inputOpts,
+            ])
+            ?>
+        </div>
         ?>
     <?php endif; ?>
     <?php if ($iconsList === 'text'): ?>
@@ -316,7 +319,7 @@ echo $renderContent(Module::VIEW_PART_1);
             ?>
             <?= $renderContent(Module::VIEW_PART_4) ?>
         <?php endif; ?>
-            
+
         <?php ActiveForm::end() ?>
 
         <?php
