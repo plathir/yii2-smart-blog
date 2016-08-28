@@ -81,11 +81,13 @@ class PostsController extends Controller {
                 'class' => '\plathir\cropper\actions\UploadAction',
                 'width' => 600,
                 'height' => 600,
+                'thumbnail' => true,
                 'temp_path' => $this->module->ImageTempPath,
             ],
             'uploadfile' => [
                 'class' => '\plathir\upload\actions\FileUploadAction',
                 'uploadDir' => $this->module->ImageTempPath,
+                'thumbnail' => true,
             ],
             'deletetempfile' => [
                 'class' => '\plathir\upload\actions\FileDeleteAction',

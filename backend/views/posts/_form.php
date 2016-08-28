@@ -22,7 +22,7 @@ use mihaildev\elfinder\ElFinder;
 <div class="panel panel-primary">
     <div class="panel-heading">Blog Post</div>
     <div class="panel-body">
-        <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdPost']]); ?>
+        <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdPost' ]]); ?>
         <div class="row">
             <div class="col-lg-9 col-md-9 col-sm-9">
                 <?= $form->field($model, 'description')->textInput(['maxlength' => 255]) ?>
