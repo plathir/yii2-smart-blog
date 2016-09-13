@@ -13,7 +13,7 @@ if ($galleryArray) {
 
         $items[] = [
             'url' => $widget->previewUrl . '/' . $image,
-            'src' => $widget->previewUrl . '/' . $image,
+            'src' => $widget->previewUrl . '/thumbs/' . $image,
             'imageOptions' => [
                 'style' => ['max-width' => '200px',
                     'max-height' => '150px',

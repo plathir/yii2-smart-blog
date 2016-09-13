@@ -18,6 +18,53 @@ class PostHelper {
         }
     }
 
+    public function getMostVisitedPosts($numOfPosts) {
+        $posts = Posts::find()
+                ->orderBy(['created_at' => SORT_DESC])
+                ->limit($numOfPosts)
+                ->all();
+        if ($posts) {
+            return $posts;
+        } else {
+            return null;
+        }
+    }
+
+    public function getTopAuthors($numOfAuthors) {
+
+
+        $temp_topAuthors = (new \yii\db\Query())
+                ->select(['user_created as author', 'count(*) as cnt'])
+                ->from('Posts')
+                ->groupBy(['user_created'])
+                ->limit(10)
+                ->all();
+
+        foreach ($temp_topAuthors as $Author) {
+            $userid = $Author['author'];
+            $username = PostHelper::getUserName($userid);
+            $topAuthors[] = [
+                'userid' => $userid,
+                'author' => $username,
+                'cnt' => $Author['cnt']
+            ];
+        }
+
+        if ($topAuthors) {
+            return $topAuthors;
+        } else {
+            return null;
+        }
+    }
+
+    //get username
+    public function getUserName($user_id) {
+
+        $PostsModel = new Posts();
+        $userModel = new $PostsModel->module->userModel();
+        return $userModel::findOne(['id' => $user_id])->{$PostsModel->module->userNameField};
+    }
+
     public function getPostIntroImage($id, $view = null) {
         $post = Posts::find()
                 ->where(['id' => $id])
@@ -51,11 +98,12 @@ class PostHelper {
             return null;
         }
     }
-/**
- * Get list of posts by tags separated by comma 
- * @param type $tag (e.g : tag1,tag2,tag3 )
- * @return type
- */
+
+    /**
+     * Get list of posts by tags separated by comma 
+     * @param type $tag (e.g : tag1,tag2,tag3 )
+     * @return type
+     */
     public function getPostsbyTags($tag) {
         $tagsArray = explode(",", $tag);
         $posts = [];
@@ -76,11 +124,12 @@ class PostHelper {
         }
         return $posts;
     }
-/**
- * Get Posts by one tag 
- * @param type $tag (e.g : tag1 )
- * @return type
- */
+
+    /**
+     * Get Posts by one tag 
+     * @param type $tag (e.g : tag1 )
+     * @return type
+     */
     public function getPostsbyTag($tag) {
         return Posts::find()->where('FIND_IN_SET(:tag, tags)', [':tag' => $tag])->all();
     }
@@ -95,9 +144,10 @@ class PostHelper {
         $newPosts = [];
         foreach ($posts as $key => $post) {
             if ($post->id != $id) {
-                $newPosts[]= $post;
+                $newPosts[] = $post;
             }
         }
         return $newPosts;
-    }   
+    }
+
 }

@@ -15,7 +15,7 @@ use yii\data\ArrayDataProvider;
  */
 
 /**
- * @property \plathir\smartblog\Module $module
+ * @property \plathir\smartblog\backend\Module $module
  *
  */
 class PostsController extends Controller {
