@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ArrayDataProvider;
+use plathir\smartblog\backend\models\PostsRating;
 
 /**
  * PostsController implements the CRUD actions for Posts model.
@@ -61,7 +62,9 @@ class PostsController extends Controller {
                             'tagslist',
                             'browse-images',
                             'upload-images',
-                            'filemanager'
+                            'filemanager',
+                            'userposts',
+                            'postrate'
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -244,6 +247,33 @@ class PostsController extends Controller {
         }
     }
 
+    public function actionUserposts($userid) {
+        $posts = Posts::find()->where(['user_created' => $userid])->all();
+
+        $PostModel = new Posts();
+        $userModel = new $PostModel->module->userModel;
+        $user = $userModel::findOne(['id' => $userid]);
+        if ($user) {
+            $username = $user->{$PostModel->module->userNameField};
+            $dataProvider = new ArrayDataProvider([
+                'allModels' => $posts,
+                'sort' => [
+                    'attributes' => ['id'],
+                ],
+                'pagination' => [
+                    'pageSize' => 20,
+                ],
+            ]);
+
+            return $this->render('userposts', [
+                        'dataProvider' => $dataProvider,
+                        'username' => $username
+            ]);
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
     /**
      * Deletes an existing Posts model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -255,7 +285,7 @@ class PostsController extends Controller {
         return $this->redirect(['index']);
     }
 
-    /**
+     /**
      * Finds the Posts model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id

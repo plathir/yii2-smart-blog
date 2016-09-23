@@ -4,6 +4,7 @@ use plathir\smartblog\common\widgets\TagCloudWidget;
 use plathir\smartblog\backend\widgets\LatestPosts;
 use plathir\smartblog\backend\widgets\MostVisitedPosts;
 use plathir\smartblog\backend\widgets\TopAuthors;
+use plathir\smartblog\backend\widgets\TopRated;
 use yii\helpers\Html;
 ?>
 
@@ -24,8 +25,6 @@ use yii\helpers\Html;
         </div>
     </div>
 
-
-
     <?=
     LatestPosts::widget([
         'latest_num' => 10,
@@ -39,11 +38,30 @@ use yii\helpers\Html;
         'Theme' => $Theme,
     ]);
     ?>
-    <?=
-    TopAuthors::widget([
-        'authors_num' => 10,
-        'Theme' => $Theme,
-    ]);
-    ?>
+    <div class="row">
+
+
+        <div class="col-lg-4">
+            <?=
+            TopAuthors::widget([
+                'authors_num' => 10,
+                'Theme' => $Theme,
+            ]);
+            ?>
+
+        </div>
+
+        <div class="col-lg-8">
+            <?=
+            TopRated::widget([
+                'posts_num' => 10,
+                'Theme' => $Theme,
+            ]);
+            ?>
+
+        </div>
+
+    </div>
+
 
 </div>

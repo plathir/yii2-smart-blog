@@ -3,11 +3,10 @@
 namespace plathir\smartblog\backend\widgets;
 
 use yii\base\Widget;
-use yii\base\InvalidConfigException;
 use plathir\smartblog\helpers\PostHelper;
 use Yii;
 
-class MostVisitedPosts extends Widget {
+class TopRated extends Widget {
 
     public $posts_num = 10;
     public $Theme = 'default';
@@ -19,10 +18,10 @@ class MostVisitedPosts extends Widget {
     public function run() {
         $this->registerClientAssets();
         $helper = new \plathir\smartblog\helpers\PostHelper();
-        $posts = PostHelper::getMostVisitedPosts($this->posts_num);
+        $topRated = PostHelper::getTopRated($this->posts_num);
 
-        return $this->render('most_visited_posts_widget', [
-                    'posts' => $posts,
+        return $this->render('top_rated_posts_widget', [
+                    'posts' => $topRated,
                     'widget' => $this
         ]);
     }

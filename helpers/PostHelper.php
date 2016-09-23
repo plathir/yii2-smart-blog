@@ -30,6 +30,19 @@ class PostHelper {
         }
     }
 
+    public function getTopRated($numOfPosts) {
+        $posts = Posts::find()
+                ->orderBy(['created_at' => SORT_DESC])
+                ->limit($numOfPosts)
+                ->all();
+        if ($posts) {
+            return $posts;
+        } else {
+            return null;
+        }
+    }
+    
+    
     public function getTopAuthors($numOfAuthors) {
 
 

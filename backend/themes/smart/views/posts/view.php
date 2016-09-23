@@ -7,6 +7,8 @@ use yii\bootstrap\Tabs;
 use plathir\smartblog\common\widgets\TagsWidget;
 use \plathir\smartblog\common\widgets\SimilarPostsWidget;
 use \plathir\smartblog\common\widgets\GalleryWidget;
+use kartik\widgets\StarRating;
+use \plathir\smartblog\common\widgets\RatingWidget;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Posts */
@@ -34,6 +36,13 @@ $this->params['breadcrumbs'][] = $this->title;
             </p>
 
             <?php
+//            echo RatingWidget::widget([
+//                'post_id' => $model->id,
+//            ]);
+            ?>                
+
+
+            <?php
             $userModel = new $model->module->userModel();
             $categoryModel = new plathir\smartblog\backend\models\Category();
             echo Tabs::widget([
@@ -45,6 +54,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             'model' => $model,
                             'template' => '<tr><th style="width:20%">{label}</th><td style="width:80%">{value}</td></tr>',
                             'attributes' => [
+                                [
+                                    'attribute' => 'rating',
+                                    'value' => RatingWidget::widget([
+                                        'post_id' => $model->id,
+                                    ]),
+                                    'format' => 'raw'
+                                ],
                                 'id',
                                 'description',
                                 'slug',
@@ -77,12 +93,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'value' => $model->publish == true ? '<span class="label label-success">Published</span>' : '<span class="label label-danger">Unpublished</span>',
                                     'format' => 'html'
                                 ],
-                                
                                 [
                                     'attribute' => 'category',
                                     'value' => $categoryModel::findOne(['id' => $model->category])->name,
                                     'format' => 'text'
-                                ],                                            
+                                ],
                             ],
                         ]) .
                         TagsWidget::widget([

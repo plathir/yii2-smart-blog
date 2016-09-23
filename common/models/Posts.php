@@ -3,6 +3,7 @@
 namespace plathir\smartblog\common\models;
 
 use Yii;
+use plathir\smartblog\backend\models\PostsRating;
 
 /**
  * This is the model class for table "smartblog_posts".
@@ -38,7 +39,7 @@ class Posts extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['description', 'intro_text', 'full_text', 'user_created', 'category' ], 'required'],
+            [['description', 'intro_text', 'full_text', 'user_created', 'category'], 'required'],
             [['intro_text', 'full_text'], 'string'],
             [['tags', 'full_text'], 'string'],
             [['attachments', 'full_text'], 'string'],
@@ -58,7 +59,7 @@ class Posts extends \yii\db\ActiveRecord {
         return [
             'id' => Yii::t('app', 'ID'),
             'description' => Yii::t('app', 'Description'),
-            'slug'=> Yii::t('app', 'Slug'),
+            'slug' => Yii::t('app', 'Slug'),
             'intro_text' => Yii::t('app', 'Intro Text'),
             'full_text' => Yii::t('app', 'Full Text'),
             'intro_image' => Yii::t('app', 'Intro Image'),
@@ -74,4 +75,21 @@ class Posts extends \yii\db\ActiveRecord {
             'gallery' => Yii::t('app', 'Gallery'),
         ];
     }
+
+    public function getRating() {
+        return $this->hasOne(PostsRating::className(), ['post_id' => 'id']);
+    }
+
+    public function getRatingval() {
+        if ($this->rating != null) {
+            if ( $this->rating->rating_count > 0 ) {
+               return round($this->rating->rating_sum / $this->rating->rating_count);
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+
 }

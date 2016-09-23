@@ -2,9 +2,8 @@
 
 use yii\helpers\Html;
 use plathir\smartblog\helpers\PostHelper;
-
 ?>
-<div class="box box-info">
+<div class="box box-danger">
     <div class="box-header with-border">
         <h3 class="box-title">Top Authors</h3>
         <div class="box-tools pull-right">
@@ -17,7 +16,6 @@ use plathir\smartblog\helpers\PostHelper;
             <table class="table no-margin">
                 <thead>
                     <tr>
-                        <th>Author ID</th>
                         <th>Author Name</th>
                         <th>Count</th>
                     </tr>
@@ -26,10 +24,9 @@ use plathir\smartblog\helpers\PostHelper;
                     <?php
                     foreach ($topAuthors as $Author) {
                         ?>
-                       <tr>
-                            <td><?= Html::a($Author["userid"], [''])   ?></td>
-                            <td><?= Html::a($Author["author"], [''])   ?></td>
-                            <td><?= $Author['cnt']   ?></td>
+                        <tr>
+                            <td><?= Html::a($Author["author"], ['/blog/posts/userposts', 'userid' => $Author["userid"]]) ?></td>
+                            <td><?= $Author['cnt'] ?></td>
                         </tr>
                     <?php } ?>
                 </tbody>

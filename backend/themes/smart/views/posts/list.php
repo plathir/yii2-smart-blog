@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use kartik\widgets\StarRating;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\Posts_s */
@@ -26,6 +27,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <div class="col-lg-12">
                         <?php echo Html::a('<h1>' . $pdata['description'] . '</h1>', ['view', 'id' => $pdata['id']]); ?>
+                        <?php
+// Render a display only rating easily
+                        echo StarRating::widget([
+                            'name' => 'post_rating',
+                            'value' => $pdata['ratingval'],
+                            'pluginOptions' => [
+                                'displayOnly' => true,
+                                'size' => 'xs']
+                                //'size' => 'xs pull-right'] if pull to right of the div
+                        ]);
+                        ?>
+
                     </div>
                     <div class ="col-lg-3 col-md-4 col-sm-4 col-xs-12">
                         <?php
