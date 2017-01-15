@@ -17,9 +17,13 @@ class DefaultController extends Controller {
     }
 
     public function actionIndex() {
-        return $this->render('index',
-                ['Theme' =>$this->module->Theme ]
-                );
+        return $this->render('index', ['Theme' => $this->module->Theme]
+        );
+    }
+
+    public function actionIndex1() {
+        return $this->render('index1', ['Theme' => $this->module->Theme]
+        );
     }
 
     public function actionNewpost() {

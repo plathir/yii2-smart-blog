@@ -1,10 +1,5 @@
 <?php
 
-use plathir\smartblog\common\widgets\TagCloudWidget;
-use plathir\smartblog\backend\widgets\LatestPosts;
-use plathir\smartblog\backend\widgets\MostVisitedPosts;
-use plathir\smartblog\backend\widgets\TopAuthors;
-use plathir\smartblog\backend\widgets\TopRated;
 use yii\helpers\Html;
 ?>
 
@@ -22,46 +17,30 @@ use yii\helpers\Html;
             <?= Html::a(Yii::t('app', '<i class="fa fa-gears"></i>Settings'), ['/blog/settings'], ['class' => 'btn btn-app']) ?>
             <?= Html::a(Yii::t('app', '<i class="fa fa-list"></i>Categories'), ['/blog/category'], ['class' => 'btn btn-app']) ?>
             <?= Html::a(Yii::t('app', '<i class="fa fa-th-list"></i>Posts Preview'), ['/blog/posts/list'], ['class' => 'btn btn-app']) ?>
+            <?= Html::a(Yii::t('app', '<i class="fa fa-tags"></i>Tags'), ['/blog/tags'], ['class' => 'btn btn-app']) ?>
         </div>
     </div>
-
-    <?=
-    LatestPosts::widget([
-        'latest_num' => 10,
-        'Theme' => $Theme,
-    ]);
-    ?>
-
-    <?=
-    MostVisitedPosts::widget([
-        'posts_num' => 10,
-        'Theme' => $Theme,
-    ]);
-    ?>
     <div class="row">
-
-
-        <div class="col-lg-4">
-            <?=
-            TopAuthors::widget([
-                'authors_num' => 10,
-                'Theme' => $Theme,
-            ]);
-            ?>
-
+        <div class="col-lg-12">        
+            <?= plathir\widgets\common\helpers\PositionHelper::LoadPosition(1); ?>
         </div>
-
-        <div class="col-lg-8">
-            <?=
-            TopRated::widget([
-                'posts_num' => 10,
-                'Theme' => $Theme,
-            ]);
-            ?>
-
-        </div>
-
     </div>
 
 
+    <div class="row">
+        <div class="col-lg-4">
+            <?= plathir\widgets\common\helpers\PositionHelper::LoadPosition(3); ?>
+        </div>
+        <div class="col-lg-8">
+             <?= plathir\widgets\common\helpers\PositionHelper::LoadPosition(4); ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <?= plathir\widgets\common\helpers\PositionHelper::LoadPosition(8); ?>
+        </div>  
+    </div>
+    
 </div>
+

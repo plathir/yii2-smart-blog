@@ -13,9 +13,17 @@ use plathir\smartblog\backend\models\Categorytree as Category;
 $this->title = 'Posts';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="panel panel-primary">
-    <div class="panel-heading"><?= Html::encode($this->title) ?></div>
-    <div class="panel-body">
+
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title"><?= Html::encode($this->title) ?></h3>
+        <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>
+
+    </div><!-- /.box-header -->
+    <div class="box-body">
         <div class="posts-index">
 
             <?php // echo $this->render('_search', ['model' => $searchModel]);   ?>

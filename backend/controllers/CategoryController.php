@@ -62,6 +62,7 @@ class CategoryController extends Controller {
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
+                 Yii::$app->getSession()->setFlash('success', 'Category : '. $id . ' updated succesfully !');         
                 return $this->redirect(['index']);
             } else {
                 return $this->render('update', [

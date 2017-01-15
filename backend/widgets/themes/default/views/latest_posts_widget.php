@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 ?>
 <div class="panel panel-primary">
-    <div class="panel-heading">Latest Posts</div>
+    <div class="panel-heading"><?php echo $widget->title ?></div>
     <div class="panel-body">
 
         <div class="table-responsive">

@@ -10,6 +10,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ArrayDataProvider;
 use plathir\smartblog\backend\models\PostsRating;
+use plathir\smartblog\common\models\Tags;
+use plathir\smartblog\common\models\PostsTags;
 
 /**
  * PostsController implements the CRUD actions for Posts model.
@@ -64,7 +66,8 @@ class PostsController extends Controller {
                             'upload-images',
                             'filemanager',
                             'userposts',
-                            'postrate'
+                            'postrate',
+                            'tagsrebuild'
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -124,7 +127,6 @@ class PostsController extends Controller {
                     'dataProvider' => $dataProvider,
         ]);
     }
-
     public function actionFilemanager() {
 
         return $this->render('filemanager');
@@ -146,27 +148,41 @@ class PostsController extends Controller {
 
         return $this->render('tags', [
                     'dataProvider' => $dataProvider,
-                    'posts' => $posts
+                    'posts' => $posts,
+                    'tag' => $tag
         ]);
     }
+
+//    public function actionTagslist() {
+//        if (\Yii::$app->request->isAjax) {
+//            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+//            $items = Posts::find()->select(['tags'])->andHaving(['!=', 'tags', ''])->orderBy(['tags' => SORT_ASC])->all();
+//            $resp_items = [];
+//            $temp_items = [];
+//            foreach ($items as $item) {
+//                $newItems = explode(",", $item['tags']);
+//                foreach ($newItems as $newItem) {
+//                    $temp_items[] = $newItem;
+//                }
+//            }
+//            //  make unique values
+//            $temp_items = array_unique($temp_items);
+//
+//            foreach ($temp_items as $item) {
+//                $resp_items[]["tags"] = $item;
+//            }
+//            return $resp_items;
+//        } else {
+//            
+//        }
+//    }
 
     public function actionTagslist() {
         if (\Yii::$app->request->isAjax) {
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            $items = Posts::find()->select(['tags'])->andHaving(['!=', 'tags', ''])->orderBy(['tags' => SORT_ASC])->all();
-            $resp_items = [];
-            $temp_items = [];
+            $items = Tags::find()->select(['name'])->orderBy(['name' => SORT_ASC])->all();
             foreach ($items as $item) {
-                $newItems = explode(",", $item['tags']);
-                foreach ($newItems as $newItem) {
-                    $temp_items[] = $newItem;
-                }
-            }
-            //  make unique values
-            $temp_items = array_unique($temp_items);
-
-            foreach ($temp_items as $item) {
-                $resp_items[]["tags"] = $item;
+                $resp_items[]["tags"] = $item["name"];
             }
             return $resp_items;
         } else {
@@ -210,7 +226,7 @@ class PostsController extends Controller {
             //      $model->user_created = \Yii::$app->user->getId();
             //      $model->user_last_change = \Yii::$app->user->getId();
             $model->update();
-
+            Yii::$app->getSession()->setFlash('success', 'Post : ' . $model->id . ' created !');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -234,6 +250,7 @@ class PostsController extends Controller {
             }
 
             if ($model->save()) {
+                Yii::$app->getSession()->setFlash('success', 'Post : ' . $model->id . ' Updated ! ');
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 return $this->render('update', [
@@ -281,11 +298,13 @@ class PostsController extends Controller {
      * @return mixed
      */
     public function actionDelete($id) {
-        $this->findModel($id)->delete();
+        if ($this->findModel($id)->delete()) {
+            Yii::$app->getSession()->setFlash('success', 'Post : ' . $id . ' Deleted ! ');
+        }
         return $this->redirect(['index']);
     }
 
-     /**
+    /**
      * Finds the Posts model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id

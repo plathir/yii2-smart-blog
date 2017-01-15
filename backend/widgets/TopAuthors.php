@@ -11,6 +11,7 @@ class TopAuthors extends Widget {
 
     public $authors_num = 10;
     public $Theme = false;
+    public $title = 'Top Authors';
 
     public function init() {
         parent::init();

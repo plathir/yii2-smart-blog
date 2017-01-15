@@ -43,6 +43,11 @@ class PostsRating extends \yii\db\ActiveRecord {
         ];
     }
 
+    public function getTemprate() {
+     return 100;     
+        
+    }
+    
     public function getTemprateval() {
         if ($this->post_id) {
             if ($this->rating_count > 0) {

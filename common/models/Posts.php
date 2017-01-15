@@ -4,6 +4,8 @@ namespace plathir\smartblog\common\models;
 
 use Yii;
 use plathir\smartblog\backend\models\PostsRating;
+use plathir\smartblog\common\models\Tags;
+
 
 /**
  * This is the model class for table "smartblog_posts".
@@ -82,13 +84,42 @@ class Posts extends \yii\db\ActiveRecord {
 
     public function getRatingval() {
         if ($this->rating != null) {
-            if ( $this->rating->rating_count > 0 ) {
-               return round($this->rating->rating_sum / $this->rating->rating_count);
+            if ($this->rating->rating_count > 0) {
+                return round($this->rating->rating_sum / $this->rating->rating_count);
             } else {
                 return 0;
             }
         } else {
             return 0;
+        }
+    }
+
+    public function afterSave($insert, $changedAttributes) {
+        parent::afterSave($insert, $changedAttributes);
+
+// Delete tags if exist        
+        if (!$this->isNewRecord) {
+            (new \yii\db\Query())->createCommand()->delete('posts_tags', ['post_id' => $this->id])->execute();
+        }
+        $temp_tags = explode(',', $this->tags);
+        foreach ($temp_tags as $tag) {
+            
+            if ($temp_tag = Tags::find()->where(['name' => $tag])->one()) {
+                $tag_id = $temp_tag->id;
+            } else {
+                $tag_id = null;
+            }
+            if (!$tag_id) {
+                $newTag = new Tags();
+                $newTag->name = $tag;
+                if ($newTag->save()) {
+                    $tag_id = $newTag->id;
+                }
+            }
+// Insert new tags            
+            if ($tag_id) {
+                (new \yii\db\Query())->createCommand()->insert('posts_tags', ['post_id' => $this->id, 'tag_id' => $tag_id])->execute();
+            }
         }
     }
 

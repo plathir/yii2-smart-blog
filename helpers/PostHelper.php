@@ -3,6 +3,9 @@
 namespace plathir\smartblog\helpers;
 
 use plathir\smartblog\backend\models\Posts;
+use plathir\smartblog\common\models\Tags;
+use plathir\smartblog\common\models\PostsTags;
+use plathir\smartblog\common\models\PostsRating;
 
 class PostHelper {
 
@@ -31,18 +34,24 @@ class PostHelper {
     }
 
     public function getTopRated($numOfPosts) {
-        $posts = Posts::find()
-                ->orderBy(['created_at' => SORT_DESC])
+
+        $posts_rating = (new \yii\db\Query())
+                ->select(['*, (rating_sum / rating_count) AS rate'])
+                ->from('posts_rating')
+                ->orderBy('rate desc')
                 ->limit($numOfPosts)
                 ->all();
-        if ($posts) {
+
+        if ($posts_rating) {
+            foreach ($posts_rating as $post_rating) {
+                $posts[] = Posts::findOne(['id' => $post_rating['post_id']]);
+            }
             return $posts;
         } else {
             return null;
         }
     }
-    
-    
+
     public function getTopAuthors($numOfAuthors) {
 
 
@@ -144,7 +153,13 @@ class PostHelper {
      * @return type
      */
     public function getPostsbyTag($tag) {
-        return Posts::find()->where('FIND_IN_SET(:tag, tags)', [':tag' => $tag])->all();
+        $tag_id = Tags::find()->select(['id'])->where(['name' => $tag])->one();
+        $tags = PostsTags::find()->select(['post_id'])->where(['tag_id' => $tag_id->id])->groupBy(['post_id'])->all();
+        foreach ($tags as $tag) {
+            $tags_array[] = $tag->post_id;
+        }
+        $posts = Posts::find()->where(['in', 'id', $tags_array])->all();
+        return $posts;
     }
 
     /**

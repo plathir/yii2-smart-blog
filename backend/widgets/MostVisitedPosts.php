@@ -11,6 +11,7 @@ class MostVisitedPosts extends Widget {
 
     public $posts_num = 10;
     public $Theme = 'default';
+    public $title = 'Most Visited Posts';
 
     public function init() {
         parent::init();
