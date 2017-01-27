@@ -57,7 +57,7 @@ class PostHelper {
 
         $temp_topAuthors = (new \yii\db\Query())
                 ->select(['user_created as author', 'count(*) as cnt'])
-                ->from('Posts')
+                ->from('posts')
                 ->groupBy(['user_created'])
                 ->limit(10)
                 ->all();
