@@ -11,12 +11,12 @@ use yii\db\ActiveRecord;
  * @property string $image
  */
 class Categorytree extends \kartik\tree\models\Tree {
-
     use \plathir\smartblog\backend\traits\ModuleTrait;
 
     /**
      * @inheritdoc
      */
+    
     public static function tableName() {
         return 'categories';
     }

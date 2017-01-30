@@ -5,7 +5,7 @@ namespace plathir\smartblog\backend\controllers;
 use kartik\tree\controllers\NodeController;
 use yii\filters\VerbFilter;
 use Yii;
-use yii\web\Response;
+use \plathir\smartblog\backend\models\search\Category_s;
 
 /**
  * @property \plathir\smartblog\Module $module
@@ -69,7 +69,7 @@ class CategorytreeController extends NodeController {
     }
      
     public function actionIndex() {
-        $searchModel = new \plathir\smartblog\backend\models\search\Category_s();
+        $searchModel = new Category_s();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -99,7 +99,8 @@ class CategorytreeController extends NodeController {
     }
 
     protected function findModel($id) {
-        if (($model = \plathir\smartblog\backend\models\Categorytree::findOne($id)) !== null) {
+        
+        if (($model = Category::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

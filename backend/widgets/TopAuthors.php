@@ -20,7 +20,7 @@ class TopAuthors extends Widget {
     public function run() {
         $this->registerClientAssets();
         $helper = new \plathir\smartblog\helpers\PostHelper();
-        $topAuthors = PostHelper::getTopAuthors($this->authors_num);
+        $topAuthors = $helper->getTopAuthors($this->authors_num);
 
         return $this->render('top_authors', [
                     'topAuthors' => $topAuthors,

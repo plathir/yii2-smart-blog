@@ -8,10 +8,10 @@ use yii\helpers\Html;
 $viewID = uniqid();
 ?>
 <div id="<?= $viewID ?>">
-    <?= $form->field($model, 'description')->textInput($inputOpts) ?>
+    <?= $form->field($node, 'description')->textInput() ?>
     <?php
-    if ($model->image) {
-        echo Html::img($model->module->CategoryImagePathPreview . '/' . $model->id . '/' . $model->image, ['alt' => '...',
+    if ($node->image) {
+        echo Html::img($node->module->CategoryImagePathPreview . '/' . $node->id . '/' . $node->image, ['alt' => '...',
             // 'class' => 'img-circle',
             'width' => '100',
             'align' => 'center']);

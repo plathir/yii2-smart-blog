@@ -19,7 +19,7 @@ class TopRated extends Widget {
     public function run() {
         $this->registerClientAssets();
         $helper = new \plathir\smartblog\helpers\PostHelper();
-        $topRated = PostHelper::getTopRated($this->posts_num);
+        $topRated = $helper->getTopRated($this->posts_num);
 
         return $this->render('top_rated_posts_widget', [
                     'posts' => $topRated,

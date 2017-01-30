@@ -12,7 +12,7 @@ class Asset extends AssetBundle {
     /**
      * @inheritdoc
      */
-    public $sourcePath = '@plathir/smartblog/backend/widgets/assets';
+   // public $sourcePath = '@plathir/smartblog/backend/widgets/assets';
 
     /**
      * @inheritdoc

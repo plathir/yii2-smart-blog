@@ -19,17 +19,6 @@ use yii\bootstrap\Tabs;
     <div class="box-body">
         <div class="posts-index">
             <?=
-//            TreeView::widget([
-//                // single query fetch to render the tree
-//                'query' => \plathir\smartblog\backend\models\Categorytree::find()->addOrderBy('root, lft'),
-//                'headingOptions' => ['label' => 'Categories'],
-//                'isAdmin' => true, // optional (toggle to enable admin mode)
-//                'displayValue' => 1, // initial display value
-//                'softDelete' => true, // normally not needed to change
-//                'showInactive' => true,
-//                 'cacheSettings'   => ['enableCache' => false]      // normally not needed to change
-//            ]);
-
             Tabs::widget([
                 'items' => [
                     [
@@ -37,6 +26,9 @@ use yii\bootstrap\Tabs;
                         'content' => '<br>' . TreeView::widget([
                             // single query fetch to render the tree
                             'query' => \plathir\smartblog\backend\models\Categorytree::find()->addOrderBy('root, lft'),
+                            'nodeAddlViews' => [
+                                kartik\tree\Module::VIEW_PART_2 => '/categorytree/_category_extra_fields'
+                            ],
                             'headingOptions' => ['label' => 'Categories'],
                             'isAdmin' => true, // optional (toggle to enable admin mode)
                             'displayValue' => 1, // initial display value
@@ -98,17 +90,17 @@ use yii\bootstrap\Tabs;
                                             return '';
                                         }
                                     }
-                                        ],
-                                        [
-                                            'class' => 'yii\grid\ActionColumn',
-                                            'template' => '{update}',
-                                        ]
-                                    ],
-                                ]),
+                                ],
+                                [
+                                    'class' => 'yii\grid\ActionColumn',
+                                    'template' => '{update}',
+                                ]
                             ],
-                        ]
-                    ]);
-                    ?>
+                        ]),
+                    ],
+                ]
+            ]);
+            ?>
         </div>
     </div>
 </div>

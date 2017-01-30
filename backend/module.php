@@ -7,6 +7,8 @@ use Yii;
 
 class Module extends \yii\base\Module {
 
+    use \kartik\base\TranslationTrait;
+
     public $controllerNamespace = 'plathir\smartblog\backend\controllers';
     public $mediaUrl = '';
     public $mediaPath = '';
@@ -24,7 +26,12 @@ class Module extends \yii\base\Module {
     public $Theme = 'default';
 
     public function init() {
-
+        
+        // The following three lines initialize i18n for kvtree
+        $dir = '@vendor/kartik-v/yii2-tree-manager/messages';
+        $cat = 'kvtree';
+        $this->initI18N($dir, $cat);
+        
         $path = Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/backend/themes/' . $this->Theme . '/views';
         $this->setViewPath($path);
 
@@ -58,14 +65,11 @@ class Module extends \yii\base\Module {
                         \kartik\tree\Module::NODE_REMOVE => Url::to(['/blog/categorytree/remove']),
                         \kartik\tree\Module::NODE_MOVE => Url::to(['/blog/categorytree/move']),
                     ],
-                    //'nodeView' => '@kvtree/views/_form'
-                    'nodeView' => '/categorytree/_form'
-                ]
+                  //  'nodeView' => '@kvtree/views/_form'
+                'nodeView' => '/categorytree/_form'
+                ],
             ]
         ];
-
-        parent::init();
-
         // custom initialization code goes here
     }
 

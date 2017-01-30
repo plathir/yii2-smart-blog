@@ -20,7 +20,7 @@ class LatestPosts extends Widget {
     public function run() {
         $this->registerClientAssets();
         $helper = new \plathir\smartblog\helpers\PostHelper();
-        $posts = PostHelper::getLatestPosts($this->latest_num);
+        $posts = $helper->getLatestPosts($this->latest_num);
 
         return $this->render('latest_posts_widget', [
                     'posts' => $posts,

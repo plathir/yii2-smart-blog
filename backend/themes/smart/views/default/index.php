@@ -1,6 +1,9 @@
 <?php
 
 use yii\helpers\Html;
+use plathir\widgets\common\helpers\PositionHelper;
+$positionHelper = new PositionHelper();
+
 ?>
 
 <div class="smartblog-default-index">
@@ -22,23 +25,23 @@ use yii\helpers\Html;
     </div>
     <div class="row">
         <div class="col-lg-12">        
-            <?= plathir\widgets\common\helpers\PositionHelper::LoadPosition(1); ?>
+            <?= $positionHelper->LoadPosition(1); ?>
         </div>
     </div>
 
 
     <div class="row">
         <div class="col-lg-4">
-            <?= plathir\widgets\common\helpers\PositionHelper::LoadPosition(3); ?>
+            <?= $positionHelper->LoadPosition(3); ?>
         </div>
         <div class="col-lg-8">
-             <?= plathir\widgets\common\helpers\PositionHelper::LoadPosition(4); ?>
+             <?= $positionHelper->LoadPosition(4); ?>
         </div>
     </div>
 
     <div class="row">
         <div class="col-lg-12">
-            <?= plathir\widgets\common\helpers\PositionHelper::LoadPosition(8); ?>
+            <?= $positionHelper->LoadPosition(8); ?>
         </div>  
     </div>
     

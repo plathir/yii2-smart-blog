@@ -20,7 +20,7 @@ class MostVisitedPosts extends Widget {
     public function run() {
         $this->registerClientAssets();
         $helper = new \plathir\smartblog\helpers\PostHelper();
-        $posts = PostHelper::getMostVisitedPosts($this->posts_num);
+        $posts = $helper->getMostVisitedPosts($this->posts_num);
 
         return $this->render('most_visited_posts_widget', [
                     'posts' => $posts,
