@@ -206,9 +206,16 @@ class PostsController extends Controller {
      * @return mixed
      */
     public function actionView($id) {
+        $model = $this->findModel($id);
+        $this->addViews($model);
         return $this->render('view', [
-                    'model' => $this->findModel($id),
+                    'model' => $model,
         ]);
+    }
+
+    private function addViews($model) {
+        $model->views++;
+        $model->save();
     }
 
     /**

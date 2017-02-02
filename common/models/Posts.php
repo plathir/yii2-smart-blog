@@ -6,7 +6,6 @@ use Yii;
 use plathir\smartblog\backend\models\PostsRating;
 use plathir\smartblog\common\models\Tags;
 
-
 /**
  * This is the model class for table "smartblog_posts".
  *
@@ -26,6 +25,7 @@ use plathir\smartblog\common\models\Tags;
  * @property string $tags
  * @property string $attachments
  * @property string $gallery
+ * @property integer $views
  */
 class Posts extends \yii\db\ActiveRecord {
 
@@ -49,7 +49,7 @@ class Posts extends \yii\db\ActiveRecord {
             [['intro_image', 'full_image'], 'string'],
             [['user_created', 'user_last_change', 'publish'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['category'], 'integer'],
+            [['category', 'views'], 'integer'],
             [['description'], 'string', 'max' => 255],
         ];
     }
@@ -75,6 +75,7 @@ class Posts extends \yii\db\ActiveRecord {
             'tags' => Yii::t('app', 'Tags'),
             'attachments' => Yii::t('app', 'Attachments'),
             'gallery' => Yii::t('app', 'Gallery'),
+            'views' => Yii::t('app', 'Views'),
         ];
     }
 
@@ -103,7 +104,7 @@ class Posts extends \yii\db\ActiveRecord {
         }
         $temp_tags = explode(',', $this->tags);
         foreach ($temp_tags as $tag) {
-            
+
             if ($temp_tag = Tags::find()->where(['name' => $tag])->one()) {
                 $tag_id = $temp_tag->id;
             } else {
@@ -122,5 +123,10 @@ class Posts extends \yii\db\ActiveRecord {
             }
         }
     }
+
+//    public function afterFind() {
+//        $this->views++;
+//        $this->save();
+//    }
 
 }

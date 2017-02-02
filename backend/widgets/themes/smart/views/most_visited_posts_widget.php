@@ -27,7 +27,7 @@ use yii\helpers\Html;
                         <tr>
                             <td><?= $post->id ?></td>
                             <td><?= Html::a($post->description, ['/blog/posts/view', 'id' => $post->id]) ?></td>
-                            <td><?= 100 ?></td>
+                            <td><?= $post->views ?></td>
                             <?php if ($post->publish) { ?>
                                 <td><span class="label label-success">Published</span></td>
                             <?php } else { ?>

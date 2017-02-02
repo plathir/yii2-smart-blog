@@ -23,7 +23,7 @@ class PostHelper {
 
     public function getMostVisitedPosts($numOfPosts) {
         $posts = Posts::find()
-                ->orderBy(['created_at' => SORT_DESC])
+                ->orderBy(['views' => SORT_DESC])
                 ->limit($numOfPosts)
                 ->all();
         if ($posts) {
