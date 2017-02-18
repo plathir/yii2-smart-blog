@@ -36,10 +36,10 @@ class PostsRating extends \yii\db\ActiveRecord {
      */
     public function attributeLabels() {
         return [
-            'post_id' => Yii::t('app', 'Post ID'),
-            'rating_sum' => Yii::t('app', 'Rating Sum'),
-            'rating_count' => Yii::t('app', 'Rating Count'),
-            'last_ip' => Yii::t('app', 'Last IP Address'),
+            'post_id' => Yii::t('blog', 'Post ID'),
+            'rating_sum' => Yii::t('blog', 'Rating Sum'),
+            'rating_count' => Yii::t('blog', 'Rating Count'),
+            'last_ip' => Yii::t('blog', 'Last IP Address'),
         ];
     }
 

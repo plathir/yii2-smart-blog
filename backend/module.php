@@ -70,7 +70,20 @@ class Module extends \yii\base\Module {
                 ],
             ]
         ];
+        
+        
+        parent::init();
+        $this->registerTranslations();
         // custom initialization code goes here
     }
 
+    
+        public function registerTranslations() {
+        /*         * This registers translations for the widgets module * */
+        Yii::$app->i18n->translations['blog'] = [
+            'class' => 'yii\i18n\PhpMessageSource',
+            'sourceLanguage' => 'en',
+            'basePath' => Yii::getAlias('@vendor/plathir/yii2-smart-blog/backend/messages'),
+        ];
+    }
 }

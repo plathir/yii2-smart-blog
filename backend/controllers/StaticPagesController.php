@@ -10,7 +10,6 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ArrayDataProvider;
 
-
 /**
  * StaticPagesController implements the CRUD actions for StaticPages model.
  */
@@ -98,7 +97,6 @@ class StaticPagesController extends Controller {
         return $this->render('filemanager');
     }
 
-    
     public function actionList() {
         $searchModel = new StaticPages_s();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -169,7 +167,6 @@ class StaticPagesController extends Controller {
         }
     }
 
-
     /**
      * Deletes an existing StaticPages model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -181,7 +178,7 @@ class StaticPagesController extends Controller {
         return $this->redirect(['index']);
     }
 
-     /**
+    /**
      * Finds the StaticPages model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
@@ -192,7 +189,7 @@ class StaticPagesController extends Controller {
         if (($model = StaticPages::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(Yii::t('blog', 'The requested page does not exist.'));
         }
     }
 

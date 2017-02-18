@@ -127,6 +127,7 @@ class PostsController extends Controller {
                     'dataProvider' => $dataProvider,
         ]);
     }
+
     public function actionFilemanager() {
 
         return $this->render('filemanager');
@@ -233,7 +234,7 @@ class PostsController extends Controller {
             //      $model->user_created = \Yii::$app->user->getId();
             //      $model->user_last_change = \Yii::$app->user->getId();
             $model->update();
-            Yii::$app->getSession()->setFlash('success', 'Post : ' . $model->id . ' created !');
+            Yii::$app->getSession()->setFlash('success', Yii::t('blog', 'Post : {id} created ! ', ['id' => $model->id]));
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -257,7 +258,7 @@ class PostsController extends Controller {
             }
 
             if ($model->save()) {
-                Yii::$app->getSession()->setFlash('success', 'Post : ' . $model->id . ' Updated ! ');
+                Yii::$app->getSession()->setFlash('success', Yii::t('blog', 'Post : {id} updated ! ', ['id' => $model->id]));
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 return $this->render('update', [
@@ -294,7 +295,7 @@ class PostsController extends Controller {
                         'username' => $username
             ]);
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(Yii::t('blog', 'The requested page does not exist.'));
         }
     }
 
@@ -306,7 +307,7 @@ class PostsController extends Controller {
      */
     public function actionDelete($id) {
         if ($this->findModel($id)->delete()) {
-            Yii::$app->getSession()->setFlash('success', 'Post : ' . $id . ' Deleted ! ');
+            Yii::$app->getSession()->setFlash('success', Yii::t('blog', 'Post : {id} deleted ! ', ['id' => $model->id]));
         }
         return $this->redirect(['index']);
     }
@@ -322,7 +323,7 @@ class PostsController extends Controller {
         if (($model = Posts::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(Yii::t('blog', 'The requested page does not exist.'));
         }
     }
 

@@ -103,7 +103,7 @@ class CategorytreeController extends NodeController {
         if (($model = Category::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(Yii::t('blog', 'The requested page does not exist.'));
         }
     }
 

@@ -28,7 +28,6 @@ class CategoryController extends Controller {
             'access' => [
                 'class' => \yii\filters\AccessControl::className(),
                 'rules' => [
-
                     [
                         'actions' => [
                             'index',
@@ -48,14 +47,13 @@ class CategoryController extends Controller {
         $searchModel = new \plathir\smartblog\backend\models\search\Category_s();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->setSort(['defaultOrder' => [
-        'root' => SORT_ASC,
-        'lft' => SORT_ASC
+                'root' => SORT_ASC,
+                'lft' => SORT_ASC
         ]]);
 
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
-
         ]);
     }
 
@@ -63,7 +61,7 @@ class CategoryController extends Controller {
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
-                 Yii::$app->getSession()->setFlash('success', 'Category : '. $id . ' updated succesfully !');         
+                Yii::$app->getSession()->setFlash('success', Yii::t('blog', 'Category : {id} updated succesfully !', ['id' => $id]));
                 return $this->redirect(['index']);
             } else {
                 return $this->render('update', [
@@ -81,7 +79,7 @@ class CategoryController extends Controller {
         if (($model = \plathir\smartblog\backend\models\Category::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(Yii::t('blog', 'The requested page does not exist.'));
         }
     }
 

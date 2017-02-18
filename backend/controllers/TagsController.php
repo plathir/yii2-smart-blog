@@ -28,9 +28,9 @@ class TagsController extends Controller {
         $dataProvider = new ArrayDataProvider([
             'allModels' => $TagsList,
             'sort' => [
-                 'defaultOrder' => [
-                     'postcnt' => SORT_DESC
-                 ],
+                'defaultOrder' => [
+                    'postcnt' => SORT_DESC
+                ],
                 'attributes' => ['postcnt', 'id', 'name',],
             ],
             'pagination' => [
@@ -41,34 +41,34 @@ class TagsController extends Controller {
 //        print_r($TagsList);
         return $this->render('index', [
                     'TagsList' => $TagsList,
-                'dataProvider' => $dataProvider
+                    'dataProvider' => $dataProvider
         ]);
     }
 
     public function actionTagsrebuild() {
         if (\yii::$app->user->can('BlogRebuildTags')) {
-        $posts_tags = PostsTags::find()->select(['tag_id'])->groupBy('tag_id')->orderBy(['tag_id' => SORT_ASC])->all();
-        $db_tags = Tags::find()->select(['id'])->groupBy('id')->orderBy(['id' => SORT_ASC])->all();
+            $posts_tags = PostsTags::find()->select(['tag_id'])->groupBy('tag_id')->orderBy(['tag_id' => SORT_ASC])->all();
+            $db_tags = Tags::find()->select(['id'])->groupBy('id')->orderBy(['id' => SORT_ASC])->all();
 
-        foreach ($posts_tags as $tag) {
-            $activeTags[] = $tag['tag_id'];
-        }
-        foreach ($db_tags as $s_tag) {
-            $stored_tags[] = $s_tag['id'];
-        }
+            foreach ($posts_tags as $tag) {
+                $activeTags[] = $tag['tag_id'];
+            }
+            foreach ($db_tags as $s_tag) {
+                $stored_tags[] = $s_tag['id'];
+            }
 
-        foreach ($stored_tags as $db_tag) {
-            if (array_search($db_tag, $activeTags, true) === false) {
-                if (Tags::findOne($db_tag)->delete()) {
-                    echo 'Tag' . $db_tag . 'deleted! ' . '<br>';
+            foreach ($stored_tags as $db_tag) {
+                if (array_search($db_tag, $activeTags, true) === false) {
+                    if (Tags::findOne($db_tag)->delete()) {
+                        echo Yii::t('blog', 'Tag {tag} deleted ! <br> ', ['tag' => $db_tag]);
+                    }
                 }
             }
-        }
-        Yii::$app->getSession()->setFlash('success', 'Rebuild tags succesfully !');
+            Yii::$app->getSession()->setFlash('success', Yii::t('blog', 'Rebuild tags succesfully !'));
 
-        return $this->redirect('index');
+            return $this->redirect('index');
         } else {
-             throw new \yii\web\NotAcceptableHttpException('No Permission to rebuild tags');
+            throw new \yii\web\NotAcceptableHttpException(Yii::t('blog', 'No Permission to rebuild tags'));
         }
     }
 
