@@ -25,23 +25,23 @@ $positionHelper = new PositionHelper();
     </div>
     <div class="row">
         <div class="col-lg-12">        
-            <?= $positionHelper->LoadPosition(1); ?>
+            <?= $positionHelper->LoadPosition('be_blog_position1'); ?>
         </div>
     </div>
 
 
     <div class="row">
         <div class="col-lg-4">
-            <?= $positionHelper->LoadPosition(3); ?>
+            <?= $positionHelper->LoadPosition('be_blog_position2'); ?>
         </div>
         <div class="col-lg-8">
-             <?= $positionHelper->LoadPosition(4); ?>
+             <?= $positionHelper->LoadPosition('be_blog_position3'); ?>
         </div>
     </div>
 
     <div class="row">
         <div class="col-lg-12">
-            <?= $positionHelper->LoadPosition(8); ?>
+            <?= $positionHelper->LoadPosition('be_blog_position3'); ?>
         </div>  
     </div>
     
