@@ -41,7 +41,7 @@ $positionHelper = new PositionHelper();
 
     <div class="row">
         <div class="col-lg-12">
-            <?= $positionHelper->LoadPosition('be_blog_position3'); ?>
+            <?= $positionHelper->LoadPosition('be_blog_position4'); ?>
         </div>  
     </div>
     
