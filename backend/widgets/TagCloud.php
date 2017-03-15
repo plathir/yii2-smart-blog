@@ -9,9 +9,14 @@ class TagCloud extends Widget {
 
     public $Theme = 'default';
     public $title = 'Tag Cloud';
+    public $selection_parameters = [];
 
     public function init() {
         parent::init();
+        $this->selection_parameters = [
+           'Theme' => $this->Theme,  
+           'title' => $this->title,  
+        ];
     }
 
     public function run() {

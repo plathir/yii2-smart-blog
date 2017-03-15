@@ -12,9 +12,15 @@ class MostVisitedPosts extends Widget {
     public $posts_num = 10;
     public $Theme = 'default';
     public $title = 'Most Visited Posts';
+    public $selection_parameters = [];
 
     public function init() {
         parent::init();
+        $this->selection_parameters  = [
+          'post_num' => $this->posts_num,  
+          'Theme' => $this->Theme,  
+          'title' => $this->title,  
+        ];
     }
 
     public function run() {

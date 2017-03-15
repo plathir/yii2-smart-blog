@@ -8,11 +8,15 @@ use justinvoelker\tagging\TaggingQuery;
 class TagCloudWidget extends Widget {
 
     public $tags;
-    public $callbackUrl = 'posts/tags';
+    public $callbackUrl = '/blog/posts/tags';
     public $title = 'Tag Cloud';
+    public $selection_parameters = [];
 
     public function init() {
         parent::init();
+        $this->selection_parameters = [
+            'title' => $this->title
+        ];
     }
 
     public function run() {

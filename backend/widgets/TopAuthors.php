@@ -12,9 +12,15 @@ class TopAuthors extends Widget {
     public $authors_num = 10;
     public $Theme = false;
     public $title = 'Top Authors';
+    public $selection_parameters = [];
 
     public function init() {
         parent::init();
+        $this->selection_parameters = [
+          'authors_num' => $this->authors_num,  
+          'Theme' => $this->Theme,  
+          'title' => $this->title,  
+        ];
     }
 
     public function run() {

@@ -11,9 +11,16 @@ class StaticPagesWidget extends Widget {
     public $displayTitle = false;
     public $displayIntroText = false;
     public $title = '';
+    public $selection_parameters = [];
 
     public function init() {
         parent::init();
+        $this->selection_parameters = [
+          'page_id' => '',
+          'displayTitle' => $this->displayTitle,
+          'displayIntroText' => $this->displayIntroText,
+          'title' => $this->title,
+        ];
     }
 
     public function run() {

@@ -11,9 +11,15 @@ class TopRated extends Widget {
     public $posts_num = 10;
     public $Theme = 'default';
     public $title = 'Top Rated';
+    public $selection_parameters = [];
 
     public function init() {
         parent::init();
+        $this->selection_parameters = [
+            'posts_num' => $this->posts_num,
+            'Theme' => $this->Theme,
+            'title' => $this->title,
+        ];
     }
 
     public function run() {

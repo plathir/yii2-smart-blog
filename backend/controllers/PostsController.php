@@ -67,7 +67,8 @@ class PostsController extends Controller {
                             'filemanager',
                             'userposts',
                             'postrate',
-                            'tagsrebuild'
+                            'tagsrebuild',
+                            'category',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -325,6 +326,12 @@ class PostsController extends Controller {
         } else {
             throw new NotFoundHttpException(Yii::t('blog', 'The requested page does not exist.'));
         }
+    }
+
+    public function actionCategory($categories) {
+        $params = explode('/', $categories);
+        print_r($params);
+        die();
     }
 
 }

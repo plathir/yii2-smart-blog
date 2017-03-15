@@ -12,9 +12,14 @@ class LatestPosts extends Widget {
     public $latest_num = 10;
     public $Theme = 'default';
     public $title = 'Latest Posts';
+    public $selection_parameters = [];
 
     public function init() {
         parent::init();
+        $this->selection_parameters = [
+          'latest_num' => 10,  
+          'Theme' => 'default',  
+        ];
     }
 
     public function run() {

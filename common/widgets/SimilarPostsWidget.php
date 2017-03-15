@@ -8,6 +8,7 @@ use yii\base\InvalidConfigException;
 class SimilarPostsWidget extends Widget {
 
     public $postID;
+    public $selection_parameters = [];
 
     public function init() {
         parent::init();
@@ -15,6 +16,11 @@ class SimilarPostsWidget extends Widget {
         if ($this->postID === null) {
             throw new InvalidConfigException('PostID cannot be null !');
         }
+        
+        $this->selection_parameters = [
+            'postID' => ''
+        ];
+        
     }
 
     public function run() {
