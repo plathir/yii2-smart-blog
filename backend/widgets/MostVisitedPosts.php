@@ -17,7 +17,7 @@ class MostVisitedPosts extends Widget {
     public function init() {
         parent::init();
         $this->selection_parameters  = [
-          'post_num' => $this->posts_num,  
+          'posts_num' => $this->posts_num,  
           'Theme' => $this->Theme,  
           'title' => $this->title,  
         ];
