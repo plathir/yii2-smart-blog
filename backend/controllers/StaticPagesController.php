@@ -22,6 +22,7 @@ class StaticPagesController extends Controller {
 
     public function __construct($id, $module) {
         parent::__construct($id, $module);
+                $this->layout = "main";
     }
 
     public function behaviors() {

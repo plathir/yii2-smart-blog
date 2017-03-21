@@ -15,6 +15,7 @@ class CategorytreeController extends NodeController {
 
     public function __construct($id, $module) {
         parent::__construct($id, $module);
+                $this->layout = "main";
     }
 
     public function behaviors() {

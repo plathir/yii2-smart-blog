@@ -24,8 +24,12 @@ class Module extends \yii\base\Module {
     public $KeyFolder = 'id';
     public $userModel = '';
     public $userNameField = '';
+    public $Theme = 'smart';
 
     public function init() {
+        $path = Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/themes/' . $this->Theme . '/views';
+        $this->setViewPath($path);
+
         $this->controllerMap = [
             'elfinder' => [
                 'class' => 'mihaildev\elfinder\Controller',
