@@ -63,54 +63,10 @@ if (\Yii::$app->view->theme) {
         <?= Html::a(Yii::t('app', '<i class="fa fa-list"></i>Categories'), ['/blog/category'], ['class' => 'btn btn-app']) ?>
         <?= Html::a(Yii::t('app', '<i class="fa fa-th-list"></i>Posts Preview'), ['/blog/posts/list'], ['class' => 'btn btn-app']) ?>
         <?= Html::a(Yii::t('app', '<i class="fa fa-tags"></i>Tags'), ['/blog/tags'], ['class' => 'btn btn-app']) ?>
-        <?php
-        echo ButtonDropdown::widget([
-            'label' => 'Action',
-            'dropdown' => [
-                'items' => [
-                    ['label' => 'DropdownA', 'url' => '/'],
-                    ['label' => 'DropdownB', 'url' => '#'],
-                ],
-            ],
-        ]);
-        ?>
     </div>
 </div>
 <?php
 ?>
-<section class="sidebar">
-    <li class="treeview">
-        <a href="#">
-            <i class="fa fa-folder"></i>  Multilevel Menu
-            <i class="fa fa-angle-left pull-right"></i>
-        </a>                            
-
-        <ul class="treeview-menu collapsed">
-            <li class="treeview">
-                <a href="#">
-                    First level
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-
-                <ul class="treeview-menu">
-                    <li class="treeview">
-                        <a href="#">
-                            Second level
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </a>
-
-                        <ul class="treeview-menu">
-                            <li>
-                                <a href="#">Third level</a>
-                            </li>
-                        </ul>
-                    </li><!-- /.third level-->
-                </ul>
-            </li><!-- /.second level-->
-        </ul>
-    </li>
-
-</section>
 
 <?= $content ?>
 
