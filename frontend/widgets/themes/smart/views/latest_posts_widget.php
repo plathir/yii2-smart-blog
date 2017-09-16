@@ -37,28 +37,9 @@ use yii\web\View;
             </div>
 
             <?php
-//            $rowCount++;
-//            if ($rowCount % $numOfCols == 0)
-//                echo '</div><div class="row">';
         }
         ?>
     </div>
 </div>
 
 <?php
-//$this->registerJs(
-//        "$(document).ready(function () {
-//        $(window).on('resize', function () {
-//            var winWidth = $(window).width();
-//            if (winWidth < 768) {
-//                console.log('Window Width: ' + winWidth + 'class used: col-xs');
-//            } else if (winWidth <= 991) {
-//                console.log('Window Width: ' + winWidth + 'class used: col-sm');
-//            } else if (winWidth <= 1199) {
-//                console.log('Window Width: ' + winWidth + 'class used: col-md');
-//            } else {
-//                console.log('Window Width: ' + winWidth + 'class used: col-lg');
-//            }
-//        });
-//    });", View::POS_READY
-//);

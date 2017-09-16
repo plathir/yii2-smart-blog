@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace plathir\smartblog\common\models;
+namespace plathir\smartblog\backend\models;
 
 use yii\helpers\Url;
 /**
@@ -17,7 +17,7 @@ use yii\helpers\Url;
 use vintage\search\interfaces\SearchInterface;
 use yii\db\ActiveRecord;
 
-class PostsGlobalSearch extends \plathir\smartblog\common\models\Posts implements SearchInterface {
+class PostsGlobalSearch extends \plathir\smartblog\backend\models\Posts implements SearchInterface {
 
     /**
      * @inheritdoc
@@ -53,6 +53,10 @@ class PostsGlobalSearch extends \plathir\smartblog\common\models\Posts implement
 
     public function getFilter() {
         return ['and', ['publish' => true]];
+    }
+
+    public function getModuleName() {
+        return 'Posts';
     }
 
 }
