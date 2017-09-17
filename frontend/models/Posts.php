@@ -7,6 +7,7 @@ use plathir\upload\behaviors\MultipleUploadBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\behaviors\SluggableBehavior;
+use Yii;
 
 class Posts extends \plathir\smartblog\common\models\Posts {
 
@@ -69,6 +70,14 @@ class Posts extends \plathir\smartblog\common\models\Posts {
             ],                   
                     
         ];
+    }
+    
+        function getImageUrl() {
+        if ( $this->full_image) {
+            return Yii::getAlias($this->module->ImagePathPreview) . '/' . $this->id . '/'. $this->full_image;
+        } else {
+//            return Yii::getAlias($this->module->ImagePathPreview) . '/nophoto.png'. $this->image;
+        }
     }
 
 }

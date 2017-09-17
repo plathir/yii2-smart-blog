@@ -22,6 +22,7 @@ class PostsController extends Controller {
 
     public function __construct($id, $module) {
         parent::__construct($id, $module);
+       $this->layout = "main";
     }
 
     public function behaviors() {
@@ -111,6 +112,13 @@ class PostsController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
+        $posts = Posts::find()->all();
+        return $this->render('index', [
+                    'posts' => $posts,
+        ]);
+        
+    }
+    public function actionIndex1() {
 
         $searchModel = new Posts_s();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -120,6 +128,7 @@ class PostsController extends Controller {
         ]);
     }
 
+    
     public function actionFilemanager() {
 
         return $this->render('filemanager');

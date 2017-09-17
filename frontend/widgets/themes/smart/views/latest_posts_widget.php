@@ -4,12 +4,6 @@ use yii\helpers\Html;
 use yii\web\View;
 ?>
 <div class="body-content">
-    <?php
-    $numOfCols = 4;
-    $rowCount = 0;
-    $bootstrapColWidth = 12 / $numOfCols;
-    $test = 0.
-    ?>
     <div class="row-fluid   ">
         <?php foreach ($posts as $post) { ?>
             <div class="box box-info"style="min-height:350px; max-height: 350px">
@@ -41,5 +35,3 @@ use yii\web\View;
         ?>
     </div>
 </div>
-
-<?php
