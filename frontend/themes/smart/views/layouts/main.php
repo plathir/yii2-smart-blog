@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use plathir\widgets\common\helpers\PositionHelper;
+
 $positionHelper = new PositionHelper();
 ?>
 
@@ -14,16 +15,16 @@ if (\Yii::$app->view->theme) {
 }
 ?>
 
-<?php $this->beginContent($layoutFile); ?>
-        <div class="col-lg-9">
-            <?= $content ?>
+    <?php $this->beginContent($layoutFile); ?>
+<div class="col-lg-9 col-md-9 col-sm-8">
+<?= $content ?>
 
-        </div>
+</div>
 
-        <div class="col-lg-3">
-            <?= $positionHelper->LoadPosition('fe_blog_dashboard_right'); ?>
-            
-        </div>
+<div class="col-lg-3 col-md-3 col-sm-4  hidden-xs">
+<?= $positionHelper->LoadPosition('fe_blog_dashboard_right'); ?>
+
+</div>
 
 
 <?php $this->endContent(); ?>

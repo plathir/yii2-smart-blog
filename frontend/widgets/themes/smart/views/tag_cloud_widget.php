@@ -4,8 +4,8 @@ use plathir\smartblog\common\widgets\TagCloudWidget;
 use yii\helpers\Html;
 ?>
 
-<div class="box box-info">
-    <div class="box-header with-border">
+<div class="box box-widget">
+    <div class="box-header with-border bg-aqua-active">
         <h3 class="box-title"><?= 'Tag Cloud'; ?></h3>
         <div class ="pull-right">
             

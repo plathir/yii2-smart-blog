@@ -11,7 +11,7 @@ use \plathir\smartblog\common\widgets\GalleryWidget;
 /* @var $this yii\web\View */
 /* @var $model app\models\Posts */
 
-$this->title = $model->id;
+$this->title = $model->description;
 $this->params['breadcrumbs'][] = ['label' => 'Posts', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

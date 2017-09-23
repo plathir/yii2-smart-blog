@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="body-content">
-    <div class="row-fluid   ">
+    <div class="row-fluid">
         <?php foreach ($posts as $post) { ?>
             <div class="box box-info"style="min-height:350px; max-height: 350px">
                 <div class="box-header with-border">

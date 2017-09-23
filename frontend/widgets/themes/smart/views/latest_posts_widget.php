@@ -5,8 +5,26 @@ use yii\web\View;
 ?>
 <div class="body-content">
     <div class="row-fluid   ">
+        <?php
+//            $data = [
+//        ['id' => 1, 'name' => 'name 1'],
+//        ['id' => 2, 'name' => 'name 2'],
+//        ['id' => 100, 'name' => 'name 100'],
+//    ];
+//
+//    $provider = new ArrayDataProvider([
+//        'allModels' => $data,
+//        'pagination' => [
+//            'pageSize' => 10,
+//        ],
+//        'sort' => [
+//            'attributes' => ['id', 'name'],
+//        ],
+//    ]);
+        ?>
+        
         <?php foreach ($posts as $post) { ?>
-            <div class="box box-info"style="min-height:350px; max-height: 350px">
+            <div class="box box-widget"style="min-height:350px; max-height: 350px">
                 <div class="box-header with-border">
                     <h3 class="box-title"><?= Html::a($post->description, ['/blog/posts/view', 'id' => $post->id]) ?></h3>
                     <div class ="pull-right">

@@ -3,11 +3,11 @@
 use yii\helpers\Html;
 ?>
 
-<div class="box box-info">
-    <div class="box-header with-border">
+<div class="box box-widget">
+    <div class="box-header with-border bg-aqua-active">
         <h3 class="box-title"><?= 'Most Visited posts'; ?></h3>
         <div class ="pull-right">
-            
+
         </div>
 
     </div><!-- /.box-header --> 
