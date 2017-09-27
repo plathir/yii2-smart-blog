@@ -18,7 +18,7 @@
         "kartik-v/yii2-widgets": "*",
         "2amigos/yii2-selectize-widget": "~1.0",
         "2amigos/yii2-gallery-widget": "~1.0",
-        "kartik-v/yii2-datecontrol": "dev-master",
+        "kartik-v/yii2-datecontrol": "@dev",
         "justinvoelker/yii2-tagging": "*",
         "plathir/yii2-smart-cropper": "@dev",
         "kartik-v/yii2-tree-manager": "@dev"
