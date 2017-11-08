@@ -32,7 +32,7 @@ class Asset extends AssetBundle {
      */
     public $depends = [
         'yii\web\JqueryAsset',
-        'yii\jui\JuiAsset',
+      //  'yii\jui\JuiAsset',
        // 'justinvoelker\tagging\TaggingAsset',
     ];
 
