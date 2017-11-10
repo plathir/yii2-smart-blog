@@ -4,14 +4,9 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\widgets\SwitchInput;
 use kartik\datecontrol\DateControl;
-use yii\helpers\Url;
-use plathir\cropper\Widget as NewWidget;
-use plathir\upload\Widget as UplWidget;
-use dosamigos\selectize\SelectizeTextInput;
-use kartik\tree\TreeViewInput;
-use plathir\smartblog\backend\models\Categorytree as Category;
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\ElFinder;
+use lav45\aceEditor\AceEditorWidget;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Posts */
@@ -36,11 +31,16 @@ use mihaildev\elfinder\ElFinder;
                 <?php echo $form->field($model, 'code_editor')->widget(SwitchInput::classname(), []); ?>
                 <?php
                 if ($model->code_editor) {
-//                    echo $form->field($model, 'full_text')
-//                            ->widget(bl\ace\AceWidget::className(), [
-//                                'language' => 'javascript'
-//                    ]);
-                    echo $form->field($model, 'full_text')->textarea(['rows' => 15]);
+                    echo $form->field($model, 'full_text')->widget(AceEditorWidget::className(), [
+                        'theme' => 'idle_fingers',
+                        'mode' => 'html',
+                        'showPrintMargin' => false,
+                        'fontSize' => 14,
+                        'height' => 300,
+                        'options' => [
+                            'style' => 'border: 1px solid #ccc; border-radius: 4px;'
+                        ]
+                    ]);
                 } else {
                     echo $form->field($model, 'full_text')->widget(CKEditor::className(), [
                         'editorOptions' => ElFinder::ckeditorOptions('blog/elfinder', [/* Some CKEditor Options */
