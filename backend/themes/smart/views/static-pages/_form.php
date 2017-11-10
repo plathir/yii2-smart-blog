@@ -28,37 +28,26 @@ use mihaildev\elfinder\ElFinder;
 
     </div><!-- /.box-header -->
     <div class="box-body">
-        <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdStaticPages' ]]); ?>
+        <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdStaticPages']]); ?>
         <div class="row">
             <div class="col-lg-9 col-md-9 col-sm-9">
                 <?= $form->field($model, 'description')->textInput(['maxlength' => 255]) ?>
-                <?=  $form->field($model, 'intro_text')->textarea(['rows' => 6]) ?>        
-
+                <?= $form->field($model, 'intro_text')->textarea(['rows' => 6]) ?>        
+                <?php echo $form->field($model, 'code_editor')->widget(SwitchInput::classname(), []); ?>
                 <?php
-//
-//                use kartik\sortinput\SortableInput;
-//
-//echo SortableInput::widget([
-//                    'model' => $model,
-//                    'attribute' => 'intro_text',
-//                    'hideInput' => false,
-//                    'delimiter' => ',',
-//                    'items' => [
-//                        1 => ['content' => 'Item # 1'],
-//                        2 => ['content' => 'Item # 2'],
-//                        3 => ['content' => 'Item # 3'],
-//                        4 => ['content' => 'Item # 4', 'disabled' => true],
-//                    ]
-//                ]);
+                if ($model->code_editor) {
+//                    echo $form->field($model, 'full_text')
+//                            ->widget(bl\ace\AceWidget::className(), [
+//                                'language' => 'javascript'
+//                    ]);
+                    echo $form->field($model, 'full_text')->textarea(['rows' => 15]);
+                } else {
+                    echo $form->field($model, 'full_text')->widget(CKEditor::className(), [
+                        'editorOptions' => ElFinder::ckeditorOptions('blog/elfinder', [/* Some CKEditor Options */
+                        ]),
+                    ]);
+                }
                 ?>
-
-                <?php
-                echo $form->field($model, 'full_text')->widget(CKEditor::className(), [
-                    'editorOptions' => ElFinder::ckeditorOptions('blog/elfinder', [/* Some CKEditor Options */
-                    ]),
-                ]);
-                ?>
-
 
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3">

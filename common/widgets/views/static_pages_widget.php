@@ -1,6 +1,9 @@
 <?php
-
-echo $model->description . '<br>';
-echo $model->intro_text . '<br>';
-echo $model->full_text . '<br>';
+if ($widget->displayTitle) {
+    echo $model->description . '<br>';
+}
+if ($widget->displayIntroText) {
+    echo $model->intro_text . '<br>';
+}
+echo yii\helpers\HtmlPurifier::process($model->full_text ) . '<br>';
 
