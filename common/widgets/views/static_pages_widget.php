@@ -5,5 +5,5 @@ if ($widget->displayTitle) {
 if ($widget->displayIntroText) {
     echo $model->intro_text . '<br>';
 }
-echo yii\helpers\HtmlPurifier::process($model->full_text ) . '<br>';
+echo yii\helpers\HtmlPurifier::process($model->full_text );
 

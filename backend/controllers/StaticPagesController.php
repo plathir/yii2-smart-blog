@@ -130,7 +130,7 @@ class StaticPagesController extends Controller {
         $model->user_last_change = \Yii::$app->user->getId();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $model->full_text = yii\helpers\HtmlPurifier::process($model->full_text);
+            $model->full_text = \yii\helpers\HtmlPurifier::process($model->full_text);
             $model->update();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

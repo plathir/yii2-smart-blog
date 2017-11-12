@@ -4,6 +4,7 @@ namespace plathir\smartblog\common\widgets;
 
 use yii\base\Widget;
 use plathir\smartblog\common\models\StaticPages;
+use yii\web\NotFoundHttpException;
 
 class StaticPagesWidget extends Widget {
 
@@ -18,7 +19,7 @@ class StaticPagesWidget extends Widget {
         $this->selection_parameters = [
             'page_id' => '',
             'displayTitle' => $this->displayTitle == null ? false : true,
-            'displayIntroText' => $this->displayIntroText == null ? false : true ,
+            'displayIntroText' => $this->displayIntroText == null ? false : true,
             'title' => $this->title,
         ];
     }
@@ -26,11 +27,13 @@ class StaticPagesWidget extends Widget {
     public function run() {
         $this->registerClientAssets();
         $page = $this->findModel($this->page_id);
-        if ($page->publish) {
-            return $this->render('static_pages_widget', [
-                        'widget' => $this,
-                        'model' => $page
-            ]);
+        if ($page) {
+            if ($page->publish) {
+                return $this->render('static_pages_widget', [
+                            'widget' => $this,
+                            'model' => $page
+                ]);
+            }
         }
     }
 
@@ -43,7 +46,8 @@ class StaticPagesWidget extends Widget {
         if (($model = StaticPages::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            return null;
+            //throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
 
