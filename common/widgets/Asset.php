@@ -31,7 +31,7 @@ class Asset extends AssetBundle {
      * @inheritdoc
      */
     public $depends = [
-        'yii\web\JqueryAsset',
+   //     'yii\web\JqueryAsset',
       //  'yii\jui\JuiAsset',
        // 'justinvoelker\tagging\TaggingAsset',
     ];
