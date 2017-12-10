@@ -25,6 +25,7 @@ class TopAuthors extends Widget {
 
     public function run() {
         $this->registerClientAssets();
+        $this->registerTranslations();
         $helper = new \plathir\smartblog\helpers\PostHelper();
         $topAuthors = $helper->getTopAuthors($this->authors_num);
 
@@ -43,4 +44,13 @@ class TopAuthors extends Widget {
         return Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/widgets/themes/' . $this->Theme . '/views';
     }
 
+    public function registerTranslations() {
+        /*         * This registers translations for the widgets module * */
+        Yii::$app->i18n->translations['blog'] = [
+            'class' => 'yii\i18n\PhpMessageSource',
+            'sourceLanguage' => 'en',
+            'basePath' => Yii::getAlias('@vendor/plathir/yii2-smart-blog/messages'),
+        ];
+    }   
+    
 }

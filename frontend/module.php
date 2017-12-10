@@ -10,17 +10,14 @@ class Module extends \yii\base\Module {
     public $controllerNamespace = 'plathir\smartblog\frontend\controllers';
     public $mediaUrl = '';
     public $mediaPath = '';
-    
     public $ImagePath = '';
     public $ImageTempPath = '';
     public $ImagePathPreview = '';
     public $ImageTempPathPreview = '';
-    
     public $CategoryImagePath = '';
     public $CategoryImageTempPath = '';
     public $CategoryImagePathPreview = '';
     public $CategoryImageTempPathPreview = '';
-    
     public $KeyFolder = 'id';
     public $userModel = '';
     public $userNameField = '';
@@ -80,5 +77,5 @@ class Module extends \yii\base\Module {
             'basePath' => Yii::getAlias('@vendor/plathir/yii2-smart-blog/messages'),
         ];
     }
-    
+
 }

@@ -42,13 +42,13 @@ class PostsController extends Controller {
                 'class' => \yii\filters\AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['list', 'view'],
+                        'actions' => ['list', 'view', 'index'],
                         'allow' => true,
                     ],
                     [
                         'actions' => ['create',
                             'update',
-                            'index',
+//                            'index',
                             'view',
                             'delete',
                             'get',

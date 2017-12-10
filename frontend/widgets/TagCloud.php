@@ -21,6 +21,7 @@ class TagCloud extends Widget {
 
     public function run() {
         $this->registerClientAssets();
+        $this->registerTranslations();
         return $this->render('tag_cloud_widget',[
             'widget' => $this
         ]);
@@ -32,8 +33,15 @@ class TagCloud extends Widget {
     }
 
     public function getViewPath() {
-
         return Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/widgets/themes/' . $this->Theme . '/views';
     }
 
+    public function registerTranslations() {
+        /*         * This registers translations for the widgets module * */
+        Yii::$app->i18n->translations['blog'] = [
+            'class' => 'yii\i18n\PhpMessageSource',
+            'sourceLanguage' => 'en',
+            'basePath' => Yii::getAlias('@vendor/plathir/yii2-smart-blog/messages'),
+        ];
+    }    
 }

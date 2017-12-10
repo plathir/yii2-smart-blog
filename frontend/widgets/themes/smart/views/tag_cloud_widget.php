@@ -4,20 +4,14 @@ use plathir\smartblog\common\widgets\TagCloudWidget;
 use yii\helpers\Html;
 ?>
 
-<div class="box box-widget">
-    <div class="box-header with-border bg-aqua-active">
-        <h3 class="box-title"><?= 'Tag Cloud'; ?></h3>
-        <div class ="pull-right">
-            
-        </div>
-
-    </div><!-- /.box-header --> 
-    <div class="box-body" style="min-height:250px; max-height:250px; overflow:auto;">
-<?=
-TagCloudWidget::widget([
-    'title' => ''
-]);
-?>                  
+<div class="panel panel-default hidden-xs hidden-sm">
+    <div class="panel-heading"><?= Yii::t('blog', 'Tag Cloud') ?></div>
+    <div class="panel-body">  
+        <?=
+        TagCloudWidget::widget([
+            'title' => ''
+        ]);
+        ?>                  
     </div>
 </div>
 

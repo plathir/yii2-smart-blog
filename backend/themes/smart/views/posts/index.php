@@ -93,6 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'attribute' => 'user_created',
                                 'value' => function($model, $key, $index, $widget) {
                                     $userModel = new $model->module->userModel();
+                                //    return $model->user_created;
                                     return $userModel::findOne(['id' => $model->user_created])->{$model->module->userNameField};
                                 },
                                         'format' => 'html',
