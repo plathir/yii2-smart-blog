@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+
 $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->intro_image;
 ?>
 
@@ -16,8 +17,8 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
             <div class="panel-heading-details pull-right"><i class="fa fa-fw fa-clock-o"></i><?= Yii::$app->formatter->asDatetime($model->created_at) ?></div></div>
     </div>
     <div class="panel-body">   
-        <div class="row">
-            <div class="col-xs-12 col-sm-5 col-lg-4">
+        <div class="row  blog-post-area">
+            <div class="col-xs-12 col-sm-5 col-lg-4 post-image-box">
                 <img class="img-responsive" src="<?= $imageURL; ?>">
             </div>
             <div class="blog-intro-text">
