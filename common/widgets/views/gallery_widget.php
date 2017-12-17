@@ -4,7 +4,7 @@ use yii\imagine\Image;
 
 $galleryArray = json_decode($widget->galleryItems);
 if ($galleryArray) {
-    echo '<h3>' . $widget->title . '</h3>';
+    echo '<strong>' . $widget->title . '</strong>';
 
 
     $items = '';
