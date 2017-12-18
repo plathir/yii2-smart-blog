@@ -10,6 +10,7 @@ use plathir\smartblog\common\models\PostsRating;
 class RatingWidget extends Widget {
 
     public $post_id;
+    public $onlyDisplay = false;
 
     public function init() {
         parent::init();

@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use plathir\smartblog\common\widgets\RatingWidget;
 
 $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->intro_image;
 ?>
@@ -9,19 +10,24 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
     <div class="panel-heading">
         <div class="panel-heading-title"><?= Html::a($model->description, ['/blog/posts/view', 'id' => $model->id]) ?>
             &nbsp;
-            <i class="fa fa-star" aria-hidden="true"></i>
-            <i class="fa fa-star" aria-hidden="true"></i>
-            <i class="fa fa-star" aria-hidden="true"></i>
-            <i class="fa fa-star" aria-hidden="true"></i>
-            <i class="fa fa-star" aria-hidden="true"></i>                                            
+            <div class="stars">
+                <?=
+                RatingWidget::widget([
+                    'post_id' => $model->id,
+                    'onlyDisplay' => true,
+                ]);
+                ?> 
+            </div>
+
             <div class="panel-heading-details pull-right"><i class="fa fa-fw fa-clock-o"></i><?= Yii::$app->formatter->asDatetime($model->created_at) ?>
-               <?php if (\yii::$app->user->can('BlogUpdatePost')) { ?>
-                &nbsp;
-                <div class="pull-right btn btn-success btn-xs"><i class="fa fa-edit"></i></div>
-                <?php
-            }
-            ?>
-            </div></div>
+                <?php if (\yii::$app->user->can('BlogUpdatePost')) { ?>
+                    &nbsp;
+                    <div class="pull-right btn btn-success btn-xs"><i class="fa fa-edit"></i></div>
+                    <?php
+                }
+                ?>
+            </div>
+        </div>
     </div>
     <div class="panel-body">   
         <div class="row  blog-post-area">

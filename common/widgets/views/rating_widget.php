@@ -12,45 +12,63 @@ use yii\widgets\Pjax;
 ?>
 
 <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col xs-12">
+    <?php if (!$widget->onlyDisplay) { ?> 
+
         <?php if ($ratemodel->last_ip != Yii::$app->request->getUserIP()) {
             ?>
             <?php Pjax::begin(['id' => 'post-rating', 'enablePushState' => false]); ?>
             <?php
-            $form = ActiveForm::begin([ 'options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdPostrate', 'data-pjax' => true, 'method' => 'post']]);
+            $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdPostrate', 'data-pjax' => true, 'method' => 'post']]);
             ?>
-            <?=
-            $form->field($ratemodel, 'temprate')->widget(StarRating::classname(), [
-                'pluginOptions' => [
-                    'defaultCaption' => 'test',
-                    'min' => 0,
-                    'max' => 5,
-                    'step' => 1,
-                    'size' => 'xs']]);
-            ?>
-
-
-            <div class="form-group">
-                <?= Html::submitButton('<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Rate this Post', ['class' =>  'btn btn-sm btn-success']) ?>
-            </div>
-
+            <div class="form-inline">
+                <?=
+                $form->field($ratemodel, 'temprate')->widget(StarRating::classname(), [
+                    'pluginOptions' => [
+                        'defaultCaption' => 'test',
+                        'min' => 0,
+                        'max' => 5,
+                        'step' => 1,
+                        'showClear' => false,
+                        'theme' => 'krajee-fa',
+                 //       'filledStar' => '<i class="glyphicon glyphicon-heart"></i>',
+                 //       'emptyStar' => '<i class="glyphicon glyphicon-heart-empty"></i>',
+                        'size' => 'xs']])->label(false);
+                ?>
+                <?= Html::submitButton('<i class="fa fa-save" aria-hidden="true"></i> Rate', ['class' => 'btn btn-sm btn-primary']) ?>
+            </div>        
             <?php ActiveForm::end(); ?>        
             <?php Pjax::end(); ?>        
 
-            <?php
-        } else {
-            echo StarRating::widget([
-                'name' => 'post_rating',
-                'value' => $ratemodel->temprate,
-                'pluginOptions' => [
-                    'displayOnly' => true,
+        <?php } else {
+            ?>
+            <div class="inline">
+                <?php
+                echo StarRating::widget([
+                    'name' => 'post_rating',
+                    'value' => $ratemodel->temprate,
+                    'pluginOptions' => [
+                        'displayOnly' => true,
 //                    'size' => '10px']
-                    'size' => 'xs']
-                                ]);
-            echo '<span class="label label-info">already rate this post !</span>';
+                        'theme' => 'krajee-fa',
+                        'size' => 'xs']
+                ]);
+                //echo '<span class="label label-info">already rate this post !</span>';
+                ?>
+            </div>
+            <?php
         }
-        ?>
+    } else {
+        echo StarRating::widget([
+            'name' => 'post_rating',
+            'value' => $ratemodel->temprate,
+            'pluginOptions' => [
+                'displayOnly' => true,
+                'theme' => 'krajee-fa',
+                'size' => 'xs']
+        ]);
+    }
+    ?>
 
-    </div>
+
 
 </div>
