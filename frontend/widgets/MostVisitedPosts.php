@@ -14,10 +14,10 @@ class MostVisitedPosts extends Widget {
 
     public function init() {
         parent::init();
-        $this->selection_parameters  = [
-          'posts_num' => $this->posts_num,  
-          'Theme' => $this->Theme,  
-          'title' => $this->title,  
+        $this->selection_parameters = [
+            'posts_num' => $this->posts_num,
+            'Theme' => $this->Theme,
+            'title' => $this->title,
         ];
     }
 
@@ -42,7 +42,7 @@ class MostVisitedPosts extends Widget {
         return Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/widgets/themes/' . $this->Theme . '/views';
     }
 
-        public function registerTranslations() {
+    public function registerTranslations() {
         /*         * This registers translations for the widgets module * */
         Yii::$app->i18n->translations['blog'] = [
             'class' => 'yii\i18n\PhpMessageSource',

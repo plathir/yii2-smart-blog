@@ -14,6 +14,7 @@ class LatestPosts extends Widget {
     public $title = 'Latest Posts';
     public $selection_parameters = [];
     public $typeView = 'media';
+    public $html = 'This is a test';
 
     public function init() {
         parent::init();
@@ -42,8 +43,11 @@ class LatestPosts extends Widget {
     }
 
     public function getViewPath() {
-
         return Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/widgets/themes/' . $this->Theme . '/views';
+    }
+
+    public function getFrontEndPath() {
+        return Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/themes/' . $this->Theme . '/views';
     }
 
     public function registerTranslations() {

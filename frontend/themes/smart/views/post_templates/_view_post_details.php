@@ -5,6 +5,7 @@ use \plathir\user\common\helpers\UserHelper;
 use plathir\smartblog\common\widgets\TagsWidget;
 use \plathir\smartblog\common\widgets\GalleryWidget;
 use plathir\upload\ListFilesWidget;
+use plathir\smartblog\common\widgets\RatingWidget;
 
 $userHelper = new UserHelper();
 
@@ -22,8 +23,14 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <i class="fa fa-star-o" aria-hidden="true"></i>                                            
             </div>   
+            <?=
+            RatingWidget::widget([
+                'post_id' => $model->id,
+            ]);
+            ?>
+
             <?php if (\yii::$app->user->can('BlogUpdatePost')) { ?>
-                <div class="pull-right btn btn-success"><i class="fa fa-edit"></i> Edit</div>
+                <div class="pull-right btn btn-success btn-sm"><i class="fa fa-edit"></i> Edit</div>
                 <?php
             }
             ?>
@@ -44,33 +51,39 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
             </div>
 
             <div class="blog-intro-text">
-                <?= $model->full_text ?> 
+<?= $model->full_text ?> 
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <?=
-                GalleryWidget::widget([
-                    'galleryItems' => $model->gallery,
-                    'imagePath' => $model->module->ImagePath . '/' . $model->id,
-                    'previewUrl' => $model->module->ImagePathPreview . '/' . $model->id,
-                ]);
+                <?php
+                if ($model->gallery) {
+                    echo GalleryWidget::widget([
+                        'galleryItems' => $model->gallery,
+                        'imagePath' => $model->module->ImagePath . '/' . $model->id,
+                        'previewUrl' => $model->module->ImagePathPreview . '/' . $model->id,
+                    ]);
+                }
                 ?>
-                <br>
-                <strong><?= Yii::t('blog', 'Attachments :') ?> </strong><br>
-                <?=
-                ListFilesWidget::widget([
-                    'model' => $model,
-                    'previewUrl' => $model->module->ImagePathPreview,
-                    'KeyFolder' => $model->id,
-                    'attribute' => 'attachments',
-                ]);
-                ?>
-                <br>
-                <?=
-                TagsWidget::widget([
-                    'tags' => $model->tags,
-                ]);
-                ?>
+<?php if ($model->attachments) { ?>
+                    <br>
+                    <strong><?= Yii::t('blog', 'Attachments :') ?> </strong><br>
+                    <?=
+                    ListFilesWidget::widget([
+                        'model' => $model,
+                        'previewUrl' => $model->module->ImagePathPreview,
+                        'KeyFolder' => $model->id,
+                        'attribute' => 'attachments',
+                    ]);
+                    ?>
+                    <br>
+                <?php } ?>
+                <?php if ($model->tags) { ?>
+                    <?=
+                    TagsWidget::widget([
+                        'tags' => $model->tags,
+                    ]);
+                    ?>
+<?php } ?>
             </div>
         </div>
 

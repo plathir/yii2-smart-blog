@@ -8,14 +8,14 @@ use yii\widgets\ListView;
 <div class="body-content">
     <div class="row-fluid">
         <?php
-        $view = '/post_templates/_view_' . $widget->typeView . '_list';
-
+        $view = $widget->FrontEndPath . '/post_templates/_view_' . $widget->typeView . '_list.php';
         $provider = new ArrayDataProvider([
             'allModels' => $posts,
 //            'pagination' => [
 //                'pageSize' => 3,
 //            ],
         ]);
+        
         if ($widget->typeView == 'media') {
             $layout = '<div class="blog-sidebar-right">
                 <div class="container">
@@ -36,8 +36,10 @@ use yii\widgets\ListView;
         echo
         ListView::widget([
             'dataProvider' => $provider,
-          //  'itemOptions' => ['class' => 'media'],
-            'itemView' => $view,
+            //  'itemOptions' => ['class' => 'media'],
+            'itemView' => function ($model, $key, $index, $widget) use ($view) {
+                require($view);
+            },
             'layout' => $layout,
             'summary' => '',
         ]);

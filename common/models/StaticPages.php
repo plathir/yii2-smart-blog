@@ -3,7 +3,6 @@
 namespace plathir\smartblog\common\models;
 
 use Yii;
-use plathir\smartblog\backend\models\PostsRating;
 
 /**
  * This is the model class for table "smartblog_posts".

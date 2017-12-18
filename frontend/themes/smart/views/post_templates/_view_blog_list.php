@@ -14,7 +14,14 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
             <i class="fa fa-star" aria-hidden="true"></i>
             <i class="fa fa-star" aria-hidden="true"></i>
             <i class="fa fa-star" aria-hidden="true"></i>                                            
-            <div class="panel-heading-details pull-right"><i class="fa fa-fw fa-clock-o"></i><?= Yii::$app->formatter->asDatetime($model->created_at) ?></div></div>
+            <div class="panel-heading-details pull-right"><i class="fa fa-fw fa-clock-o"></i><?= Yii::$app->formatter->asDatetime($model->created_at) ?>
+               <?php if (\yii::$app->user->can('BlogUpdatePost')) { ?>
+                &nbsp;
+                <div class="pull-right btn btn-success btn-xs"><i class="fa fa-edit"></i></div>
+                <?php
+            }
+            ?>
+            </div></div>
     </div>
     <div class="panel-body">   
         <div class="row  blog-post-area">
