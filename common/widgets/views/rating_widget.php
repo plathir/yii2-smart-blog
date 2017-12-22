@@ -16,28 +16,35 @@ use yii\widgets\Pjax;
 
         <?php if ($ratemodel->last_ip != Yii::$app->request->getUserIP()) {
             ?>
-            <?php Pjax::begin(['id' => 'post-rating', 'enablePushState' => false]); ?>
-            <?php
-            $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdPostrate', 'data-pjax' => true, 'method' => 'post']]);
-            ?>
-            <div class="form-inline">
-                <?=
-                $form->field($ratemodel, 'temprate')->widget(StarRating::classname(), [
-                    'pluginOptions' => [
-                        'defaultCaption' => 'test',
-                        'min' => 0,
-                        'max' => 5,
-                        'step' => 1,
-                        'showClear' => false,
-                        'theme' => 'krajee-fa',
-                 //       'filledStar' => '<i class="glyphicon glyphicon-heart"></i>',
-                 //       'emptyStar' => '<i class="glyphicon glyphicon-heart-empty"></i>',
-                        'size' => 'xs']])->label(false);
-                ?>
-                <?= Html::submitButton('<i class="fa fa-save" aria-hidden="true"></i> Rate', ['class' => 'btn btn-sm btn-primary']) ?>
-            </div>        
-            <?php ActiveForm::end(); ?>        
-            <?php Pjax::end(); ?>        
+            <div class="container">
+                <div class="row">
+                    <?php Pjax::begin(['id' => 'post-rating', 'enablePushState' => false]); ?>
+                    <div class="form-inline">    
+                        <?php
+                        $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdPostrate', 'data-pjax' => true, 'method' => 'post']]);
+                        ?>
+
+                        <?=
+                        $form->field($ratemodel, 'temprate')->widget(StarRating::classname(), [
+                            'pluginOptions' => [
+                                'defaultCaption' => 'test',
+                                'min' => 0,
+                                'max' => 5,
+                                'step' => 1,
+                                'showClear' => false,
+                                'theme' => 'krajee-fa',
+                                //       'filledStar' => '<i class="glyphicon glyphicon-heart"></i>',
+                                //       'emptyStar' => '<i class="glyphicon glyphicon-heart-empty"></i>',
+                                'size' => 'xs']])->label(false);
+                        ?>
+                        <?= Html::submitButton('<i class="fa fa-save"></i> Rate', ['class' => 'btn btn-sm btn-primary']) ?>
+
+                        <?php ActiveForm::end(); ?>        
+                    </div>   
+                    <?php Pjax::end(); ?>        
+                </div>
+
+            </div>
 
         <?php } else {
             ?>

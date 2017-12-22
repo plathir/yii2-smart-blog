@@ -34,17 +34,16 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
         ]);
         ?>               
     </div>
-    <div class="post-details-author-info">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 post-details-author-info">
         <img class="img-circle img-responsive post-author-image" src="<?= $userHelper->getProfileImage($model->user_created, $this) ?>">
         <?= $userHelper->getProfileFullName($model->user_created) ?>
         <div class="post-details-header-small pull-right"><i class="fa fa-fw fa-clock-o"></i><?= Yii::$app->formatter->asDatetime($model->created_at) ?></div>        
     </div>
-
     <div>   
         <div class="row">
             <div class="post-details-image-box col-xs-12 col-sm-5 col-lg-4">
                 <img class="img-responsive" src="<?= $imageURL; ?>">
-           </div>
+            </div>
 
             <div class="blog-intro-text">
                 <?= $model->full_text ?> 
