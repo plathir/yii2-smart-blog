@@ -11,6 +11,14 @@ class RatingWidget extends Widget {
 
     public $post_id;
     public $onlyDisplay = false;
+    public $size = 'xs';
+    public $starCaptions = [
+//        '1' => '1 Αστέρι',
+//        '2' => '2 Αστέρι',
+//        '3' => '3',
+//        '4' => '4',
+//        '5' => 'Άριστο',
+    ];
 
     public function init() {
         parent::init();
@@ -19,30 +27,16 @@ class RatingWidget extends Widget {
     public function run() {
         $this->registerClientAssets();
         //if (Yii::$app->request->isPjax) {
-            $post = $this->findModel($this->post_id);
-            if ($post) {
-                $rating = $this->findRatingModel($this->post_id);
-                if ($rating->load(Yii::$app->request->post())) {
-                    if (isset($rating->temprate)) {
-                        $rating->rating_sum = $rating->rating_sum + $rating->temprate;
-                        $rating->rating_count = $rating->rating_count + 1;
-                        $rating->last_ip = Yii::$app->request->getUserIP();
-                        $rating->save();
-                        $rating = $this->findRatingModel($this->post_id);
-
-                        return $this->render('rating_widget', [
-                                    'widget' => $this,
-                                    'model' => $post,
-                                    'ratemodel' => $rating,
-                        ]);
-                    }
-
-                    return $this->render('rating_widget', [
-                                'widget' => $this,
-                                'model' => $post,
-                                'ratemodel' => $this->findRatingModel($this->post_id),
-                    ]);
-                } else {
+        $post = $this->findModel($this->post_id);
+        if ($post) {
+            $rating = $this->findRatingModel($this->post_id);
+            if ($rating->load(Yii::$app->request->post())) {
+                if (isset($rating->temprate)) {
+                    $rating->rating_sum = $rating->rating_sum + $rating->temprate;
+                    $rating->rating_count = $rating->rating_count + 1;
+                    $rating->last_ip = Yii::$app->request->getUserIP();
+                    $rating->save();
+                    $rating = $this->findRatingModel($this->post_id);
 
                     return $this->render('rating_widget', [
                                 'widget' => $this,
@@ -50,10 +44,23 @@ class RatingWidget extends Widget {
                                 'ratemodel' => $rating,
                     ]);
                 }
-            } else {
-                throw new NotFoundHttpException('The requested page does not exist.');
-            }
 
+                return $this->render('rating_widget', [
+                            'widget' => $this,
+                            'model' => $post,
+                            'ratemodel' => $this->findRatingModel($this->post_id),
+                ]);
+            } else {
+
+                return $this->render('rating_widget', [
+                            'widget' => $this,
+                            'model' => $post,
+                            'ratemodel' => $rating,
+                ]);
+            }
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
     protected function findModel($id) {
@@ -74,7 +81,7 @@ class RatingWidget extends Widget {
             $post_rating->temprate = 0;
             $post_rating->rating_sum = 0;
             $post_rating->rating_count = 0;
-           // $post_rating->last_ip = Yii::$app->request->getUserIP();
+            // $post_rating->last_ip = Yii::$app->request->getUserIP();
             return $post_rating;
         }
     }

@@ -31,6 +31,7 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
         <?=
         RatingWidget::widget([
             'post_id' => $model->id,
+            'size' => 'cust',
         ]);
         ?>               
     </div>

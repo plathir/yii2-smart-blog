@@ -27,15 +27,17 @@ use yii\widgets\Pjax;
                         <?=
                         $form->field($ratemodel, 'temprate')->widget(StarRating::classname(), [
                             'pluginOptions' => [
-                                'defaultCaption' => 'test',
+//                                'defaultCaption' => 'test',
                                 'min' => 0,
                                 'max' => 5,
                                 'step' => 1,
                                 'showClear' => false,
+                                'starCaptions' => $widget->starCaptions,
+                                 'language' => 'el',
                                 'theme' => 'krajee-fa',
                                 //       'filledStar' => '<i class="glyphicon glyphicon-heart"></i>',
                                 //       'emptyStar' => '<i class="glyphicon glyphicon-heart-empty"></i>',
-                                'size' => 'xs']])->label(false);
+                                'size' => $widget->size]])->label(false);
                         ?>
                         <?= Html::submitButton('<i class="fa fa-save"></i> Rate', ['class' => 'btn btn-sm btn-primary']) ?>
 
@@ -57,7 +59,7 @@ use yii\widgets\Pjax;
                         'displayOnly' => true,
 //                    'size' => '10px']
                         'theme' => 'krajee-fa',
-                        'size' => 'xs']
+                        'size' => $widget->size]
                 ]);
                 //echo '<span class="label label-info">already rate this post !</span>';
                 ?>
@@ -71,7 +73,7 @@ use yii\widgets\Pjax;
             'pluginOptions' => [
                 'displayOnly' => true,
                 'theme' => 'krajee-fa',
-                'size' => 'xs']
+                'size' => $widget->size]
         ]);
     }
     ?>
