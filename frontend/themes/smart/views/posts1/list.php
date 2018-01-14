@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         <div class ="col-lg-3 col-md-4 col-sm-4 col-xs-12">
                             <?php
-                            if ($pdata['intro_image'] != null) {
+                            if ($pdata['post_image'] != null) {
                                 echo "<img src=" . plathir\smartblog\helpers\PostHelper::getPostIntroImage($pdata['id']) . " class='pull-left img-responsive' style='width:100%'>";
                             }
                             ?>

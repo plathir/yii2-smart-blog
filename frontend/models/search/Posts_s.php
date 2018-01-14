@@ -17,7 +17,7 @@ class Posts_s extends Posts {
     public function rules() {
         return [
             [['id', 'full_image', 'user_created', 'user_last_change', 'publish'], 'integer'],
-            [['description', 'intro_text', 'full_text', 'intro_image', 'created_at', 'updated_at', 'tags'], 'safe'],
+            [['description', 'intro_text', 'full_text', 'post_image', 'created_at', 'updated_at', 'tags'], 'safe'],
             [['category'], 'string'],
         ];
     }
@@ -76,7 +76,7 @@ class Posts_s extends Posts {
         $query->andFilterWhere(['like', 'description', $this->description])
                 ->andFilterWhere(['like', 'intro_text', $this->intro_text])
                 ->andFilterWhere(['like', 'full_text', $this->full_text])
-                ->andFilterWhere(['like', 'intro_image', $this->intro_image])
+                ->andFilterWhere(['like', 'post_image', $this->post_image])
                 ->andFilterWhere(['like', "date_format(date(from_unixtime(created_at)) ,'%d-%m-%Y' )", $date_cr])
                 ->andFilterWhere(['like', "date_format(date(from_unixtime(updated_at)) ,'%d-%m-%Y' )", $date_up]);
 

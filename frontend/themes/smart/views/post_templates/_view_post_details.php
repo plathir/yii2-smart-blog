@@ -9,7 +9,7 @@ use plathir\smartblog\common\widgets\RatingWidget;
 
 $userHelper = new UserHelper();
 
-$imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->intro_image;
+$imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->post_image;
 ?>
 
 <div class="blog-post-details-area">

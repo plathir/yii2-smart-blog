@@ -93,10 +93,10 @@ class PostHelper {
                 ->where(['id' => $id])
                 ->one();
         if ($post) {
-            if ($post->intro_image != null) {
+            if ($post->post_image != null) {
                 $key = $post->module->KeyFolder;
                 $key_folder = $$key;
-                return $post->module->ImagePathPreview . '/' . $key_folder . '/' . $post->intro_image;
+                return $post->module->ImagePathPreview . '/' . $key_folder . '/' . $post->post_image;
             } else {
                 return null;
             }

@@ -6,7 +6,7 @@ use \plathir\user\common\helpers\UserHelper;
 
 $userHelper = new UserHelper();
 
-$imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->intro_image;
+$imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->post_image;
 ?>
 
 <div class="panel panel-default">

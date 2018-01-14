@@ -29,7 +29,7 @@ use mihaildev\elfinder\ElFinder;
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <?=
-                        $form->field($model, 'intro_image')->widget(NewWidget::className(), [
+                        $form->field($model, 'post_image')->widget(NewWidget::className(), [
                             'uploadUrl' => Url::toRoute(['/blog/posts/uploadphoto']),
                             'previewUrl' => $model->module->ImagePathPreview,
                             'tempPreviewUrl' => $model->module->ImageTempPathPreview,
@@ -46,22 +46,6 @@ use mihaildev\elfinder\ElFinder;
 
                 <?= $form->field($model, 'intro_text')->textarea(['rows' => 6]) ?>        
 
-                <div class="row">
-
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <?=
-                        $form->field($model, 'full_image')->widget(NewWidget::className(), [
-                            'uploadUrl' => Url::toRoute(['/blog/posts/uploadphoto']),
-                            'previewUrl' => $model->module->ImagePathPreview,
-                            'tempPreviewUrl' => $model->module->ImageTempPathPreview,
-                            'KeyFolder' => $model->id,
-                            'width' => 200,
-                            'height' => 200,
-                        ]);
-                        ?>
-                    </div>
-
-                </div>
                 <?php
                 echo $form->field($model, 'full_text')->widget(CKEditor::className(), [
                     'editorOptions' => ElFinder::ckeditorOptions('blog/elfinder', [/* Some CKEditor Options */

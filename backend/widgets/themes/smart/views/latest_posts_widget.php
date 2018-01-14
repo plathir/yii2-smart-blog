@@ -15,6 +15,7 @@ use yii\helpers\Html;
             <table class="table no-margin">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Post ID</th>
                         <th>Description</th>
                         <th>Status</th>
@@ -24,22 +25,25 @@ use yii\helpers\Html;
                 <tbody>
                     <?php foreach ($posts as $post) { ?>
                         <tr>
+                            <td>
+                                <?=
+                                Html::img($post->imageurl, ['alt' => '...',
+                                    'width' => '50',
+                                    'align' => 'center']);
+                                ?>
+                            </td>
                             <td><?= $post->id ?></td>
                             <td><?= Html::a($post->description, ['/blog/posts/view', 'id' => $post->id]) ?></td>
-                            <?php if ($post->publish) { ?>
-                                <td><span class="label label-success">Published</span></td>
-                            <?php } else { ?>
-                                <td><span class="label label-danger">Unpublished</span></td>
-                            <?php } ?>  
+                            <td><?= $post->publishbadge ?></td>
                             <td><?= Yii::$app->formatter->asDatetime($post->created_at) ?></td>
                         </tr>
-                    <?php } ?>
+<?php } ?>
                 </tbody>
             </table>
         </div><!-- /.table-responsive -->
     </div><!-- /.box-body -->
     <div class="box-footer clearfix">
-        <?= Html::a(Yii::t('app', 'Create New Post'), ['/blog/posts/create'], ['class' => 'btn btn-sm btn-info btn-flat pull-left']) ?>  
-        <?= Html::a(Yii::t('app', 'View All Posts'), ['/blog/posts'], ['class' => 'btn btn-sm btn-default btn-flat pull-right']) ?>
+<?= Html::a(Yii::t('app', 'Create New Post'), ['/blog/posts/create'], ['class' => 'btn btn-sm btn-info btn-flat pull-left']) ?>  
+<?= Html::a(Yii::t('app', 'View All Posts'), ['/blog/posts'], ['class' => 'btn btn-sm btn-default btn-flat pull-right']) ?>
     </div><!-- /.box-footer -->
 </div><!-- /.box -->        

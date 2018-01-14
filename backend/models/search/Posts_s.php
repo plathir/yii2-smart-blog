@@ -5,6 +5,7 @@ namespace plathir\smartblog\backend\models\search;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use plathir\smartblog\backend\models\Posts as Posts;
+use Yii;
 
 /**
  * Posts_s represents the model behind the search form about `app\models\Posts`.
@@ -16,8 +17,8 @@ class Posts_s extends Posts {
      */
     public function rules() {
         return [
-            [['id', 'full_image', 'user_created', 'user_last_change', 'publish'], 'integer'],
-            [['description', 'intro_text', 'full_text', 'intro_image', 'created_at', 'updated_at', 'tags'], 'safe'],
+            [['id', 'user_created', 'user_last_change', 'publish'], 'integer'],
+            [['description', 'intro_text', 'full_text', 'post_image', 'created_at', 'updated_at', 'tags'], 'safe'],
             [['category'], 'string'],
         ];
     }
@@ -50,23 +51,10 @@ class Posts_s extends Posts {
         
         $query->andFilterWhere([
             'id' => $this->id,
-            'full_image' => $this->full_image,
             'user_created' => $this->user_created,
             'user_last_change' => $this->user_last_change,
             'publish' => $this->publish,
         ]);
-
-        if ($this->created_at) {
-            $date_cr = date('d-m-Y', (float) $this->created_at);
-        } else {
-            $date_cr = '';
-        }
-
-        if ($this->updated_at) {
-            $date_up = date('d-m-Y', (float) $this->updated_at);
-        } else {
-            $date_up = '';
-        }
 
         if ($this->category) {
             $categoryArray = explode(",", $this->category);
@@ -76,10 +64,9 @@ class Posts_s extends Posts {
         $query->andFilterWhere(['like', 'description', $this->description])
                 ->andFilterWhere(['like', 'intro_text', $this->intro_text])
                 ->andFilterWhere(['like', 'full_text', $this->full_text])
-                ->andFilterWhere(['like', 'intro_image', $this->intro_image])
-                ->andFilterWhere(['like', "date_format(date(from_unixtime(created_at)) ,'%d-%m-%Y' )", $date_cr])
-                ->andFilterWhere(['like', "date_format(date(from_unixtime(updated_at)) ,'%d-%m-%Y' )", $date_up]);
-
+                ->andFilterWhere(['like', 'post_image', $this->post_image])
+                ->andFilterWhere(['like', "( FROM_UNIXTIME(posts.created_at, '" . Yii::$app->settings->getSettings('DBShortDateFormat') . " %h:%i:%s %p' ))", $this->created_at])
+                ->andFilterWhere(['like', "( FROM_UNIXTIME(posts.updated_at, '" . Yii::$app->settings->getSettings('DBShortDateFormat') . " %h:%i:%s %p' ))", $this->updated_at]);
 
         return $dataProvider;
     }

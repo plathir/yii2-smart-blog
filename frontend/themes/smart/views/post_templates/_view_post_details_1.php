@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-$imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->intro_image;
+$imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->post_image;
 ?>
 
 <div class="panel panel-default">

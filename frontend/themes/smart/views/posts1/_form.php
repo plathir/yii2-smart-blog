@@ -29,7 +29,7 @@ use mihaildev\elfinder\ElFinder;
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <?=
-                        $form->field($model, 'intro_image')->widget(NewWidget::className(), [
+                        $form->field($model, 'post_image')->widget(NewWidget::className(), [
                             'uploadUrl' => Url::toRoute(['/blog/posts/uploadphoto']),
                             'previewUrl' => $model->module->ImagePathPreview,
                             'tempPreviewUrl' => $model->module->ImageTempPathPreview,

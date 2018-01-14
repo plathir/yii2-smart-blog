@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 
-$imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->intro_image;
+$imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->post_image;
 ?>
 <div class="media-left media-middle">
     <?= Html::a('<img class="media-object image-in-list" src="' . $imageURL . '" alt="...">', ['/blog/posts/view', 'id' => $model->id]) ?>

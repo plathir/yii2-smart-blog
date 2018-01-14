@@ -7,6 +7,7 @@ use plathir\upload\behaviors\MultipleUploadBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\behaviors\SluggableBehavior;
+use Yii;
 
 class Posts extends \plathir\smartblog\common\models\Posts {
 
@@ -29,18 +30,12 @@ class Posts extends \plathir\smartblog\common\models\Posts {
             'uploadImageBehavior' => [
                 'class' => UploadImageBehavior::className(),
                 'attributes' => [
-                    'intro_image' => [
+                    'post_image' => [
                         'path' => $this->module->ImagePath,
                         'temp_path' => $this->module->ImageTempPath,
                         'url' => $this->module->ImagePathPreview,
                         'key_folder' => 'id',
                     ],
-                    'full_image' => [
-                        'path' => $this->module->ImagePath,
-                        'temp_path' => $this->module->ImageTempPath,
-                        'url' => $this->module->ImagePathPreview,
-                        'key_folder' => 'id',
-                    ]
                 ]
             ],
             'uploadFileBehavior' => [
@@ -70,5 +65,29 @@ class Posts extends \plathir\smartblog\common\models\Posts {
                     
         ];
     }
+    
+    function getImageUrl() {
+        if ( $this->post_image) {
+            return Yii::getAlias($this->module->ImagePathPreview) . '/' . $this->id . '/'. $this->post_image;
+        } else {
+            return Yii::getAlias($this->module->ImagePathPreview) . '/nophoto.png'. $this->post_image;
+        }
+    }
 
+    public function getPublishbadge() {
+        $badge = '';
+        switch ($this->publish) {
+            case 0:
+                $badge = '<span class="label label-danger">Unpublished</span>';
+                break;
+            case 1:
+                $badge = '<span class="label label-success">Published</span>';
+                break;
+            default:
+                break;
+        }
+
+        return $badge;
+    }    
+    
 }

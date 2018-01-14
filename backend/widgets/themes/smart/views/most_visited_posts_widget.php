@@ -15,24 +15,28 @@ use yii\helpers\Html;
             <table class="table no-margin">
                 <thead>
                     <tr>
-                        <th>Post ID</th>
-                        <th>Description</th>
-                        <th>Visits</th>
-                        <th>Status</th>
-                        <th>Created Date</th>
+                        <th></th>
+                        <th><?= Yii::t('blog', 'Post ID') ?></th>
+                        <th><?= Yii::t('blog', 'Description') ?></th>
+                        <th><?= Yii::t('blog', 'Visits') ?></th>
+                        <th><?= Yii::t('blog', 'Status') ?></th>
+                        <th><?= Yii::t('blog', 'Created Date') ?></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($posts as $post) { ?>
                         <tr>
+                            <td>
+                                <?=
+                                Html::img($post->imageurl, ['alt' => '...',
+                                    'width' => '50',
+                                    'align' => 'center']);
+                                ?>
+                            </td>                            
                             <td><?= $post->id ?></td>
                             <td><?= Html::a($post->description, ['/blog/posts/view', 'id' => $post->id]) ?></td>
                             <td><?= $post->views ?></td>
-                            <?php if ($post->publish) { ?>
-                                <td><span class="label label-success">Published</span></td>
-                            <?php } else { ?>
-                                <td><span class="label label-danger">Unpublished</span></td>
-                            <?php } ?>  
+                            <td><?= $post->publishbadge ?></td>
                             <td><?= Yii::$app->formatter->asDatetime($post->created_at) ?></td>
                         </tr>
                     <?php } ?>

@@ -16,15 +16,23 @@ use yii\helpers\Html;
             <table class="table no-margin">
                 <thead>
                     <tr>
-                        <th>Post ID</th>
-                        <th>Description</th>
-                        <th>Rate</th>
-                        <th>Created Date</th>
+                        <th></th>
+                        <th><?= Yii::t('blog', 'Post ID') ?></th>
+                        <th><?= Yii::t('blog', 'Description') ?></th>
+                        <th><?= Yii::t('blog', 'Rate') ?></th>
+                        <th><?= Yii::t('blog', 'Created Date') ?></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($posts as $post) { ?>
                         <tr>
+                            <td>
+                                <?=
+                                Html::img($post->imageurl, ['alt' => '...',
+                                    'width' => '50',
+                                    'align' => 'center']);
+                                ?>
+                            </td>                              
                             <td><?= $post->id ?></td>
                             <td><?= Html::a($post->description, ['/blog/posts/view', 'id' => $post->id]) ?></td>
                             <td><?= StarRating::widget([

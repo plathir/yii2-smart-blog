@@ -26,6 +26,18 @@ $this->params['breadcrumbs'][] = $this->title;
             echo GridView::widget([
                 'dataProvider' => $dataProvider,
                 'columns' => [
+                    [
+                        'header' => 'Image',
+                        'format' => 'raw',
+                        'value' => function($model, $key, $index, $grid) {
+                            return Html::img($model->imageurl, ['alt' => '...',
+                                        'width' => '50',
+                                        'align' => 'center']);
+                        },
+                        'filterOptions' => ['class' => 'hidden-xs hidden-sm hidden-md'],
+                        'headerOptions' => ['class' => 'hidden-xs hidden-sm'],
+                        'contentOptions' => ['data-columnname' => 'Image', 'class' => 'hidden-xs hidden-sm hidden-md'],
+                    ],                    
                     'id',
                     [
                         'label' => 'Descriprion',

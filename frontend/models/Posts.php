@@ -30,7 +30,7 @@ class Posts extends \plathir\smartblog\common\models\Posts {
             'uploadImageBehavior' => [
                 'class' => UploadImageBehavior::className(),
                 'attributes' => [
-                    'intro_image' => [
+                    'post_image' => [
                         'path' => $this->module->ImagePath,
                         'temp_path' => $this->module->ImageTempPath,
                         'url' => $this->module->ImagePathPreview,

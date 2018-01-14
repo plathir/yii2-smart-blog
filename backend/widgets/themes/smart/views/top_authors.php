@@ -2,6 +2,10 @@
 
 use yii\helpers\Html;
 use plathir\smartblog\helpers\PostHelper;
+use plathir\user\common\helpers\UserHelper;
+
+$userHelper = new UserHelper();
+
 ?>
 <div class="box box-danger">
     <div class="box-header with-border">
@@ -16,8 +20,9 @@ use plathir\smartblog\helpers\PostHelper;
             <table class="table no-margin">
                 <thead>
                     <tr>
-                        <th>Author Name</th>
-                        <th>Count</th>
+                        <th></th>
+                        <th><?= Yii::t('blog', 'Author Name') ?></th>
+                        <th><?= Yii::t('blog', 'Count') ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,6 +30,12 @@ use plathir\smartblog\helpers\PostHelper;
                     foreach ($topAuthors as $Author) {
                         ?>
                         <tr>
+                            <td> 
+                        <?= Html::img($userHelper->getProfileImage($Author["userid"], $this), ['alt' => '...',
+                                        'class' => 'img-circle',
+                                        'width' => '30',
+                                        'align' => 'center']); ?>
+                            </td>
                             <td><?= Html::a($Author["author"], ['/blog/posts/userposts', 'userid' => $Author["userid"]]) ?></td>
                             <td><?= $Author['cnt'] ?></td>
                         </tr>

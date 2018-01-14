@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="box-body" style="min-height:250px; max-height:250px; overflow:auto;">
                     <div>
                         <div class="pull-left" style="width: 210px">
-                            <?php $imageURL = $post->module->ImagePathPreview . '/' . $post->id . '/' . $post->intro_image; ?>
+                            <?php $imageURL = $post->module->ImagePathPreview . '/' . $post->id . '/' . $post->post_image; ?>
                             <img src="<?= $imageURL; ?>" style="max-width:200px" >
                             Created by : <?= $post->user_created; ?>
                         </div>

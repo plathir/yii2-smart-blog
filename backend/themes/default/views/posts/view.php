@@ -51,15 +51,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'intro_text:ntext',
                                 'full_text:html',
                                 [
-                                    'attribute' => 'intro_image',
-                                    'value' => $model->intro_image == '' ? '' : ( $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->intro_image),
-                                    'format' => $model->intro_image == '' ? 'html' : ['image', ['width' => '100', 'height' => '100']],
+                                    'attribute' => 'post_image',
+                                    'value' => $model->post_image == '' ? '' : ( $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->post_image),
+                                    'format' => $model->post_image == '' ? 'html' : ['image', ['width' => '100', 'height' => '100']],
                                 ],
-                                [
-                                    'attribute' => 'full_image',
-                                    'value' => $model->full_image == '' ? '' : ( $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->full_image),
-                                    'format' => $model->full_image == '' ? 'html' : ['image', ['width' => '100', 'height' => '100']],
-                                ],
+
                                 [
                                     'attribute' => 'user_created',
                                     'value' => $userModel::findOne(['id' => $model->user_created])->{$model->module->userNameField},

@@ -14,9 +14,8 @@ use plathir\smartblog\common\models\Tags;
  * @property string $slug
  * @property string $intro_text
  * @property string $full_text
- * @property string $intro_image
- * @property string $full_image
- * @property integer $user_created
+ * @property string $post_image
+  * @property integer $user_created
  * @property string $created_at
  * @property integer $user_last_change
  * @property string $updated_at
@@ -46,7 +45,7 @@ class Posts extends \yii\db\ActiveRecord {
             [['tags', 'full_text'], 'string'],
             [['attachments', 'full_text'], 'string'],
             [['gallery', 'full_text'], 'string'],
-            [['intro_image', 'full_image'], 'string'],
+            [['post_image'], 'string'],
             [['user_created', 'user_last_change', 'publish'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['category', 'views'], 'integer'],
@@ -64,8 +63,7 @@ class Posts extends \yii\db\ActiveRecord {
             'slug' => Yii::t('blog', 'Slug'),
             'intro_text' => Yii::t('blog', 'Intro Text'),
             'full_text' => Yii::t('blog', 'Full Text'),
-            'intro_image' => Yii::t('blog', 'Intro Image'),
-            'full_image' => Yii::t('blog', 'Full Image'),
+            'post_image' => Yii::t('blog', 'Image'),
             'user_created' => Yii::t('blog', 'User Created'),
             'created_at' => Yii::t('blog', 'Date Created'),
             'user_last_change' => Yii::t('blog', 'User Last Change'),

@@ -58,7 +58,7 @@ class Category_s extends Category {
 //        $query->andFilterWhere(['like', 'description', $this->description])
 //                ->andFilterWhere(['like', 'intro_text', $this->intro_text])
 //                ->andFilterWhere(['like', 'full_text', $this->full_text])
-//                ->andFilterWhere(['like', 'intro_image', $this->intro_image])
+//                ->andFilterWhere(['like', 'post_image', $this->post_image])
 //                ->andFilterWhere(['like', "date_format(date(from_unixtime(created_at)) ,'%d-%m-%Y' )", $date_cr])
 //                ->andFilterWhere(['like', "date_format(date(from_unixtime(updated_at)) ,'%d-%m-%Y' )", $date_up]);
 //

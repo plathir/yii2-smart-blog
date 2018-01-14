@@ -13,10 +13,17 @@ use plathir\smartblog\backend\models\Categorytree as Category;
 $this->title = 'Posts';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="panel panel-primary">
-    <div class="panel-heading">Posts for user : <?= $username ?> </div>
-    <div class="panel-body">
-        <div class="posts-index">
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">Posts Lists for user : <?= $username ?> </h3>
+        <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>
+
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <div class="table-responsive">
 
             <?php // echo $this->render('_search', ['model' => $searchModel]);   ?>
 
@@ -27,6 +34,18 @@ $this->params['breadcrumbs'][] = $this->title;
             GridView::widget([
                 'dataProvider' => $dataProvider,
                 'columns' => [
+                    [
+                        'header' => 'Image',
+                        'format' => 'raw',
+                        'value' => function($model, $key, $index, $grid) {
+                            return Html::img($model->imageurl, ['alt' => '...',
+                                        'width' => '50',
+                                        'align' => 'center']);
+                        },
+                        'filterOptions' => ['class' => 'hidden-xs hidden-sm hidden-md'],
+                        'headerOptions' => ['class' => 'hidden-xs hidden-sm'],
+                        'contentOptions' => ['data-columnname' => 'Image', 'class' => 'hidden-xs hidden-sm hidden-md'],
+                    ],                     
                     'id',
                     [
                         'label' => 'Descriprion',
