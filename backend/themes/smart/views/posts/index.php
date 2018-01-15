@@ -68,6 +68,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     [
                         'attribute' => 'description',
+                        'value' => function ($model) {
+                          return Html::a($model->description, ['/blog/posts/view', 'id' => $model->id]);  
+                        },
+                        'format' =>'raw',        
                         'contentOptions' => ['style' => 'width: 15%;']
                     ],
                     [
@@ -113,7 +117,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'user_created',
                         'value' => function($model, $key, $index, $widget) {
                             $userModel = new $model->module->userModel();
-                            //    return $model->user_created;
                             return $userModel::findOne(['id' => $model->user_created])->{$model->module->userNameField};
                         },
                         'format' => 'html',
@@ -157,7 +160,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         'filter' => \yii\bootstrap\Html::activeDropDownList($searchModel, 'publish', ['0' => 'Unpublished', '1' => 'Published'], ['class' => 'form-control', 'prompt' => 'Select...']),
                         'contentOptions' => ['style' => 'width: 10%;']
                     ],
-                    // 'categories',
                     ['class' => 'yii\grid\ActionColumn',
                         'contentOptions' => ['style' => 'min-width: 70px;']
                     ],
