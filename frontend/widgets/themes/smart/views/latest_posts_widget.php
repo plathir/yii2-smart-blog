@@ -1,14 +1,11 @@
 <?php
-
-use yii\helpers\Html;
-use yii\web\View;
 use yii\data\ArrayDataProvider;
 use yii\widgets\ListView;
 ?>
 <div class="body-content">
     <div class="row-fluid">
         <?php
-        $view = $widget->FrontEndPath . '/post_templates/_view_' . $widget->typeView . '_list.php';
+        $view = '/post_templates/_view_' . $widget->typeView . '_list.php';
         $provider = new ArrayDataProvider([
             'allModels' => $posts,
 //            'pagination' => [
@@ -38,7 +35,7 @@ use yii\widgets\ListView;
             'dataProvider' => $provider,
             //  'itemOptions' => ['class' => 'media'],
             'itemView' => function ($model, $key, $index, $widget) use ($view) {
-                require($view);
+                return $this->render($view, ['model' => $model]);
             },
             'layout' => $layout,
             'summary' => '',

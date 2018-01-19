@@ -1,19 +1,48 @@
 <?php
 
-use yii\helpers\Html;
+use yii\data\ArrayDataProvider;
+use yii\widgets\ListView;
 ?>
+<div class="body-content">
+    <div class="row-fluid">
+        <?php
+        //  $view = $widget->FrontEndPath . '/post_templates/_view_' . $widget->typeView . '_list.php';
+        $view = '/post_templates/_view_' . $widget->typeView . '_list.php';
+        $provider = new ArrayDataProvider([
+            'allModels' => $posts,
+//            'pagination' => [
+//                'pageSize' => 3,
+//            ],
+        ]);
 
-<div class="panel panel-default hidden-xs hidden-sm">
-    <div class="panel-heading"><?= Yii::t('blog', 'Most Visited Posts') ?></div>
-    <div class="panel-body">  
-        <?php foreach ($posts as $post) { ?>
-            <?= '' //$post->id ?>
-            <?= Html::a($post->description, ['/blog/posts/view', 'id' => $post->id]) ?><br>
-            <?= ''// $post->views ?>
-            <?= '' //$post->publish ?>
-            <?= '' //Yii::$app->formatter->asDatetime($post->created_at) ?>
-        <?php } ?>                    
+        if ($widget->typeView == 'media') {
+            $layout = '<div class="container">
+                    <div class="row">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">' . Yii::t('blog', 'Most Visted Posts') . '</div>
+                            <div class="panel-body">
+                                {items}
+                           </div>
+                        </div>
+                    </div>
+                </div>';
+        } else {
+            $layout = '{summary}{items}{pager}';
+        }
+
+
+
+        echo
+        ListView::widget([
+            'dataProvider' => $provider,
+            //  'itemOptions' => ['class' => 'media'],
+            'itemView' => function ($model, $key, $index, $widget) use ($view) {
+                return $this->render($view, ['model' => $model]);
+            },
+            'layout' => $layout,
+            'summary' => '',
+        ]);
+        ?>
     </div>
 </div>
-
 

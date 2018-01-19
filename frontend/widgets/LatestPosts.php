@@ -3,8 +3,6 @@
 namespace plathir\smartblog\frontend\widgets;
 
 use yii\base\Widget;
-use yii\base\InvalidConfigException;
-use plathir\smartblog\helpers\PostHelper;
 use Yii;
 
 class LatestPosts extends Widget {

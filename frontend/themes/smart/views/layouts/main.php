@@ -50,9 +50,6 @@ if (\Yii::$app->view->theme) {
     </div>
 </div>
 
-
-
-
 <?php $this->endContent(); ?>
 
 

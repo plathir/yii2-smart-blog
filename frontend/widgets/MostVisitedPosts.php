@@ -10,6 +10,7 @@ class MostVisitedPosts extends Widget {
     public $posts_num = 10;
     public $Theme = 'default';
     public $title = 'Most Visited Posts';
+    public $typeView = 'media';
     public $selection_parameters = [];
 
     public function init() {
@@ -18,6 +19,7 @@ class MostVisitedPosts extends Widget {
             'posts_num' => $this->posts_num,
             'Theme' => $this->Theme,
             'title' => $this->title,
+            'typeView' => 'media'
         ];
     }
 
@@ -42,6 +44,10 @@ class MostVisitedPosts extends Widget {
         return Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/widgets/themes/' . $this->Theme . '/views';
     }
 
+    public function getFrontEndPath() {
+        return Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/themes/' . $this->Theme . '/views';
+    }
+
     public function registerTranslations() {
         /*         * This registers translations for the widgets module * */
         Yii::$app->i18n->translations['blog'] = [
@@ -50,4 +56,5 @@ class MostVisitedPosts extends Widget {
             'basePath' => Yii::getAlias('@vendor/plathir/yii2-smart-blog/messages'),
         ];
     }
+
 }
