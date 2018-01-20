@@ -7,7 +7,8 @@ use yii\widgets\ListView;
     <div class="row-fluid">
         <?php
         //  $view = $widget->FrontEndPath . '/post_templates/_view_' . $widget->typeView . '_list.php';
-        $view = '/post_templates/_view_' . $widget->typeView . '_list.php';
+        $view = $widget->TemplatePath . '/post_templates/_view_' . $widget->typeView . '_list.php';
+        //$view = 'post_templates/_view_' . $widget->typeView . '_list.php';
         $provider = new ArrayDataProvider([
             'allModels' => $posts,
 //            'pagination' => [

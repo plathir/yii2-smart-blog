@@ -44,6 +44,10 @@ class LatestPosts extends Widget {
         return Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/widgets/themes/' . $this->Theme . '/views';
     }
 
+        public function getTemplatePath() {
+        return '@vendor/plathir/yii2-smart-blog/frontend/themes/' . $this->Theme . '/views';
+    }
+    
     public function getFrontEndPath() {
         return Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/themes/' . $this->Theme . '/views';
     }

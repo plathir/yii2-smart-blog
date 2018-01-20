@@ -8,7 +8,7 @@ use Yii;
 class MostVisitedPosts extends Widget {
 
     public $posts_num = 10;
-    public $Theme = 'default';
+    public $Theme = 'smart';
     public $title = 'Most Visited Posts';
     public $typeView = 'media';
     public $selection_parameters = [];
@@ -42,6 +42,10 @@ class MostVisitedPosts extends Widget {
 
     public function getViewPath() {
         return Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/widgets/themes/' . $this->Theme . '/views';
+    }
+
+    public function getTemplatePath() {
+        return '@vendor/plathir/yii2-smart-blog/frontend/themes/' . $this->Theme . '/views';
     }
 
     public function getFrontEndPath() {
