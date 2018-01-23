@@ -282,6 +282,7 @@ class PostsController extends Controller {
         if (($model = Posts::findOne($id)) !== null) {
             return $model;
         } else {
+             Yii::error('The requested page does not exist.', 'blog'); // category is added            
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
