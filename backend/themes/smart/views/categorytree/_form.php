@@ -1,10 +1,10 @@
 <?php
-
 /**
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015 - 2017
  * @package   yii2-tree-manager
- * @version   1.0.7
+ * @version   1.0.9
  */
+
 use kartik\form\ActiveForm;
 use kartik\tree\Module;
 use kartik\tree\TreeView;
@@ -29,6 +29,7 @@ use yii\web\View;
  * @var array      $nodeAddlViews
  * @var mixed      $currUrl
  * @var boolean    $showIDAttribute
+ * @var boolean    $showNameAttribute
  * @var boolean    $showFormButtons
  * @var boolean    $allowNewRoots
  * @var string     $nodeSelected
@@ -113,11 +114,13 @@ echo Html::hiddenInput('treeSaveHash', $security->hashData($dataToHash, $module-
 // manage signature
 if (array_key_exists('depth', $breadcrumbs) && $breadcrumbs['depth'] === null) {
     $breadcrumbs['depth'] = '';
+} elseif (!empty($breadcrumbs['depth'])) {
+    $breadcrumbs['depth'] = (string) $breadcrumbs['depth'];
 }
 $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
 $dataToHash = $modelClass . !!$isAdmin . !!$softDelete . !!$showFormButtons . !!$showIDAttribute .
-        $currUrl . $nodeView . $nodeSelected . Json::encode($formOptions) .
-        Json::encode($nodeAddlViews) . Json::encode($icons) . Json::encode($breadcrumbs);
+    !!$showNameAttribute . $currUrl . $nodeView . $nodeSelected . Json::encode($formOptions) .
+    Json::encode($nodeAddlViews) . Json::encode($icons) . Json::encode($breadcrumbs);
 echo Html::hiddenInput('treeManageHash', $security->hashData($dataToHash, $module->treeEncryptSalt));
 
 // remove signature
@@ -166,7 +169,9 @@ echo Html::hiddenInput('treeMoveHash', $security->hashData($dataToHash, $module-
          * @var Tree $modelClass
          * @var Tree $parent
          */
-        $depth = empty($breadcrumbsDepth) ? null : intval($breadcrumbsDepth) - 1;
+        if (empty($depth)) {
+            $depth = null;
+        }
         if ($depth === null || $depth > 0) {
             $parent = $modelClass::findOne($parentKey);
             $name = $parent->getBreadcrumbs($depth, $glue, null) . $glue . $name;
@@ -181,6 +186,8 @@ echo Html::hiddenInput('treeMoveHash', $security->hashData($dataToHash, $module-
     if ($node->isLeaf()) {
         $flagOptions['disabled'] = true;
     }
+
+    $nameField = $showNameAttribute ? $form->field($node, $nameAttribute)->textInput($inputOpts) : '';
     ?>
     <?php
     /**
@@ -239,28 +246,26 @@ echo Html::hiddenInput('treeMoveHash', $security->hashData($dataToHash, $module-
      */
     ?>
     <?php if ($iconsList == 'text' || $iconsList == 'none'): ?>
-        <?php if ($showIDAttribute): ?>
+        <?php if ($showIDAttribute && $showNameAttribute): ?>
             <div class="row">
                 <div class="col-sm-4">
                     <?= $keyField ?>
                 </div>
                 <div class="col-sm-8">
-                    <?= $form->field($node, $nameAttribute)->textInput($inputOpts) ?>
+                    <?= $nameField ?>
                 </div>
             </div>
         <?php else: ?>
             <?= $keyField ?>
-            <?= $form->field($node, $nameAttribute)->textInput($inputOpts) ?>
+            <?= $nameField ?>
         <?php endif; ?>
         <?php if ($iconsList === 'text'): ?>
             <div class="row">
                 <div class="col-sm-4">
-                    <?=
-                    $form->field($node, $iconTypeAttribute)->dropdownList([
+                    <?= $form->field($node, $iconTypeAttribute)->dropdownList([
                         TreeView::ICON_CSS => 'CSS Suffix',
                         TreeView::ICON_RAW => 'Raw Markup',
-                            ], $inputOpts)
-                    ?>
+                    ], $inputOpts) ?>
                 </div>
                 <div class="col-sm-8">
                     <?= $form->field($node, $iconAttribute)->textInput($inputOpts) ?>
@@ -272,11 +277,10 @@ echo Html::hiddenInput('treeMoveHash', $security->hashData($dataToHash, $module-
             <div class="col-sm-6">
                 <?= $keyField ?>
                 <?= Html::activeHiddenInput($node, $iconTypeAttribute) ?>
-                <?= $form->field($node, $nameAttribute)->textArea(['rows' => 3] + $inputOpts) ?>
+                <?= $nameField ?>
             </div>
             <div class="col-sm-6">
-                <?=
-                /** @noinspection PhpUndefinedMethodInspection */
+                <?= /** @noinspection PhpUndefinedMethodInspection */
                 $form->field($node, $iconAttribute)->multiselect($iconsList, [
                     'item' => function ($index, $label, $name, $checked, $value) use ($inputOpts) {
                         if ($index == 0 && $value == '') {
@@ -284,14 +288,13 @@ echo Html::hiddenInput('treeMoveHash', $security->hashData($dataToHash, $module-
                             $value = '';
                         }
                         return '<div class="radio">' . Html::radio($name, $checked, [
-                                    'value' => $value,
-                                    'label' => $label,
-                                    'disabled' => !empty($inputOpts['readonly']) || !empty($inputOpts['disabled'])
-                                ]) . '</div>';
+                            'value' => $value,
+                            'label' => $label,
+                            'disabled' => !empty($inputOpts['readonly']) || !empty($inputOpts['disabled'])
+                        ]) . '</div>';
                     },
                     'selector' => 'radio',
-                ])
-                ?>
+                ]) ?>
             </div>
         </div>
     <?php endif; ?>
@@ -351,20 +354,18 @@ echo Html::hiddenInput('treeMoveHash', $security->hashData($dataToHash, $module-
         ?>
         <?= $renderContent(Module::VIEW_PART_4) ?>
     <?php endif; ?>
-
+    <?php
+    /**
+     * SECTION 13: Additional views part 5 accessible by all users after admin zone.
+     */
+    ?>
+    <?= $renderContent(Module::VIEW_PART_5) ?>
+<?php else: ?>
+    <?= $noNodesMessage ?>
 <?php endif; ?>
 <?php
 /**
  * END VALID NODE DISPLAY
  */
 ?>
-
-<?php ActiveForm::end() ?>
-
-<?php
-/**
- * SECTION 13: Additional views part 5 accessible by all users after admin zone.
- */
-?>
-<?=
-$noNodesMessage ? $noNodesMessage : $renderContent(Module::VIEW_PART_5) ?>
+<?php ActiveForm::end(); ?>
