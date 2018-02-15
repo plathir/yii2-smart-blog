@@ -5,7 +5,7 @@ $positionHelper = new PositionHelper();
 
 ?>
 <div class="body-content">
-    <div class="row-fluid">
+    <div class="row-fluid">       
           <?= $positionHelper->LoadPosition('fe_blog_dashboard'); ?>
     </div>
 </div>

@@ -2,7 +2,6 @@
 
 use yii\data\ArrayDataProvider;
 use yii\widgets\ListView;
-
 ?>
 <div class="body-content">
     <div class="row-fluid">

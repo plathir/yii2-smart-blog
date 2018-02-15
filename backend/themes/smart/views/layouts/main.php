@@ -1,13 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\bootstrap\ButtonDropdown;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
-use frontend\assets\AppAsset;
-use frontend\widgets\Alert;
-use yii\helpers\Url;
 ?>
 
 
@@ -21,32 +14,6 @@ if (\Yii::$app->view->theme) {
 
 <?php $this->beginContent($layoutFile); ?>
 <?php
-//NavBar::begin(['brandLabel' => 'Blog', 'brandUrl' => Url::to('/blog'),
-//    'containerOptions' => [
-//    ],
-//    'options' => [
-//    ],
-//    'innerContainerOptions' => [
-//        'class' => 'container-fluid',
-//    ],
-//]);
-//echo Nav::widget([
-//    'items' => [
-//        ['label' => 'Home', 'url' => ['/blog/default/index']],
-//        ['label' => 'About', 'url' => ['/site/about'],
-//            'items' => [
-//                ['label' => 'Test', 'url' => ['/site/about']],
-//                ['label' => 'Test', 'url' => ['/site/about']],
-//                ['label' => 'Test', 'url' => ['/site/about']],
-//                ['label' => 'Test', 'url' => ['/site/about']],
-//                ['label' => 'Test', 'url' => ['/site/about']],
-//                ['label' => 'Test', 'url' => ['/site/about']],
-//            ]
-//        ],
-//    ],
-//    'options' => ['class' => 'navbar-nav'],
-//]);
-//NavBar::end();
 ?>     
 
 <div class="box box-danger">

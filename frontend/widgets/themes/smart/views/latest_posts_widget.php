@@ -14,7 +14,7 @@ use yii\widgets\ListView;
 //            ],
         ]);
 
-        if ($widget->typeView == 'media') {
+        if ($widget->typeView == 'medi  a') {
             $layout = '<div class="blog-sidebar-right">
                 <div class="container">
                     <div class="row">
@@ -28,10 +28,11 @@ use yii\widgets\ListView;
                 </div>
             </div>';
         } else {
-            $layout = '{summary}{items}{pager}';
+            
+            $layout = '<div class="row">{summary}{items}{pager}</div>';
         }
 
-        echo
+        echo        
         ListView::widget([
             'dataProvider' => $provider,
             //  'itemOptions' => ['class' => 'media'],

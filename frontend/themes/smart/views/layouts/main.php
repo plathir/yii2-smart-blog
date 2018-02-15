@@ -24,6 +24,19 @@ if (\Yii::$app->view->theme) {
             <div class="col-lg-12 col-md-12">
                 <div class="main-content-header">
 <!--                    <h3>Blog Page header <small>Subtext for header</small></h3>-->
+                    <?php
+                    if (\Yii::$app->user->can('BlogCreatePost')) {
+                        ?>
+
+                        <p>
+                            <?=
+                            Html::a(Html::tag('span', '<i class="fa fa-fw fa-plus"></i>' . '&nbsp' . Yii::t('blog', 'Create New Post'), [
+                                        'title' => Yii::t('blog', 'Create New Post'),
+                                        'data-toggle' => 'tooltip',
+                                    ]), ['create'], ['class' => 'btn btn-primary'])
+                            ?>                  
+                        </p>
+                    <?php } ?>
 
                 </div> 
             </div>

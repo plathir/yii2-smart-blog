@@ -31,6 +31,11 @@ class PostsController extends Controller {
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                    'clipupl' => ['post'],
+                    'uploadphoto' => ['post'],
+                    'uploadfile' => ['post'],
+                    'deletetempfile' => ['post'],
+                //     'tagslist' => ['post']
                 ],
             ],
             'access' => [
@@ -41,11 +46,23 @@ class PostsController extends Controller {
                         'allow' => true,
                     ],
                     [
-                        'actions' => [
-                            'create',
+                        'actions' => ['create',
                             'update',
+//                            'index',
                             'view',
                             'delete',
+                            'get',
+                            'image-upload',
+                            'file-upload',
+                            'clipupl',
+                            'uploadphoto',
+                            'uploadfile',
+                            'deletetempfile',
+                            'tags',
+                            'tagslist',
+                            'browse-images',
+                            'upload-images',
+                            'filemanager'
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -59,6 +76,31 @@ class PostsController extends Controller {
         $actions = [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
+            ],
+            //Upload cropped image into temp directory
+            'uploadphoto' => [
+                'class' => '\plathir\cropper\actions\UploadAction',
+                'width' => 600,
+                'height' => 600,
+                'temp_path' => $this->module->ImageTempPath,
+            ],
+            'uploadfile' => [
+                'class' => '\plathir\upload\actions\FileUploadAction',
+                'uploadDir' => $this->module->ImageTempPath,
+            ],
+            'deletetempfile' => [
+                'class' => '\plathir\upload\actions\FileDeleteAction',
+                'uploadDir' => $this->module->ImageTempPath,
+            ],
+            'browse-images' => [
+                'class' => 'bajadev\ckeditor\actions\BrowseAction',
+                'url' => '@MediaUrl/temp/images/blog/posts/',
+                'path' => '@media/temp/images/blog/posts/',
+            ],
+            'upload-images' => [
+                'class' => 'bajadev\ckeditor\actions\UploadAction',
+                'url' => '@MediaUrl/temp/images/blog/posts/',
+                'path' => '@media/temp/images/blog/posts/',
             ],
         ];
 
@@ -87,6 +129,65 @@ class PostsController extends Controller {
     }
 
     
+    public function actionFilemanager() {
+
+        return $this->render('filemanager');
+    }
+
+    public function actionTags($tag) {
+        $helper = new \plathir\smartblog\helpers\PostHelper();
+        $posts = $helper->getPostsbyTags($tag);
+
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $posts,
+            'sort' => [
+                'attributes' => ['id'],
+            ],
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+
+        return $this->render('tags', [
+                    'dataProvider' => $dataProvider,
+                    'posts' => $posts
+        ]);
+    }
+
+    public function actionTagslist() {
+        if (\Yii::$app->request->isAjax) {
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            $items = Posts::find()->select(['tags'])->andHaving(['!=', 'tags', ''])->orderBy(['tags' => SORT_ASC])->all();
+            $resp_items = [];
+            $temp_items = [];
+            foreach ($items as $item) {
+                $newItems = explode(",", $item['tags']);
+                foreach ($newItems as $newItem) {
+                    $temp_items[] = $newItem;
+                }
+            }
+            //  make unique values
+            $temp_items = array_unique($temp_items);
+
+            foreach ($temp_items as $item) {
+                $resp_items[]["tags"] = $item;
+            }
+            return $resp_items;
+        } else {
+            
+        }
+    }
+
+    public function actionList() {
+        $searchModel = new Posts_s();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('list', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Displays a single Posts model.
      * @param integer $id
@@ -111,7 +212,10 @@ class PostsController extends Controller {
 
 
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                //      $model->user_created = \Yii::$app->user->getId();
+                //      $model->user_last_change = \Yii::$app->user->getId();
                 $model->update();
+
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 return $this->render('create', [
