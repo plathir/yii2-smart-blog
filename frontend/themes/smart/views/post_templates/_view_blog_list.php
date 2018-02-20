@@ -27,10 +27,10 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                     <div class="panel-heading-details pull-right"><i class="fa fa-fw fa-clock-o"></i><?= Yii::$app->formatter->asDatetime($model->created_at) ?>
-                        <?php if (\yii::$app->user->can('BlogUpdatePost')) { ?>
-                            &nbsp;
-                            <div class="pull-right btn btn-success btn-xs"><i class="fa fa-edit"></i></div>
-                            <?php
+                        &nbsp;
+                        <?php
+                        if (\yii::$app->user->can('BlogUpdatePost')) {
+                            echo Html::a('<i class="fa fa-edit"></i>', ['/blog/posts/update', 'id' => $model->id], ['class' => 'pull-right btn btn-success btn-xs']);
                         }
                         ?>
                     </div>

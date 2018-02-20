@@ -16,12 +16,9 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
     <div>
         <div class="post-details-header"><?= Html::a($model->description, ['/blog/posts/view', 'id' => $model->id]) ?>
             &nbsp;
-            <div class="stars">
-
-            </div>   
-            <?php if (\yii::$app->user->can('BlogUpdatePost')) { ?>
-                <div class="pull-right btn btn-success btn-sm"><i class="fa fa-edit"></i> Edit</div>
-                <?php
+            <?php
+            if (\yii::$app->user->can('BlogUpdatePost')) {
+                echo Html::a('<i class="fa fa-edit"></i>', ['/blog/posts/update', 'id' => $model->id], ['class' => 'pull-right btn btn-success btn-sm button-edit']);
             }
             ?>
         </div>
@@ -37,7 +34,7 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 post-details-author-info">
         <img class="img-circle img-responsive post-author-image" src="<?= $userHelper->getProfileImage($model->user_created, $this) ?>">
-        <?= $userHelper->getProfileFullName($model->user_created) ?>
+<?= $userHelper->getProfileFullName($model->user_created) ?>
         <div class="post-details-header-small pull-right"><i class="fa fa-fw fa-clock-o"></i><?= Yii::$app->formatter->asDatetime($model->created_at) ?></div>        
     </div>
     <div>   
@@ -47,7 +44,7 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
             </div>
 
             <div class="blog-intro-text">
-                <?= $model->full_text ?> 
+<?= $model->full_text ?> 
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -60,7 +57,7 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
                     ]);
                 }
                 ?>
-                <?php if ($model->attachments) { ?>
+<?php if ($model->attachments) { ?>
                     <br>
                     <strong><?= Yii::t('blog', 'Attachments :') ?> </strong><br>
                     <?=
@@ -79,7 +76,7 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
                         'tags' => $model->tags,
                     ]);
                     ?>
-                <?php } ?>
+<?php } ?>
             </div>
         </div>
 

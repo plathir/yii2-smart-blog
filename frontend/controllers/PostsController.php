@@ -76,16 +76,8 @@ class PostsController extends Controller {
         ]);
         
     }
-    public function actionIndex1() {
 
-        $searchModel = new Posts_s();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
-        ]);
-    }
-
+    
     
     /**
      * Displays a single Posts model.
