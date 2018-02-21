@@ -1,9 +1,16 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+use yii\data\ArrayDataProvider;
+use yii\widgets\ListView;
+?>
+<div class="body-content">
+    <div class="row-fluid">
+        <?php
+        $view = '/post_templates/_post_form';
 
-echo 'create new post !';
+        echo $this->render($view, [
+            'model' => $model,
+        ])
+        ?>
+    </div>
+</div>

@@ -6,7 +6,7 @@ use yii\widgets\ListView;
 <div class="body-content">
     <div class="row-fluid">
         <?php
-        $view = '/post_templates/_update_post_form';
+        $view = '/post_templates/_post_form';
 
         echo $this->render($view, [
             'model' => $model,

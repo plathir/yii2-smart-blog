@@ -10,7 +10,6 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use plathir\smartblog\common\models\Tags;
 
-
 /**
  * PostsController implements the CRUD actions for Posts model.
  */
@@ -50,6 +49,7 @@ class PostsController extends Controller {
                             'delete',
                             'tags',
                             'tagslist',
+                            'uploadphoto'
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -87,7 +87,7 @@ class PostsController extends Controller {
                 'class' => 'bajadev\ckeditor\actions\UploadAction',
                 'url' => '@MediaUrl/temp/images/blog/posts/',
                 'path' => '@media/temp/images/blog/posts/',
-            ],            
+            ],
         ];
 
         return $actions;
@@ -211,5 +211,6 @@ class PostsController extends Controller {
         } else {
             
         }
-    }    
+    }
+
 }
