@@ -8,7 +8,8 @@ use plathir\smartblog\frontend\models\search\Posts_s;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\data\ArrayDataProvider;
+use plathir\smartblog\common\models\Tags;
+
 
 /**
  * PostsController implements the CRUD actions for Posts model.
@@ -22,7 +23,7 @@ class PostsController extends Controller {
 
     public function __construct($id, $module) {
         parent::__construct($id, $module);
-       $this->layout = "main";
+        $this->layout = "main";
     }
 
     public function behaviors() {
@@ -31,6 +32,7 @@ class PostsController extends Controller {
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                    'uploadphoto' => ['post'],
                 ],
             ],
             'access' => [
@@ -46,6 +48,8 @@ class PostsController extends Controller {
                             'update',
                             'view',
                             'delete',
+                            'tags',
+                            'tagslist',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -60,6 +64,30 @@ class PostsController extends Controller {
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
+            'uploadphoto' => [
+                'class' => '\plathir\cropper\actions\UploadAction',
+                'width' => 600,
+                'height' => 600,
+                'temp_path' => $this->module->ImageTempPath,
+            ],
+            'uploadfile' => [
+                'class' => '\plathir\upload\actions\FileUploadAction',
+                'uploadDir' => $this->module->ImageTempPath,
+            ],
+            'deletetempfile' => [
+                'class' => '\plathir\upload\actions\FileDeleteAction',
+                'uploadDir' => $this->module->ImageTempPath,
+            ],
+            'browse-images' => [
+                'class' => 'bajadev\ckeditor\actions\BrowseAction',
+                'url' => '@MediaUrl/temp/images/blog/posts/',
+                'path' => '@media/temp/images/blog/posts/',
+            ],
+            'upload-images' => [
+                'class' => 'bajadev\ckeditor\actions\UploadAction',
+                'url' => '@MediaUrl/temp/images/blog/posts/',
+                'path' => '@media/temp/images/blog/posts/',
+            ],            
         ];
 
         return $actions;
@@ -74,11 +102,8 @@ class PostsController extends Controller {
         return $this->render('index', [
                     'posts' => $posts,
         ]);
-        
     }
 
-    
-    
     /**
      * Displays a single Posts model.
      * @param integer $id
@@ -170,9 +195,21 @@ class PostsController extends Controller {
         if (($model = Posts::findOne($id)) !== null) {
             return $model;
         } else {
-             Yii::error('The requested page does not exist.', 'blog'); // category is added            
+            Yii::error('The requested page does not exist.', 'blog'); // category is added            
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
 
+    public function actionTagslist() {
+        if (\Yii::$app->request->isAjax) {
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            $items = Tags::find()->select(['name'])->orderBy(['name' => SORT_ASC])->all();
+            foreach ($items as $item) {
+                $resp_items[]["tags"] = $item["name"];
+            }
+            return $resp_items;
+        } else {
+            
+        }
+    }    
 }

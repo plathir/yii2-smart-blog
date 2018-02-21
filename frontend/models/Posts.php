@@ -36,12 +36,6 @@ class Posts extends \plathir\smartblog\common\models\Posts {
                         'url' => $this->module->ImagePathPreview,
                         'key_folder' => 'id',
                     ],
-                    'full_image' => [
-                        'path' => $this->module->ImagePath,
-                        'temp_path' => $this->module->ImageTempPath,
-                        'url' => $this->module->ImagePathPreview,
-                        'key_folder' => 'id',
-                    ]
                 ]
             ],
             'uploadFileBehavior' => [
