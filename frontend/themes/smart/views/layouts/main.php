@@ -33,7 +33,7 @@ if (\Yii::$app->view->theme) {
                             Html::a(Html::tag('span', '<i class="fa fa-fw fa-plus"></i>' . '&nbsp' . Yii::t('blog', 'Create New Post'), [
                                         'title' => Yii::t('blog', 'Create New Post'),
                                         'data-toggle' => 'tooltip',
-                                    ]), ['create'], ['class' => 'btn btn-primary'])
+                                    ]), ['/blog/posts/create'], ['class' => 'btn btn-primary'])
                             ?>                  
                         </p>
                     <?php } ?>
