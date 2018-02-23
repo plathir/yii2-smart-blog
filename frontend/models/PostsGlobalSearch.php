@@ -30,7 +30,8 @@ class PostsGlobalSearch extends \plathir\smartblog\frontend\models\Posts impleme
      * @inheritdoc
      */
     public function getSearchDescription() {
-        return $this->intro_text;
+         $image = '<img src="' . $this->imageUrlThumb . '" style="max-width:100px">';
+        return $image . $this->intro_text;
     }
 
     /**

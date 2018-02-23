@@ -9,6 +9,8 @@ use plathir\smartblog\backend\models\Categorytree as Category;
 use plathir\cropper\Widget as NewWidget;
 use yii\helpers\Url;
 use dosamigos\selectize\SelectizeTextInput;
+use plathir\upload\Widget as UplWidget;
+use kartik\widgets\SwitchInput;
 ?>
 
 
@@ -69,7 +71,25 @@ use dosamigos\selectize\SelectizeTextInput;
                 //'options'         => ['disabled' => true],
         ]);
         ?> 
+        <?=
+        $form->field($model, 'attachments')->widget(UplWidget::className(), [
+            'uploadUrl' => Url::toRoute(['/blog/posts/uploadfile']),
+            'previewUrl' => $model->module->ImagePathPreview,
+            'tempPreviewUrl' => $model->module->ImageTempPathPreview,
+            'KeyFolder' => $model->id,
+        ]);
+        ?>
 
+        <?=
+        $form->field($model, 'gallery')->widget(UplWidget::className(), [
+            'uploadUrl' => Url::toRoute(['/blog/posts/uploadfile']),
+            'previewUrl' => $model->module->ImagePathPreview,
+            'tempPreviewUrl' => $model->module->ImageTempPathPreview,
+            'KeyFolder' => $model->id,
+            'galleryType' => true,
+        ]);
+        ?>        
+        <?php echo $form->field($model, 'publish')->widget(SwitchInput::classname(), []); ?>
         <div class="form-group">
             <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Create' : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>

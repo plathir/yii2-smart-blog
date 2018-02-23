@@ -309,7 +309,7 @@ class PostsController extends Controller {
      */
     public function actionDelete($id) {
         if ($this->findModel($id)->delete()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('blog', 'Post : {id} deleted ! ', ['id' => $model->id]));
+            Yii::$app->getSession()->setFlash('success', Yii::t('blog', 'Post : {id} deleted ! ', ['id' => $id]));
         }
         return $this->redirect(['index']);
     }
