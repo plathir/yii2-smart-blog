@@ -26,6 +26,7 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
             ?>
 
             <?= Html::a($descr, ['/blog/posts/view', 'id' => $model->id], $options = []) ?>
+            <h4><small><?= Yii::$app->formatter->asDatetime($model->created_at) ?></small></h4>
         </div>
 
         <?php
@@ -34,7 +35,7 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
         } else {
             echo substr($model->intro_text, 0, 150) . '...<br>';
         }
-        echo Html::a(' more »', ['/blog/posts/view', 'id' => $model->id], $options = ['class' => 'btn btn-default']);
+       // echo Html::a(' more »', ['/blog/posts/view', 'id' => $model->id], $options = ['class' => 'btn btn-default']);
         ?>
 
     </div>

@@ -41,7 +41,6 @@ class PostHelper {
         $posts_rating = (new \yii\db\Query())
                 ->select(['*, (rating_sum / rating_count) AS rate'])
                 ->from('posts_rating')
-                ->where(['publish' => 1])
                 ->orderBy('rate desc')
                 ->limit($numOfPosts)
                 ->all();
@@ -160,7 +159,6 @@ class PostHelper {
         $tag_id = Tags::find()->select(['id'])->where(['name' => $tag])->one();
         $tags = PostsTags::find()->select(['post_id'])
                         ->where(['tag_id' => $tag_id->id])
-                        ->andWhere(['publish' => 1])
                         ->groupBy(['post_id'])->all();
         foreach ($tags as $tag) {
             $tags_array[] = $tag->post_id;
@@ -176,8 +174,9 @@ class PostHelper {
      * @param type $id
      */
     public function findSimilarPosts($id) {
-        $model = Posts::findOne($id)->where(['publish' => 1]);
+        $model = Posts::findOne($id);
         $posts = $this->getPostsbyTags($model->tags);
+        $posts = $this->OwnUnpublishFilter($posts);
         $newPosts = [];
         foreach ($posts as $key => $post) {
             if ($post->id != $id) {

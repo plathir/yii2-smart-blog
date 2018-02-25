@@ -74,6 +74,14 @@ class Posts extends \plathir\smartblog\common\models\Posts {
         }
     }
 
+        function getImageUrlThumb() {
+        if ($this->post_image) {
+            return Yii::getAlias($this->module->ImagePathPreview) . '/' . $this->id . '/thumbs/' . $this->post_image;
+        } else {
+            return Yii::getAlias($this->module->ImagePathPreview) . '/nophoto.png' . $this->post_image;
+        }
+    }
+    
     public function getPublishbadge() {
         $badge = '';
         switch ($this->publish) {

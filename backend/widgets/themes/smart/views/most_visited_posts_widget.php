@@ -28,7 +28,7 @@ use yii\helpers\Html;
                         <tr>
                             <td>
                                 <?=
-                                Html::img($post->imageurl, ['alt' => '...',
+                                Html::img($post->ImageUrlThumb, ['alt' => '...',
                                     'width' => '50',
                                     'align' => 'center']);
                                 ?>

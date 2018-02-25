@@ -21,6 +21,7 @@ use yii\helpers\Html;
                         <th><?= Yii::t('blog', 'Description') ?></th>
                         <th><?= Yii::t('blog', 'Rate') ?></th>
                         <th><?= Yii::t('blog', 'Created Date') ?></th>
+                        <th><?= Yii::t('blog', 'Publish') ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,7 +29,7 @@ use yii\helpers\Html;
                         <tr>
                             <td>
                                 <?=
-                                Html::img($post->imageurl, ['alt' => '...',
+                                Html::img($post->ImageUrlThumb, ['alt' => '...',
                                     'width' => '50',
                                     'align' => 'center']);
                                 ?>
@@ -44,6 +45,7 @@ use yii\helpers\Html;
                         ]);
                              ?></td>
                             <td><?= Yii::$app->formatter->asDatetime($post->created_at) ?></td>
+                            <td><?= $post->PublishBadge ?></td>
                         </tr>
                     <?php } ?>
                 </tbody>
