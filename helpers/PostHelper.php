@@ -6,17 +6,19 @@ use plathir\smartblog\backend\models\Posts;
 use plathir\smartblog\common\models\Tags;
 use plathir\smartblog\common\models\PostsTags;
 use plathir\smartblog\common\models\PostsRating;
+use \Yii;
 
 class PostHelper {
 
     public function getLatestPosts($numOfPosts) {
+
         $posts = Posts::find()
                 ->orderBy(['created_at' => SORT_DESC])
-//                ->where(['publish'=> 1])
                 ->limit($numOfPosts)
                 ->all();
+        $newPosts = '';
         if ($posts) {
-            return $posts;
+            return $this->OwnUnpublishFilter($posts);
         } else {
             return null;
         }
@@ -28,7 +30,7 @@ class PostHelper {
                 ->limit($numOfPosts)
                 ->all();
         if ($posts) {
-            return $posts;
+            return $this->OwnUnpublishFilter($posts);
         } else {
             return null;
         }
@@ -39,6 +41,7 @@ class PostHelper {
         $posts_rating = (new \yii\db\Query())
                 ->select(['*, (rating_sum / rating_count) AS rate'])
                 ->from('posts_rating')
+                ->where(['publish' => 1])
                 ->orderBy('rate desc')
                 ->limit($numOfPosts)
                 ->all();
@@ -155,11 +158,16 @@ class PostHelper {
      */
     public function getPostsbyTag($tag) {
         $tag_id = Tags::find()->select(['id'])->where(['name' => $tag])->one();
-        $tags = PostsTags::find()->select(['post_id'])->where(['tag_id' => $tag_id->id])->groupBy(['post_id'])->all();
+        $tags = PostsTags::find()->select(['post_id'])
+                        ->where(['tag_id' => $tag_id->id])
+                        ->andWhere(['publish' => 1])
+                        ->groupBy(['post_id'])->all();
         foreach ($tags as $tag) {
             $tags_array[] = $tag->post_id;
         }
-        $posts = Posts::find()->where(['in', 'id', $tags_array])->all();
+        $posts = Posts::find()->where(['in', 'id', $tags_array])
+                ->andWhere(['publish' => 1])
+                ->all();
         return $posts;
     }
 
@@ -168,7 +176,7 @@ class PostHelper {
      * @param type $id
      */
     public function findSimilarPosts($id) {
-        $model = Posts::findOne($id);
+        $model = Posts::findOne($id)->where(['publish' => 1]);
         $posts = $this->getPostsbyTags($model->tags);
         $newPosts = [];
         foreach ($posts as $key => $post) {
@@ -177,6 +185,27 @@ class PostHelper {
             }
         }
         return $newPosts;
+    }
+
+    public function OwnUnpublishFilter($posts) {
+        $newPosts = '';
+
+        if ($posts) {
+            $usr = '';
+            if (Yii::$app->user->identity) {
+                $usr = Yii::$app->user->identity->id;
+            }
+            foreach ($posts as $post) {
+                if ($post->publish == 1) {
+                    $newPosts[] = $post;
+                } else {
+                    if ((\yii::$app->user->can('BlogUpdateOwnPost', ['post' => $post])) || (\yii::$app->user->can('BlogUpdatePost'))) {
+                        $newPosts[] = $post;
+                    }
+                }
+            }
+            return $newPosts;
+        }
     }
 
 }

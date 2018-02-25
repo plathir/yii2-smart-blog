@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use plathir\smartblog\common\models\Tags;
+use plathir\smartblog\helpers\PostHelper;
 
 /**
  * PostsController implements the CRUD actions for Posts model.
@@ -102,6 +103,8 @@ class PostsController extends Controller {
      */
     public function actionIndex() {
         $posts = Posts::find()->all();
+        $helper = new PostHelper();
+        $posts = $helper->OwnUnpublishFilter($posts);
         return $this->render('index', [
                     'posts' => $posts,
         ]);
