@@ -14,7 +14,9 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
     <div class="blog-grid-post">    
         <div class="grid-image">
             <?= Html::a('<img src=' . $model->imageurl . '?>', ['/blog/posts/view', 'id' => $model->id], $options = []); ?>
-
+            <!--            <div class="middle">
+                            <div class="text">John Doe</div>
+                        </div>-->
         </div>
         <div class="title">
             <?php
@@ -31,11 +33,10 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
 
         <?php
         if (strlen($model->intro_text) <= 150) {
-            $model->intro_text;
+            echo $model->intro_text;
         } else {
             echo substr($model->intro_text, 0, 150) . '...<br>';
         }
-       // echo Html::a(' more »', ['/blog/posts/view', 'id' => $model->id], $options = ['class' => 'btn btn-default']);
         ?>
 
     </div>
