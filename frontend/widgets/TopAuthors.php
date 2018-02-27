@@ -10,16 +10,16 @@ use Yii;
 class TopAuthors extends Widget {
 
     public $authors_num = 10;
-    public $Theme = false;
+    public $Theme = 'smart';
     public $title = 'Top Authors';
     public $selection_parameters = [];
 
     public function init() {
         parent::init();
         $this->selection_parameters = [
-          'authors_num' => $this->authors_num,  
-          'Theme' => $this->Theme,  
-          'title' => $this->title,  
+            'authors_num' => $this->authors_num,
+            'Theme' => $this->Theme,
+            'title' => $this->title,
         ];
     }
 
@@ -51,6 +51,6 @@ class TopAuthors extends Widget {
             'sourceLanguage' => 'en',
             'basePath' => Yii::getAlias('@vendor/plathir/yii2-smart-blog/messages'),
         ];
-    }   
-    
+    }
+
 }

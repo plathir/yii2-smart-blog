@@ -66,7 +66,7 @@ class Posts extends \plathir\smartblog\common\models\Posts {
     }
 
     function getImageUrl() {
-        if ($this->full_image) {
+        if ($this->post_image) {
             return Yii::getAlias($this->module->ImagePathPreview) . '/' . $this->id . '/' . $this->post_image;
         } else {
 //            return Yii::getAlias($this->module->ImagePathPreview) . '/nophoto.png'. $this->image;

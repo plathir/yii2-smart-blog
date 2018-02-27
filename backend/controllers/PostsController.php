@@ -9,9 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ArrayDataProvider;
-use plathir\smartblog\backend\models\PostsRating;
 use plathir\smartblog\common\models\Tags;
-use plathir\smartblog\common\models\PostsTags;
 
 /**
  * PostsController implements the CRUD actions for Posts model.

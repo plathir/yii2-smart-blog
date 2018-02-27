@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use plathir\smartblog\common\models\Tags;
 use plathir\smartblog\helpers\PostHelper;
+use yii\data\ArrayDataProvider;
 
 /**
  * PostsController implements the CRUD actions for Posts model.
@@ -39,7 +40,7 @@ class PostsController extends Controller {
                 'class' => \yii\filters\AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['list', 'view', 'index'],
+                        'actions' => ['list', 'view', 'index', 'userposts', 'tags'],
                         'allow' => true,
                     ],
                     [
@@ -48,10 +49,9 @@ class PostsController extends Controller {
                             'update',
                             'view',
                             'delete',
-                            'tags',
-                            'tagslist',
                             'uploadphoto',
-                            'uploadfile'
+                            'uploadfile',
+                            
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -219,4 +219,53 @@ class PostsController extends Controller {
         }
     }
 
+    
+        public function actionUserposts($userid) {
+        $posts = Posts::find()->where(['user_created' => $userid, 'publish' => 1 ])->all();
+
+        $PostModel = new Posts();
+        $userModel = new $PostModel->module->userModel;
+        $user = $userModel::findOne(['id' => $userid]);
+        if ($user) {
+            $username = $user->{$PostModel->module->userNameField};
+            $dataProvider = new ArrayDataProvider([
+                'allModels' => $posts,
+                'sort' => [
+                    'attributes' => ['id'],
+                ],
+                'pagination' => [
+                    'pageSize' => 20,
+                ],
+            ]);
+
+            return $this->render('userposts', [
+                        'dataProvider' => $dataProvider,
+                        'username' => $username
+            ]);
+        } else {
+            throw new NotFoundHttpException(Yii::t('blog', 'The requested page does not exist.'));
+        }
+    }
+    
+    public function actionTags($tag) {
+        $helper = new PostHelper();
+        $posts = $helper->getPostsbyTags($tag);
+
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $posts,
+            'sort' => [
+                'attributes' => ['id'],
+            ],
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+
+        return $this->render('tags', [
+                    'dataProvider' => $dataProvider,
+                    'posts' => $posts,
+                    'tag' => $tag
+        ]);
+    }    
+    
 }
