@@ -11,6 +11,7 @@ class SimilarPostsWidget extends Widget {
 
     public $postID;
     public $Theme = 'smart';
+    public $typeView = 'media';
 
     public function init() {
         parent::init();
@@ -36,7 +37,12 @@ class SimilarPostsWidget extends Widget {
         $assets = Asset::register($view);
     }
 
-        public function getViewPath() {
+    public function getViewPath() {
         return Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/widgets/themes/' . $this->Theme . '/views';
     }
+
+    public function getTemplatePath() {
+        return '@vendor/plathir/yii2-smart-blog/frontend/themes/' . $this->Theme . '/views';
+    }
+
 }

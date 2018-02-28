@@ -51,7 +51,7 @@ if (\Yii::$app->view->theme) {
                 </div>
             </div>
 
-            <div class="blog-sidebar-right col-lg-4 col-md-4 hidden-sm hidden-xs">
+            <div class="blog-sidebar-right col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <div class="container">
                     <div class="row">
                         <?= $positionHelper->LoadPosition('fe_blog_dashboard_right'); ?>
