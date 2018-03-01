@@ -1,6 +1,10 @@
 <?php
 
 use yii\widgets\ListView;
+
+$this->title = $tag;
+$this->params['breadcrumbs'][] = ['label' => 'Index', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="body-content">

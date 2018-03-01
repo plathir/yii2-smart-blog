@@ -2,6 +2,8 @@
 
 use yii\data\ArrayDataProvider;
 use yii\widgets\ListView;
+
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="body-content">
     <div class="row">
