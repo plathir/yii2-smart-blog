@@ -40,7 +40,7 @@ class PostsController extends Controller {
                 'class' => \yii\filters\AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['list', 'view', 'index', 'userposts', 'tags', 'tagslist'],
+                        'actions' => ['list', 'view', 'index', 'userposts', 'tags', 'tagslist', 'category'],
                         'allow' => true,
                     ],
                     [
@@ -51,7 +51,6 @@ class PostsController extends Controller {
                             'delete',
                             'uploadphoto',
                             'uploadfile',
-                            
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -219,9 +218,8 @@ class PostsController extends Controller {
         }
     }
 
-    
-        public function actionUserposts($userid) {
-        $posts = Posts::find()->where(['user_created' => $userid, 'publish' => 1 ])->all();
+    public function actionUserposts($userid) {
+        $posts = Posts::find()->where(['user_created' => $userid, 'publish' => 1])->all();
 
         $PostModel = new Posts();
         $userModel = new $PostModel->module->userModel;
@@ -246,7 +244,7 @@ class PostsController extends Controller {
             throw new NotFoundHttpException(Yii::t('blog', 'The requested page does not exist.'));
         }
     }
-    
+
     public function actionTags($tag) {
         $helper = new PostHelper();
         $posts = $helper->getPostsbyTags($tag);
@@ -266,6 +264,26 @@ class PostsController extends Controller {
                     'posts' => $posts,
                     'tag' => $tag
         ]);
-    }    
-    
+    }
+
+    public function actionCategory($id) {
+        $helper = new PostHelper();
+        $posts = $helper->getPostsbyCategory($id);
+
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $posts,
+            'sort' => [
+                'attributes' => ['id'],
+            ],
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+        return $this->render('category', [
+                    'dataProvider' => $dataProvider,
+                    'posts' => $posts,
+                    'category' => $id
+        ]);
+    }
+
 }

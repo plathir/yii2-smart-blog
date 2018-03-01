@@ -207,4 +207,38 @@ class PostHelper {
         }
     }
 
+    public function getPostsbyCategory($id) {
+
+        $posts = Posts::find()->where(['=', 'category', $id])
+                ->andWhere(['publish' => 1])
+                ->all();
+        return $posts;
+    }
+
+    public function getTopCategories($numOfCategories) {
+
+
+        $temp_topCategories = (new \yii\db\Query())
+                ->select(['category', 'count(*) as cnt'])
+                ->from('posts')
+                ->groupBy(['category'])
+                ->limit($numOfCategories)
+                ->all();
+
+        foreach ($temp_topCategories as $Category) {
+            $category_id = $Category['category'];
+
+            $topCategories[] = [
+                'category' => $category_id,
+                'cnt' => $Category['cnt']
+            ];
+        }
+
+        if ($topCategories) {
+            return $topCategories;
+        } else {
+            return null;
+        }
+    }
+
 }
