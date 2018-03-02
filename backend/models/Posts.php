@@ -24,8 +24,8 @@ class Posts extends \plathir\smartblog\common\models\Posts {
                 ],
                 // if you're using datetime instead of UNIX timestamp:
                 'value' => function() {
-            return date('U');
-        }
+                    return date('U');
+                }
             ],
             'uploadImageBehavior' => [
                 'class' => UploadImageBehavior::className(),
@@ -61,27 +61,26 @@ class Posts extends \plathir\smartblog\common\models\Posts {
                 'attribute' => 'description',
                 'slugAttribute' => 'slug',
                 'ensureUnique' => true,
-            ],                   
-                    
+            ],
         ];
     }
-    
+
     function getImageUrl() {
-        if ( $this->post_image) {
-            return Yii::getAlias($this->module->ImagePathPreview) . '/' . $this->id . '/'. $this->post_image;
+        if ($this->post_image) {
+            return Yii::getAlias($this->module->ImagePathPreview) . '/' . $this->id . '/' . $this->post_image;
         } else {
-            return Yii::getAlias($this->module->ImagePathPreview) . '/nophoto.png'. $this->post_image;
+            return Yii::getAlias($this->module->ImagePathPreview) . '/nophoto.png';
         }
     }
 
-        function getImageUrlThumb() {
+    function getImageUrlThumb() {
         if ($this->post_image) {
             return Yii::getAlias($this->module->ImagePathPreview) . '/' . $this->id . '/thumbs/' . $this->post_image;
         } else {
-            return Yii::getAlias($this->module->ImagePathPreview) . '/nophoto.png' . $this->post_image;
+            return Yii::getAlias($this->module->ImagePathPreview) . '/nophoto.png';
         }
     }
-    
+
     public function getPublishbadge() {
         $badge = '';
         switch ($this->publish) {
@@ -96,6 +95,6 @@ class Posts extends \plathir\smartblog\common\models\Posts {
         }
 
         return $badge;
-    }    
-    
+    }
+
 }

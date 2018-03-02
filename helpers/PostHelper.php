@@ -7,6 +7,7 @@ use plathir\smartblog\common\models\Tags;
 use plathir\smartblog\common\models\PostsTags;
 use plathir\smartblog\common\models\PostsRating;
 use \Yii;
+use plathir\smartblog\backend\models\Category;
 
 class PostHelper {
 
@@ -219,17 +220,24 @@ class PostHelper {
 
 
         $temp_topCategories = (new \yii\db\Query())
-                ->select(['category', 'count(*) as cnt'])
+                ->select(['category', 'count(*) as cnt', 'categories.name'])
+                ->join('LEFT JOIN', 'categories', 'categories.id = category')
                 ->from('posts')
+                ->where(['posts.publish' => 1])
                 ->groupBy(['category'])
+                ->orderBy('cnt desc')
                 ->limit($numOfCategories)
                 ->all();
 
         foreach ($temp_topCategories as $Category) {
             $category_id = $Category['category'];
-
+            $category_name = $Category['name'];
+            $cat = Category::findOne($category_id);
+            
             $topCategories[] = [
+                'image' => $cat->ImageUrl,
                 'category' => $category_id,
+                'name' => $category_name,
                 'cnt' => $Category['cnt']
             ];
         }

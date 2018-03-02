@@ -56,4 +56,12 @@ class Category extends \yii\db\ActiveRecord {
         ];
     }
 
+    function getImageUrl() {
+        if ($this->image) {
+            return Yii::getAlias($this->module->CategoryImagePathPreview) . '/' . $this->id . '/' . $this->image;
+        } else {
+            return Yii::getAlias($this->module->CategoryImagePathPreview) . '/nophoto.png';
+        }
+    }
+
 }
