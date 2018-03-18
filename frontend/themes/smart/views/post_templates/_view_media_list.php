@@ -15,7 +15,7 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
             <div class="media-body">
                 <h4 class="media-heading"><?= Html::a($model->description, ['/blog/posts/view', 'id' => $model->id]) ?><br><small><?= Yii::$app->formatter->asDatetime($model->created_at) ?></small></h4>
                 <p><?php
-                    $intro_text = (strlen($model->intro_text) > 100) ? substr($model->intro_text, 0, 100) . '...' : $model->intro_text;
+                    $intro_text = (strlen($model->intro_text) > 100) ? substr($model->intro_text, 0, 99) . '...' : $model->intro_text;
                     echo $intro_text;
                     ?>
                 </p>

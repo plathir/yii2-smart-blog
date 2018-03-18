@@ -269,6 +269,7 @@ class PostsController extends Controller {
     public function actionCategory($id) {
         $helper = new PostHelper();
         $posts = $helper->getPostsbyCategory($id);
+        $category = \plathir\smartblog\backend\models\Category::findOne($id);
 
         $dataProvider = new ArrayDataProvider([
             'allModels' => $posts,
@@ -282,7 +283,8 @@ class PostsController extends Controller {
         return $this->render('category', [
                     'dataProvider' => $dataProvider,
                     'posts' => $posts,
-                    'category' => $id
+                    'category' => $id,
+                    'categ' => $category
         ]);
     }
 
