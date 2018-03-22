@@ -9,16 +9,16 @@ if ($widget->title) {
 $items = [];
 foreach ($posts as $post) {
 
-    if (strlen($post->description) <= 150) {
+    if (strlen($post->description) < 150) {
         $descr = $post->description;
     } else {
-        $descr = substr($post->description, 0, 149) . '...';
+        $descr = substr($post->description, 0, 150) . '...';
     }
 
-    if (strlen($post->intro_text) <= 150) {
+    if (strlen($post->intro_text) < 150) {
         $intro = $post->intro_text;
     } else {
-        $intro = substr($post->intro_text, 0, 149) . '...';
+        $intro = substr($post->intro_text, 0, 150) . '...';
     }
 
     $items[] = [

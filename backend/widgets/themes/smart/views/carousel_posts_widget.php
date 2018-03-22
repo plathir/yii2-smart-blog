@@ -4,20 +4,20 @@ use yii\bootstrap\Carousel;
 use yii\helpers\Html;
 
 if ($widget->title) {
-  //  echo '<h3>' . $widget->title . '</h3>';
+    //  echo '<h3>' . $widget->title . '</h3>';
 };
 $items = [];
 foreach ($posts as $post) {
-        if (strlen($post->description) <= 150) {
+    if (strlen($post->description) < 150) {
         $descr = $post->description;
     } else {
-        $descr = substr($post->description, 0, 149) . '...';
+        $descr = substr($post->description, 0, 150) . '...';
     }
 
-    if (strlen($post->intro_text) <= 150) {
+    if (strlen($post->intro_text) < 150) {
         $intro = $post->intro_text;
     } else {
-        $intro = substr($post->intro_text, 0, 149) . '...';
+        $intro = substr($post->intro_text, 0, 150) . '...';
     }
     $items[] = [
         // equivalent to the above
@@ -34,6 +34,7 @@ if ($items) {
         'controls' => ['<span class="glyphicon glyphicon-chevron-left"></span>', '<span class="glyphicon glyphicon-chevron-right"></span>'],
         'options' => ['style' => "width:100%; height: " . $widget->height . ";"],
     ]);
+    echo '<br>';
 }
 
 

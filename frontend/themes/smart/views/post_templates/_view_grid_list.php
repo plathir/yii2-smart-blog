@@ -19,18 +19,19 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
         </div>
         <div class="title">
             <?php
-            if (strlen($model->description) <= 150) {
+            if (strlen($model->description) < 150) {
                 $descr = $model->description;
             } else {
-                $descr = substr($model->description, 0, 149) . '...';
+                $descr = substr($model->description, 0, 150) . '...';
             }
             ?>
 
+
             <?php
-            if (strlen($model->intro_text) <= 150) {
+            if (strlen($model->intro_text) < 150) {
                 $intro = $model->intro_text;
             } else {
-                $intro = substr($model->intro_text, 0, 149) . '...';
+                $intro = substr($model->intro_text, 0, 150) . '...';
             }
             ?>            
 
@@ -39,7 +40,7 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
         </div>
 
         <?php
-        echo $intro . '<br>';
+        echo $intro . '<br>';// strlen($intro);
         ?>
 
     </div>
