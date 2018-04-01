@@ -12,13 +12,13 @@ foreach ($posts as $post) {
     if (strlen($post->description) < 150) {
         $descr = $post->description;
     } else {
-        $descr = substr($post->description, 0, 150) . '...';
+        $descr = mb_substr($post->description, 0, 100) . '...';
     }
 
     if (strlen($post->intro_text) < 150) {
         $intro = $post->intro_text;
     } else {
-        $intro = substr($post->intro_text, 0, 150) . '...';
+        $intro = mb_substr($post->intro_text, 0, 149) . '...';
     }
 
     $items[] = [

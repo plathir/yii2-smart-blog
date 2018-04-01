@@ -23,6 +23,8 @@ if (\Yii::$app->view->theme) {
         <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="main-content-header">
+                  <?php
+               ?>
 <!--                    <h3>Blog Page header <small>Subtext for header</small></h3>-->
                     <?php
                     if (\Yii::$app->user->can('BlogCreatePost')) {
