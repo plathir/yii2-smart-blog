@@ -11,15 +11,17 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="body-content">
     <div class="row">
         <div class="col-lg-12">
-            <div class="contentainer">
+            <div class="container">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                         <?= Html::img($categ->imageUrl, ['class' => 'img-responsive', 'width' => '300px']); ?>
-                        <br>
+                    </div>
+                    <div class="col-lg-6">
+                        <?= $categ->description ?>
                     </div>
                 </div>
             </div>
-
+            <hr>
             <?php
             $view = '/post_templates/_view_media_list';
             $layout = '{summary}{items}{pager}';

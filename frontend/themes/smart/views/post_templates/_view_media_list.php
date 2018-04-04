@@ -13,7 +13,9 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
                 <?= Html::a('<img class="media-object image-in-list" src="' . $model->ImageUrlThumb . '" alt="...">', ['/blog/posts/view', 'id' => $model->id]) ?>
             </div>
             <div class="media-body">
-                <h4 class="media-heading"><?= Html::a($model->description, ['/blog/posts/view', 'id' => $model->id]) ?><br><small><?= Yii::$app->formatter->asDatetime($model->created_at) ?></small></h4>
+                <?php $descr = (strlen($model->description) > 100) ? mb_substr($model->description, 0, 99) . '...' : $model->description; ?>
+
+                <h4 class="media-heading"><?= Html::a($descr, ['/blog/posts/view', 'id' => $model->id]) ?><br><small><?= Yii::$app->formatter->asDatetime($model->created_at) ?></small></h4>
                 <p><?php
                     $intro_text = (strlen($model->intro_text) > 100) ? mb_substr($model->intro_text, 0, 99) . '...' : $model->intro_text;
                     echo $intro_text;

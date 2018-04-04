@@ -8,7 +8,7 @@ $userHelper = new UserHelper();
 ?>
 
 
-<div class="panel panel-default hidden-xs hidden-sm">
+<div class="panel panel-default">
     <div class="panel-heading"><?= Yii::t('blog', 'Top Authors') ?></div>
     <div class="panel-body"> 
         <div class="table-responsive">

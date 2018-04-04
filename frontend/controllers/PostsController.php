@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use plathir\smartblog\common\models\Tags;
 use plathir\smartblog\helpers\PostHelper;
 use yii\data\ArrayDataProvider;
+use \plathir\smartblog\backend\models\Category;
 
 /**
  * PostsController implements the CRUD actions for Posts model.
@@ -269,7 +270,7 @@ class PostsController extends Controller {
     public function actionCategory($id) {
         $helper = new PostHelper();
         $posts = $helper->getPostsbyCategory($id);
-        $category = \plathir\smartblog\backend\models\Category::findOne($id);
+        $category = Category::findOne($id);
 
         $dataProvider = new ArrayDataProvider([
             'allModels' => $posts,
