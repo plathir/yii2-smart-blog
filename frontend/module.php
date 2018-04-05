@@ -22,6 +22,7 @@ class Module extends \yii\base\Module {
     public $userModel = '';
     public $userNameField = '';
     public $Theme = 'smart';
+    public $editor = 'CKEditor';
 
     public function init() {
         $path = Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/themes/' . $this->Theme . '/views';

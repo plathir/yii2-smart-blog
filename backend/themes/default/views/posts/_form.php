@@ -22,12 +22,13 @@ use mihaildev\elfinder\ElFinder;
 <div class="panel panel-primary">
     <div class="panel-heading">Blog Post</div>
     <div class="panel-body">
-        <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdPost' ]]); ?>
+        <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdPost']]); ?>
         <div class="row">
             <div class="col-lg-9 col-md-9 col-sm-9">
                 <?= $form->field($model, 'description')->textInput(['maxlength' => 255]) ?>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
+
                         <?=
                         $form->field($model, 'post_image')->widget(NewWidget::className(), [
                             'uploadUrl' => Url::toRoute(['/blog/posts/uploadphoto']),
@@ -38,43 +39,35 @@ use mihaildev\elfinder\ElFinder;
                             'height' => 200,
                         ]);
                         ?>
+                        <?php
+                        echo 'test'. $model->module->editor;
+                        switch ($model->module->editor) {
+                            case 'CKEditor':
+                                echo $form->field($model, 'full_text')->widget(CKEditor::className(), [
+                                    'editorOptions' => ElFinder::ckeditorOptions('blog/elfinder', [/* Some CKEditor Options */
+                                    ]),
+                                ]);
 
+                                break;
+                            case 'markdown':
+                                echo $form->field($model, 'full_text')->widget(\yii2mod\markdown\MarkdownEditor::class, [
+                                    'editorOptions' => [
+                                        'showIcons' => ["code", "table"],
+                                        'renderingConfig' => [
+                                            'codeSyntaxHighlighting' => true,
+                                        ]
+                                    ],
+                                ]);
+                                break;
+                            default:
+                                break;
+                        }
+                        ?>
                     </div>
-
-
                 </div>
 
                 <?= $form->field($model, 'intro_text')->textarea(['rows' => 6]) ?>        
 
-                <?php
-                echo $form->field($model, 'full_text')->widget(CKEditor::className(), [
-                    'editorOptions' => ElFinder::ckeditorOptions('blog/elfinder', [/* Some CKEditor Options */
-                    ]),
-                ]);
-                
-                ?>
-
-
-                <?php
-//                echo
-//                $form->field($model, 'full_text')->widget(\vova07\imperavi\Widget::className(), [
-//
-//                    'settings' => [
-//                        //  'lang' => 'en',
-//                        'minHeight' => 200,
-//                        //    'pastePlainText' => true,
-//                        //  'pasteImages' => true,
-//                        'plugins' => [
-//                            'clips',
-//                            'fullscreen'
-//                        ],
-////            'imageGetJson' => Url::to(['/blog/posts/get']),
-////            'imageUpload' => Url::to(['/blog/posts/image-upload']),
-////            'fileUpload' => Url::to(['/blog/posts/file-upload']),
-////            'clipboardUploadUrl' => Url::to(['/blog/posts/clipupl'])
-//                    ]
-//                ]);
-                ?>
                 <?=
                 $form->field($model, 'category')->widget(TreeViewInput::className(), [
                     'model' => $model,
@@ -185,10 +178,10 @@ use mihaildev\elfinder\ElFinder;
         </div>
 
         <div class="form-group">
-            <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Create' : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+<?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Create' : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
 
-        <?php ActiveForm::end(); ?>        
+<?php ActiveForm::end(); ?>        
 
     </div>
 

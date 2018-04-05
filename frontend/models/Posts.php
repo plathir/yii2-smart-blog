@@ -81,4 +81,14 @@ class Posts extends \plathir\smartblog\common\models\Posts {
         }
     }
 
+    public function getFulltext_html() {
+
+        switch ($this->module->editor) {
+            case 'CKEditor':
+                return $model->full_text;
+            case 'markdown':
+                return Markdown::process($model->full_text, 'gfm');
+        }
+    }
+
 }

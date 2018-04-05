@@ -75,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'slug',
                                 'views',
                                 'intro_text:ntext',
-                                'full_text:html',
+                                'fulltext_html:html',
                                 [
                                     'attribute' => 'post_image',
                                     'value' => $model->post_image == '' ? '' : ( $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->post_image),

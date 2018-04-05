@@ -24,6 +24,8 @@ class Module extends \yii\base\Module {
     public $userModel = '';
     public $userNameField = '';
     public $Theme = 'default';
+    public $editor = 'CKEditor';
+   // public $editor = '';
 
     public function init() {
 

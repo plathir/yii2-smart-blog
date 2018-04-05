@@ -39,6 +39,7 @@ use kartik\widgets\SwitchInput;
             ]),
         ]);
         ?>
+        
         <?=
         $form->field($model, 'tags')->widget(SelectizeTextInput::className(), [
             'loadUrl' => ['/blog/posts/tagslist'],

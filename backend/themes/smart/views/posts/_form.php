@@ -53,13 +53,36 @@ use mihaildev\elfinder\ElFinder;
                 <?= $form->field($model, 'intro_text')->textarea(['rows' => 6]) ?>        
 
                 <?php
-                echo $form->field($model, 'full_text')->widget(CKEditor::className(), [
-                    'editorOptions' => ElFinder::ckeditorOptions('blog/elfinder', [/* Some CKEditor Options */
-                    ]),
-                ]);
+//                echo $form->field($model, 'full_text')->widget(CKEditor::className(), [
+//                    'editorOptions' => ElFinder::ckeditorOptions('blog/elfinder', [/* Some CKEditor Options */
+//                    ]),
+//                ]);
                 
                 ?>
+                        <?php
+                        echo 'test'. $model->module->editor;
+                        switch ($model->module->editor) {
+                            case 'CKEditor':
+                                echo $form->field($model, 'full_text')->widget(CKEditor::className(), [
+                                    'editorOptions' => ElFinder::ckeditorOptions('blog/elfinder', [/* Some CKEditor Options */
+                                    ]),
+                                ]);
 
+                                break;
+                            case 'markdown':
+                                echo $form->field($model, 'full_text')->widget(\yii2mod\markdown\MarkdownEditor::class, [
+                                    'editorOptions' => [
+                                        'showIcons' => ["code", "table"],
+                                        'renderingConfig' => [
+                                            'codeSyntaxHighlighting' => true,
+                                        ]
+                                    ],
+                                ]);
+                                break;
+                            default:
+                                break;
+                        }
+                        ?>
 
                 <?php
 //                echo

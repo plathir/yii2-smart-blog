@@ -49,13 +49,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'description',
                                 'slug',
                                 'intro_text:ntext',
-                                'full_text:html',
+                                'fulltext_html',
                                 [
                                     'attribute' => 'post_image',
                                     'value' => $model->post_image == '' ? '' : ( $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->post_image),
                                     'format' => $model->post_image == '' ? 'html' : ['image', ['width' => '100', 'height' => '100']],
                                 ],
-
                                 [
                                     'attribute' => 'user_created',
                                     'value' => $userModel::findOne(['id' => $model->user_created])->{$model->module->userNameField},
@@ -73,12 +72,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'value' => $model->publish == true ? '<span class="label label-success">Published</span>' : '<span class="label label-danger">Unpublished</span>',
                                     'format' => 'html'
                                 ],
-                                
                                 [
                                     'attribute' => 'category',
                                     'value' => $categoryModel::findOne(['id' => $model->category])->name,
                                     'format' => 'text'
-                                ],                                            
+                                ],
                             ],
                         ]) .
                         TagsWidget::widget([
