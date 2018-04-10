@@ -49,7 +49,7 @@ class TagsController extends Controller {
         if (\yii::$app->user->can('BlogRebuildTags')) {
             $posts_tags = PostsTags::find()->select(['tag_id'])->groupBy('tag_id')->orderBy(['tag_id' => SORT_ASC])->all();
             $db_tags = Tags::find()->select(['id'])->groupBy('id')->orderBy(['id' => SORT_ASC])->all();
-
+            $stored_tags = '';
             foreach ($posts_tags as $tag) {
                 $activeTags[] = $tag['tag_id'];
             }
@@ -57,10 +57,12 @@ class TagsController extends Controller {
                 $stored_tags[] = $s_tag['id'];
             }
 
-            foreach ($stored_tags as $db_tag) {
-                if (array_search($db_tag, $activeTags, true) === false) {
-                    if (Tags::findOne($db_tag)->delete()) {
-                        echo Yii::t('blog', 'Tag {tag} deleted ! <br> ', ['tag' => $db_tag]);
+            if ($stored_tags) {
+                foreach ($stored_tags as $db_tag) {
+                    if (array_search($db_tag, $activeTags, true) === false) {
+                        if (Tags::findOne($db_tag)->delete()) {
+                            echo Yii::t('blog', 'Tag {tag} deleted ! <br> ', ['tag' => $db_tag]);
+                        }
                     }
                 }
             }

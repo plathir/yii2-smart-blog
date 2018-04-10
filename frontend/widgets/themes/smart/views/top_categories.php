@@ -15,20 +15,25 @@ use plathir\user\common\helpers\UserHelper;
                 </thead>
                 <tbody>
                     <?php
-                    foreach ($topCategories as $Category) {
-                        ?>
-                        <tr>
-                            <td> 
-                        <?= Html::img($Category["image"], ['alt' => '...',
-                                       // 'class' => 'img-circle',
+                    if ($topCategories) {
+                        foreach ($topCategories as $Category) {
+                            ?>
+                            <tr>
+                                <td> 
+                                    <?=
+                                    Html::img($Category["image"], ['alt' => '...',
+                                        // 'class' => 'img-circle',
                                         'width' => '40',
-                                        'align' => 'center']); ?>
-                            </td>                            
-                            <td><?= Html::a($Category["name"], ['/blog/posts/category', 'id' => $Category["category"]]) ?></td>
-                            <td><?= $Category['cnt'] ?></td>
-                            
-                        </tr>
-                    <?php } ?>
+                                        'align' => 'center']);
+                                    ?>
+                                </td>                            
+                                <td><?= Html::a($Category["name"], ['/blog/posts/category', 'id' => $Category["category"]]) ?></td>
+                                <td><?= $Category['cnt'] ?></td>
+
+                            </tr>
+                        <?php }
+                    }
+                    ?>
                 </tbody>
             </table>
         </div><!-- /.table-responsive -->

@@ -71,6 +71,7 @@ class PostsHelper {
             ];
         }
 
+        //test
         if ($topAuthors) {
             return $topAuthors;
         } else {

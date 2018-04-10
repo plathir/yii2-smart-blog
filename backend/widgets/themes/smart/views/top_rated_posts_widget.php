@@ -1,7 +1,7 @@
 <?php
+
 use kartik\widgets\StarRating;
 use yii\helpers\Html;
-
 ?>
 <div class="box box-info">
     <div class="box-header with-border">
@@ -25,29 +25,35 @@ use yii\helpers\Html;
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($posts as $post) { ?>
-                        <tr>
-                            <td>
-                                <?=
-                                Html::img($post->ImageUrlThumb, ['alt' => '...',
-                                    'width' => '50',
-                                    'align' => 'center']);
-                                ?>
-                            </td>                              
-                            <td><?= $post->id ?></td>
-                            <td><?= Html::a($post->description, ['/blog/posts/view', 'id' => $post->id]) ?></td>
-                            <td><?= StarRating::widget([
-                            'name' => 'post_rating',
-                            'value' => $post->ratingval,
-                            'pluginOptions' => [
-                                'displayOnly' => true,
-                                'size' => '15px']
-                        ]);
-                             ?></td>
-                            <td><?= Yii::$app->formatter->asDatetime($post->created_at) ?></td>
-                            <td><?= $post->PublishBadge ?></td>
-                        </tr>
-                    <?php } ?>
+                    <?php
+                    if ($posts) {
+                        foreach ($posts as $post) {
+                            ?>
+                            <tr>
+                                <td>
+                                    <?=
+                                    Html::img($post->ImageUrlThumb, ['alt' => '...',
+                                        'width' => '50',
+                                        'align' => 'center']);
+                                    ?>
+                                </td>                              
+                                <td><?= $post->id ?></td>
+                                <td><?= Html::a($post->description, ['/blog/posts/view', 'id' => $post->id]) ?></td>
+                                <td><?=
+                                    StarRating::widget([
+                                        'name' => 'post_rating',
+                                        'value' => $post->ratingval,
+                                        'pluginOptions' => [
+                                            'displayOnly' => true,
+                                            'size' => '15px']
+                                    ]);
+                                    ?></td>
+                                <td><?= Yii::$app->formatter->asDatetime($post->created_at) ?></td>
+                                <td><?= $post->PublishBadge ?></td>
+                            </tr>
+                        <?php }
+                    }
+                    ?>
                 </tbody>
             </table>
         </div><!-- /.table-responsive -->

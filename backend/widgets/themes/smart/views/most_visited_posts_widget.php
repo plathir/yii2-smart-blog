@@ -24,22 +24,27 @@ use yii\helpers\Html;
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($posts as $post) { ?>
-                        <tr>
-                            <td>
-                                <?=
-                                Html::img($post->ImageUrlThumb, ['alt' => '...',
-                                    'width' => '50',
-                                    'align' => 'center']);
-                                ?>
-                            </td>                            
-                            <td><?= $post->id ?></td>
-                            <td><?= Html::a($post->description, ['/blog/posts/view', 'id' => $post->id]) ?></td>
-                            <td><?= $post->views ?></td>
-                            <td><?= $post->publishbadge ?></td>
-                            <td><?= Yii::$app->formatter->asDatetime($post->created_at) ?></td>
-                        </tr>
-                    <?php } ?>
+                    <?php
+                    if ($posts) {
+                        foreach ($posts as $post) {
+                            ?>
+                            <tr>
+                                <td>
+                                    <?=
+                                    Html::img($post->ImageUrlThumb, ['alt' => '...',
+                                        'width' => '50',
+                                        'align' => 'center']);
+                                    ?>
+                                </td>                            
+                                <td><?= $post->id ?></td>
+                                <td><?= Html::a($post->description, ['/blog/posts/view', 'id' => $post->id]) ?></td>
+                                <td><?= $post->views ?></td>
+                                <td><?= $post->publishbadge ?></td>
+                                <td><?= Yii::$app->formatter->asDatetime($post->created_at) ?></td>
+                            </tr>
+                        <?php }
+                    }
+                    ?>
                 </tbody>
             </table>
         </div><!-- /.table-responsive -->

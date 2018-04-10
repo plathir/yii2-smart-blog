@@ -29,7 +29,7 @@ class CarouselPosts extends Widget {
 
     public function run() {
         $this->registerClientAssets();
-        $listPosts =[];
+        $listPosts = [];
         if ($this->posts) {
             $listPostsNum = explode(',', $this->posts);
             $listPosts = [];
@@ -40,8 +40,10 @@ class CarouselPosts extends Widget {
 
         if ($this->carousel_id) {
             $carousel = Carousel::findOne($this->carousel_id);
-            foreach ($carousel->carouselItems as $item) {
-                $listPosts[] = Posts_s::findOne($item->post_id);
+            if ($carousel) {
+                foreach ($carousel->carouselItems as $item) {
+                    $listPosts[] = Posts_s::findOne($item->post_id);
+                }
             }
         }
 

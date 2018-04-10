@@ -65,10 +65,11 @@ class PostHelper {
                 ->groupBy(['user_created'])
                 ->limit(10)
                 ->all();
-
+        $topAuthors = '';
         foreach ($temp_topAuthors as $Author) {
             $userid = $Author['author'];
             $username = PostHelper::getUserName($userid);
+
             $topAuthors[] = [
                 'userid' => $userid,
                 'author' => $username,
@@ -218,7 +219,7 @@ class PostHelper {
 
     public function getTopCategories($numOfCategories) {
 
-
+        $topCategories = '';
         $temp_topCategories = (new \yii\db\Query())
                 ->select(['category', 'count(*) as cnt', 'categories.name'])
                 ->join('LEFT JOIN', 'categories', 'categories.id = category')
@@ -233,7 +234,7 @@ class PostHelper {
             $category_id = $Category['category'];
             $category_name = $Category['name'];
             $cat = Category::findOne($category_id);
-            
+
             $topCategories[] = [
                 'image' => $cat->ImageUrl,
                 'category' => $category_id,

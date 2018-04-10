@@ -18,19 +18,24 @@ $userHelper = new UserHelper();
                 </thead>
                 <tbody>
                     <?php
-                    foreach ($topAuthors as $Author) {
-                        ?>
-                        <tr>
-                            <td> 
-                        <?= Html::img($userHelper->getProfileImage($Author["userid"], $this), ['alt' => '...',
+                    if ($topAuthors) {
+                        foreach ($topAuthors as $Author) {
+                            ?>
+                            <tr>
+                                <td> 
+                                    <?=
+                                    Html::img($userHelper->getProfileImage($Author["userid"], $this), ['alt' => '...',
                                         'class' => 'img-circle',
                                         'width' => '40',
-                                        'align' => 'center']); ?>
-                            </td>
-                            <td><?= Html::a($Author["author"], ['/blog/posts/userposts', 'userid' => $Author["userid"]]) ?></td>
-                            <td><?= $Author['cnt'] ?></td>
-                        </tr>
-                    <?php } ?>
+                                        'align' => 'center']);
+                                    ?>
+                                </td>
+                                <td><?= Html::a($Author["author"], ['/blog/posts/userposts', 'userid' => $Author["userid"]]) ?></td>
+                                <td><?= $Author['cnt'] ?></td>
+                            </tr>
+                        <?php }
+                    }
+                    ?>
                 </tbody>
             </table>
         </div><!-- /.table-responsive -->
