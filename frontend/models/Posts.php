@@ -88,7 +88,7 @@ class Posts extends \plathir\smartblog\common\models\Posts {
             case 'CKEditor':
                 return $model->full_text;
             case 'markdown':
-                return Markdown::process($model->full_text, 'gfm');
+                return Markdown::process($this->full_text, 'gfm');
         }
     }
 
