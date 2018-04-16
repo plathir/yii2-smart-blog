@@ -60,7 +60,7 @@ use mihaildev\elfinder\ElFinder;
                 
                 ?>
                         <?php
-                        echo 'test'. $model->module->editor;
+                     //   echo 'test'. $model->module->editor;
                         switch ($model->module->editor) {
                             case 'CKEditor':
                                 echo $form->field($model, 'full_text')->widget(CKEditor::className(), [
