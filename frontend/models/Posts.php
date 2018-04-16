@@ -8,6 +8,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\behaviors\SluggableBehavior;
 use Yii;
+use yii\helpers\Markdown;
 
 class Posts extends \plathir\smartblog\common\models\Posts {
 
