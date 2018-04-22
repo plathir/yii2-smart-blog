@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     </div><!-- /.box-header -->
     <div class="box-body">
-        
+
         <div class="posts-view">
             <p>
                 <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -75,7 +75,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'slug',
                                 'views',
                                 'intro_text:ntext',
-                                'fulltext_html:html',
+                                [
+                                    'attribute' => 'fulltext_html',
+                                    'value' => function( $model ) {
+                                        return $model->fulltext_html;
+                                    },
+                                    'format' => 'raw',
+                                ],
                                 [
                                     'attribute' => 'post_image',
                                     'value' => $model->post_image == '' ? '' : ( $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->post_image),
