@@ -39,7 +39,7 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
     </div>
     <div>   
         <div class="row">
-            <div class="post-details-image-box col-xs-12 col-sm-5 col-lg-4">
+            <div class="post-details-image-box col-xs-12 col-sm-12 col-lg-12">
                 <img class="img-responsive" src="<?= $imageURL; ?>">
             </div>
 

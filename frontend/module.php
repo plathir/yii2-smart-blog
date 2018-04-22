@@ -23,6 +23,14 @@ class Module extends \yii\base\Module {
     public $userNameField = '';
     public $Theme = 'smart';
     public $editor = 'CKEditor';
+    public $image_width = 400;
+    public $image_height = 300;
+    public $crop_image_width = 400;
+    public $crop_image_height = 300;
+    public $store_image_width = 800;
+    public $store_image_height = 600;
+    public $store_thumbnail_width = 266;
+    public $store_thumbnail_height = 200;
 
     public function init() {
         $path = Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/themes/' . $this->Theme . '/views';
@@ -70,6 +78,7 @@ class Module extends \yii\base\Module {
 
         // custom initialization code goes here
     }
+
     public function registerTranslations() {
         /*         * This registers translations for the widgets module * */
         Yii::$app->i18n->translations['blog'] = [

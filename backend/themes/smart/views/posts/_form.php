@@ -40,9 +40,12 @@ use mihaildev\elfinder\ElFinder;
                             'previewUrl' => $model->module->ImagePathPreview,
                             'tempPreviewUrl' => $model->module->ImageTempPathPreview,
                             'KeyFolder' => $model->id,
-                            'width' => 200,
-                            'height' => 200,
-                        ]);
+                            'width' => $model->module->image_width,
+                            'height' => $model->module->image_height,
+                            'cropAreaWidth' => $model->module->crop_image_width,
+                            'cropAreaHeight' => $model->module->crop_image_height,
+
+                            ]);
                         ?>
 
                     </div>

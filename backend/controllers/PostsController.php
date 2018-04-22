@@ -85,9 +85,11 @@ class PostsController extends Controller {
             //Upload cropped image into temp directory
             'uploadphoto' => [
                 'class' => '\plathir\cropper\actions\UploadAction',
-                'width' => 600,
-                'height' => 600,
+                'width' => $this->module->store_image_width,
+                'height' => $this->module->store_image_height,
                 'thumbnail' => true,
+                'thumbnail_width' => $this->module->store_thumbnail_width,
+                'thumbnail_height' => $this->module->store_thumbnail_height,
                 'temp_path' => $this->module->ImageTempPath,
             ],
             'uploadfile' => [
