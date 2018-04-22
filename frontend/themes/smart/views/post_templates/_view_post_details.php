@@ -44,7 +44,7 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
             </div>
 
             <div class="blog-intro-text">
-                <?= $model->full_text ?> 
+                <?= $model->fulltext_html ?> 
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">

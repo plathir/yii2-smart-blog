@@ -8,6 +8,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\behaviors\SluggableBehavior;
 use Yii;
+use yii\helpers\Markdown;
 
 class Posts extends \plathir\smartblog\common\models\Posts {
 
@@ -85,9 +86,9 @@ class Posts extends \plathir\smartblog\common\models\Posts {
 
         switch ($this->module->editor) {
             case 'CKEditor':
-                return $model->full_text;
+                return $this->full_text;
             case 'markdown':
-                return Markdown::process($model->full_text, 'gfm');
+                return Markdown::process($this->full_text, 'gfm');
         }
     }
 

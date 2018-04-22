@@ -180,9 +180,11 @@ class PostHelper {
         $posts = $this->getPostsbyTags($model->tags);
         $posts = $this->OwnUnpublishFilter($posts);
         $newPosts = [];
-        foreach ($posts as $key => $post) {
-            if ($post->id != $id) {
-                $newPosts[] = $post;
+        if ($posts) {
+            foreach ($posts as $key => $post) {
+                if ($post->id != $id) {
+                    $newPosts[] = $post;
+                }
             }
         }
         return $newPosts;

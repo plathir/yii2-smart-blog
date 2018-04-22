@@ -34,12 +34,38 @@ use kartik\widgets\SwitchInput;
         ?>
         <?= $form->field($model, 'intro_text')->textarea(['rows' => 6]) ?>          
         <?=
-        $form->field($model, 'full_text')->widget(CKEditor::className(), [
-            'editorOptions' => ElFinder::ckeditorOptions('blog/elfinder', [/* Some CKEditor Options */
-            ]),
-        ]);
+        '';
+//        $form->field($model, 'full_text')->widget(CKEditor::className(), [
+//            'editorOptions' => ElFinder::ckeditorOptions('blog/elfinder', [/* Some CKEditor Options */
+//            ]),
+//        ]);
         ?>
-        
+
+        <?php
+        //   echo 'test'. $model->module->editor;
+        switch ($model->module->editor) {
+            case 'CKEditor':
+                echo $form->field($model, 'full_text')->widget(CKEditor::className(), [
+                    'editorOptions' => ElFinder::ckeditorOptions('blog/elfinder', [/* Some CKEditor Options */
+                    ]),
+                ]);
+
+                break;
+            case 'markdown':
+                echo $form->field($model, 'full_text')->widget(\yii2mod\markdown\MarkdownEditor::class, [
+                    'editorOptions' => [
+                        'showIcons' => ["code", "table"],
+                        'renderingConfig' => [
+                            'codeSyntaxHighlighting' => true,
+                        ]
+                    ],
+                ]);
+                break;
+            default:
+                break;
+        }
+        ?>        
+
         <?=
         $form->field($model, 'tags')->widget(SelectizeTextInput::className(), [
             'loadUrl' => ['/blog/posts/tagslist'],
@@ -90,12 +116,12 @@ use kartik\widgets\SwitchInput;
             'galleryType' => true,
         ]);
         ?>        
-        <?php echo $form->field($model, 'publish')->widget(SwitchInput::classname(), []); ?>
+            <?php echo $form->field($model, 'publish')->widget(SwitchInput::classname(), []); ?>
         <div class="form-group">
-            <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Create' : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+<?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Create' : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
 
-        <?php ActiveForm::end(); ?>            
+<?php ActiveForm::end(); ?>            
     </div>
 </div>
 
