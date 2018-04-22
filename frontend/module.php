@@ -23,14 +23,14 @@ class Module extends \yii\base\Module {
     public $userNameField = '';
     public $Theme = 'smart';
     public $editor = 'CKEditor';
-    public $image_width = 400;
-    public $image_height = 300;
-    public $crop_image_width = 400;
-    public $crop_image_height = 300;
-    public $store_image_width = 800;
-    public $store_image_height = 600;
-    public $store_thumbnail_width = 266;
-    public $store_thumbnail_height = 200;
+    public $image_width = 400;             // Widget Select Crop Image size
+    public $image_height = 300;            // Widget Select Crop Image size 
+    public $crop_image_width = 400;        // Widget Crop Area size
+    public $crop_image_height = 300;       // Widget Crop Area size
+    public $store_image_width = 800;       // image store size
+    public $store_image_height = 600;      // image store size
+    public $store_thumbnail_width = 266;   // thumbnail store size
+    public $store_thumbnail_height = 200;  // thumbnail store size
 
     public function init() {
         $path = Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/themes/' . $this->Theme . '/views';
