@@ -11,7 +11,7 @@ if ($posts) {
         ?>
 
         <?= $post->id ?><br>
-        <?= Html::a($post->description, ['/blog/posts/view', 'id' => $post->id]) ?><br>
+        <?= Html::a($post->description, ['/blog/posts/view', 'id' => $post->id, 'id' => $post->slug]) ?><br>
         <?=
         StarRating::widget([
             'name' => 'post_rating',

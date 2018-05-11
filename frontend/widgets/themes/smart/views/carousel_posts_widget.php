@@ -25,7 +25,7 @@ foreach ($posts as $post) {
         // equivalent to the above
         'content' => '<img src="' . $post->imageUrl . '" max-height: ' . $widget->height . '; width="100%"/>',
         // the item contains both the image and the caption
-        'caption' => '<div style="background:rgba(0, 0, 0, 0.2);"><h4><u>' . Html::a($descr, ['/blog/posts/view', 'id' => $post->id], ['style' => "color:white;"]) . '</u></h4><p>' . $intro . '</p></div>',
+        'caption' => '<div style="background:rgba(0, 0, 0, 0.2);"><h4><u>' . Html::a($descr, ['/blog/posts/view', 'id' => $post->id, 'slug' => $post->slug], ['style' => "color:white;"]) . '</u></h4><p>' . $intro . '</p></div>',
         'options' => ['style' => "width:100%; height: " . $widget->height . ";"]
     ];
 }

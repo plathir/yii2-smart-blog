@@ -12,7 +12,7 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <div class="panel-heading-title"><?= Html::a($model->description, ['/blog/posts/view', 'id' => $model->id]) ?>  </div>
+        <div class="panel-heading-title"><?= Html::a($model->description, ['/blog/posts/view', 'id' => $model->id, 'slug' => $model->slug]) ?>  </div>
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
@@ -31,7 +31,7 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
                         &nbsp;
                         <?php
                         if (\yii::$app->user->can('BlogUpdatePost')) {
-                            echo Html::a('<i class="fa fa-edit"></i>', ['/blog/posts/update', 'id' => $model->id], ['class' => 'pull-right btn btn-success btn-xs']);
+                            echo Html::a('<i class="fa fa-edit"></i>', ['/blog/posts/update', 'id' => $model->id, 'slug' => $model->slug], ['class' => 'pull-right btn btn-success btn-xs']);
                         }
                         ?>
                     </div>
@@ -58,7 +58,7 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
                     <?= $userHelper->getProfileFullName($model->user_created) ?>
                 </div>
                 <div class="pull-right">
-                    <?= Html::a(Yii::t('blog', 'More &raquo;'), ['/blog/posts/view', 'id' => $model->id], ['class' => 'btn btn-default']) ?> 
+                    <?= Html::a(Yii::t('blog', 'More &raquo;'), ['/blog/posts/view', 'id' => $model->id, 'slug' => $model->slug], ['class' => 'btn btn-default']) ?> 
                 </div>
             </div>
         </div>  

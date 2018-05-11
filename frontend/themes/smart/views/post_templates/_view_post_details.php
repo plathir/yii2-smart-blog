@@ -14,11 +14,11 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
 
 <div class="blog-post-details-area">
     <div>
-        <div class="post-details-header"><?= Html::a($model->description, ['/blog/posts/view', 'id' => $model->id]) ?>
+        <div class="post-details-header"><?= Html::a($model->description, ['/blog/posts/view', 'id' => $model->id, 'slug' => $model->slug]) ?>
             &nbsp;
             <?php
             if (\yii::$app->user->can('BlogUpdatePost')) {
-                echo Html::a('<i class="fa fa-edit"></i>', ['/blog/posts/update', 'id' => $model->id], ['class' => 'pull-right btn btn-success btn-sm button-edit']);
+                echo Html::a('<i class="fa fa-edit"></i>', ['/blog/posts/update', 'id' => $model->id, 'slug' => $model->slug], ['class' => 'pull-right btn btn-success btn-sm button-edit']);
             }
             ?>
         </div>

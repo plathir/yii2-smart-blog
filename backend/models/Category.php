@@ -1,9 +1,9 @@
 <?php
-
 namespace plathir\smartblog\backend\models;
 
 use Yii;
 use plathir\cropper\behaviors\UploadImageBehavior;
+use yii\behaviors\SluggableBehavior;
 
 /*
  * @property integer $id
@@ -33,6 +33,12 @@ class Category extends \yii\db\ActiveRecord {
                     ],
                 ]
             ],
+//            'slagBehavior' => [
+//                'class' => SluggableBehavior::className(),
+//                'attribute' => 'name',
+//                'slugAttribute' => 'slug',
+//                'ensureUnique' => true,
+//            ],
         ];
     }
 

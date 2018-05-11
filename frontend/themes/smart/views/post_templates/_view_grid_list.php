@@ -12,7 +12,7 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
 <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
     <div class="blog-grid-post">    
         <div class="grid-image">
-            <?= Html::a('<img src=' . $model->imageurl . '?>', ['/blog/posts/view', 'id' => $model->id], $options = []); ?>
+            <?= Html::a('<img src=' . $model->imageurl . '?>', ['/blog/posts/view', 'id' => $model->id, 'slug' => $model->slug], $options = []); ?>
             <!--            <div class="middle">
                             <div class="text">John Doe</div>
                         </div>-->
@@ -37,7 +37,7 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
             }
             ?>            
 
-            <?= Html::a($descr, ['/blog/posts/view', 'id' => $model->id], $options = []) ?>
+            <?= Html::a($descr, ['/blog/posts/view', 'id' => $model->id, 'slug' => $model->slug], $options = []) ?>
             <h4><small><?= Yii::$app->formatter->asDatetime($model->created_at) ?></small></h4>
         </div>
 

@@ -1,5 +1,4 @@
 <?php
-
 namespace plathir\smartblog\frontend;
 
 use yii\helpers\Url;

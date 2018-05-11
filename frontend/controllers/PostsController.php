@@ -1,5 +1,4 @@
 <?php
-
 namespace plathir\smartblog\frontend\controllers;
 
 use Yii;
@@ -117,7 +116,7 @@ class PostsController extends Controller {
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id) {
+    public function actionView($id, $slug = "") {
         return $this->render('view', [
                     'model' => $this->findModel($id),
         ]);
@@ -269,7 +268,7 @@ class PostsController extends Controller {
         ]);
     }
 
-    public function actionCategory($id) {
+    public function actionCategory($id, $slug='') {
         $helper = new PostHelper();
         $posts = $helper->getPostsbyCategory($id);
         $category = Category::findOne($id);

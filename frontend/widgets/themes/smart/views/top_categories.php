@@ -28,6 +28,7 @@ use plathir\user\common\helpers\UserHelper;
                                     ?>
                                 </td>                            
                                 <td><?= Html::a($Category["name"], ['/blog/posts/category', 'id' => $Category["category"]]) ?></td>
+                                <td><?='' //Html::a($Category["name"], ['/blog/posts/category', 'id' => $Category["category"], 'slug' => $Category["slug"]]) ?></td>
                                 <td><?= $Category['cnt'] ?></td>
 
                             </tr>
