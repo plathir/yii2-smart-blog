@@ -8,7 +8,6 @@ use plathir\smartblog\backend\models\search\StaticPages_s;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\data\ArrayDataProvider;
 
 /**
  * StaticPagesController implements the CRUD actions for StaticPages model.
@@ -193,5 +192,4 @@ class StaticPagesController extends Controller {
             throw new NotFoundHttpException(Yii::t('blog', 'The requested page does not exist.'));
         }
     }
-
 }
