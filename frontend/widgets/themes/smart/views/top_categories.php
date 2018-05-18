@@ -17,6 +17,7 @@ use plathir\user\common\helpers\UserHelper;
                     <?php
                     if ($topCategories) {
                         foreach ($topCategories as $Category) {
+                     //       print_r($Category)
                             ?>
                             <tr>
                                 <td> 
@@ -26,13 +27,15 @@ use plathir\user\common\helpers\UserHelper;
                                         'width' => '40',
                                         'align' => 'center']);
                                     ?>
-                                </td>                            
-                                <td><?= Html::a($Category["name"], ['/blog/posts/category', 'id' => $Category["category"]]) ?></td>
-                                <td><?='' //Html::a($Category["name"], ['/blog/posts/category', 'id' => $Category["category"], 'slug' => $Category["slug"]]) ?></td>
+                                </td>      
+                                
+                                <td><?= Html::a($Category["name"], ['/blog/posts/category', 'id' => $Category["category"], 'slug' => $Category["slug"]]) ?></td>
+                                <td><?= '' //Html::a($Category["name"], ['/blog/posts/category', 'id' => $Category["category"], 'slug' => $Category["slug"]])  ?></td>
                                 <td><?= $Category['cnt'] ?></td>
 
                             </tr>
-                        <?php }
+                        <?php
+                        }
                     }
                     ?>
                 </tbody>

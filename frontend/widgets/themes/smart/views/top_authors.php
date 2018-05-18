@@ -30,7 +30,7 @@ $userHelper = new UserHelper();
                                         'align' => 'center']);
                                     ?>
                                 </td>
-                                <td><?= Html::a($Author["author"], ['/blog/posts/userposts', 'userid' => $Author["userid"]]) ?></td>
+                                <td><?= Html::a($Author["author"], ['/blog/posts/userposts', 'userid' => $Author["userid"], 'username' => $Author["author"]]) ?></td>
                                 <td><?= $Author['cnt'] ?></td>
                             </tr>
                         <?php }

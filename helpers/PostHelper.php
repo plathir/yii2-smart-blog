@@ -223,7 +223,7 @@ class PostHelper {
 
         $topCategories = '';
         $temp_topCategories = (new \yii\db\Query())
-                ->select(['category', 'count(*) as cnt', 'categories.name'])
+                ->select(['category', 'count(*) as cnt', 'categories.*'])
                 ->join('LEFT JOIN', 'categories', 'categories.id = category')
                 ->from('posts')
                 ->where(['posts.publish' => 1])
@@ -234,13 +234,13 @@ class PostHelper {
 
         foreach ($temp_topCategories as $Category) {
             $category_id = $Category['category'];
-            $category_name = $Category['name'];
             $cat = Category::findOne($category_id);
 
             $topCategories[] = [
                 'image' => $cat->ImageUrl,
-                'category' => $category_id,
-                'name' => $category_name,
+                'category' => $cat->id,
+                'name' => $cat->name,
+                'slug' => $cat->slug,
                 'cnt' => $Category['cnt']
             ];
         }

@@ -220,7 +220,7 @@ class PostsController extends Controller {
         }
     }
 
-    public function actionUserposts($userid) {
+    public function actionUserposts($userid, $username ='') {
         $posts = Posts::find()->where(['user_created' => $userid, 'publish' => 1])->all();
 
         $PostModel = new Posts();

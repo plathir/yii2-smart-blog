@@ -48,6 +48,7 @@ class Category extends \yii\db\ActiveRecord {
         return [
             [['id'], 'required'],
             [['name'], 'required'],
+            [['slug'], 'string'],
             [['description'], 'string'],
             [['image'], 'string']
         ];
