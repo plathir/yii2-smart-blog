@@ -240,7 +240,8 @@ class PostsController extends Controller {
 
             return $this->render('userposts', [
                         'dataProvider' => $dataProvider,
-                        'username' => $username
+                        'username' => $username,
+                        'userid' => $userid
             ]);
         } else {
             throw new NotFoundHttpException(Yii::t('blog', 'The requested page does not exist.'));

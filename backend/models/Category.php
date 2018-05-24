@@ -33,12 +33,6 @@ class Category extends \yii\db\ActiveRecord {
                     ],
                 ]
             ],
-//            'slagBehavior' => [
-//                'class' => SluggableBehavior::className(),
-//                'attribute' => 'name',
-//                'slugAttribute' => 'slug',
-//                'ensureUnique' => true,
-//            ],
         ];
     }
 

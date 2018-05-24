@@ -20,29 +20,19 @@ class Categorytree extends \kartik\tree\models\Tree {
     public static function tableName() {
         return 'categories';
     }
-//
-//    public function behaviors() {
-//      //  $behav = parent::behaviors();
-//
-////        $behav["slagBehavior"] = [
-////            
-////                'class' => SluggableBehavior::className(),
-////                'attribute' => 'name',
-////                'slugAttribute' => 'slug',
-////                'ensureUnique' => true,
-////            ];
-////
-////         return $behav;
-//        
-//        return [
-//            'slagBehavior' => [
-//                'class' => SluggableBehavior::className(),
-//                'attribute' => 'name',
-//                'slugAttribute' => 'slug',
-//                'ensureUnique' => true,
-//            ]
-//        ];
-//    }
+
+    public function behaviors() {
+        $behav = parent::behaviors();
+
+        $behav["slagBehavior"] = [
+            'class' => SluggableBehavior::className(),
+            'attribute' => 'name',
+            'slugAttribute' => 'slug',
+            'ensureUnique' => true,
+        ];
+
+        return $behav;
+    }
 
     public function rules() {
         $rules = parent::rules();
