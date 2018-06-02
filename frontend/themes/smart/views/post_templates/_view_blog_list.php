@@ -12,7 +12,7 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <div class="panel-heading-title"><?= Html::a($model->description, ['/blog/posts/view', 'id' => $model->id, 'slug' => $model->slug]) ?>  </div>
+        <div class="panel-heading-title"><?= Html::a($model->description, ['/blog/posts/view', 'id' => $model->id, 'path' => $model->urlpath , 'slug' => $model->slug],['encode'=> true]) ?>  </div>
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
@@ -31,7 +31,7 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
                         &nbsp;
                         <?php
                         if (\yii::$app->user->can('BlogUpdatePost')) {
-                            echo Html::a('<i class="fa fa-edit"></i>', ['/blog/posts/update', 'id' => $model->id, 'slug' => $model->slug], ['class' => 'pull-right btn btn-success btn-xs']);
+                            echo Html::a('<i class="fa fa-edit"></i>', ['/blog/posts/update', 'id' => $model->id, 'slug' => $model->path . $model->slug], ['class' => 'pull-right btn btn-success btn-xs']);
                         }
                         ?>
                     </div>
@@ -46,6 +46,7 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
                 <img class="img-responsive" src="<?= $imageURL; ?>">
             </div>
             <div class="blog-intro-text">
+                <?= $model->Urlpath ?>
                 <?= $model->intro_text ?> 
             </div>
         </div>

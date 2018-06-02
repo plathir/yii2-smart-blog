@@ -116,7 +116,7 @@ class PostsController extends Controller {
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id, $slug = "") {
+    public function actionView($id, $path= "" ,$slug = "") {
         return $this->render('view', [
                     'model' => $this->findModel($id),
         ]);

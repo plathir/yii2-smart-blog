@@ -1,5 +1,4 @@
 <?php
-
 namespace plathir\smartblog\backend\models;
 
 use plathir\cropper\behaviors\UploadImageBehavior;
@@ -9,6 +8,7 @@ use yii\db\ActiveRecord;
 use yii\behaviors\SluggableBehavior;
 use Yii;
 use yii\helpers\Markdown;
+use plathir\smartblog\backend\models\Categorytree;
 
 class Posts extends \plathir\smartblog\common\models\Posts {
 
@@ -106,6 +106,11 @@ class Posts extends \plathir\smartblog\common\models\Posts {
             case 'markdown':
                 return Markdown::process($this->full_text, 'gfm');
         }
+    }
+
+    public function getUrlpath() {
+        $category = Categorytree::findOne($this->category);
+        return $category->path;
     }
 
 }

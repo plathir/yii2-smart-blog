@@ -1,10 +1,10 @@
 <?php
+
 /**
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015 - 2017
  * @package   yii2-tree-manager
  * @version   1.0.9
  */
-
 use kartik\form\ActiveForm;
 use kartik\tree\Module;
 use kartik\tree\TreeView;
@@ -58,6 +58,27 @@ if ($noNodesMessage) {
     $parent = $node->parents(1)->one();
     $parentKey = empty($parent) ? '' : Html::getAttributeValue($parent, $keyAttribute);
 }
+echo '<pre>';
+$path = '';
+$childrens = $node->children()->all();
+//echo $path->id;
+foreach ($childrens as $child) {
+    $path .= $child->slug . '/';
+}
+
+$path1 = '';
+$parents = $node->parents()->all();
+//echo $path->id;
+foreach ($parents as $parent) {
+    $path1 .= $parent->slug . '/';
+}
+
+//echo 'Childrens   :  ' . $path . '<br>';
+//echo 'Parents     :  ' . $path1. '<br>';
+
+echo $node->path;
+//echo $node->getBreadcrumbs();
+echo '</pre>';
 
 // tree manager module
 $module = TreeView::module();
@@ -119,8 +140,8 @@ if (array_key_exists('depth', $breadcrumbs) && $breadcrumbs['depth'] === null) {
 }
 $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
 $dataToHash = $modelClass . !!$isAdmin . !!$softDelete . !!$showFormButtons . !!$showIDAttribute .
-    !!$showNameAttribute . $currUrl . $nodeView . $nodeSelected . Json::encode($formOptions) .
-    Json::encode($nodeAddlViews) . Json::encode($icons) . Json::encode($breadcrumbs);
+        !!$showNameAttribute . $currUrl . $nodeView . $nodeSelected . Json::encode($formOptions) .
+        Json::encode($nodeAddlViews) . Json::encode($icons) . Json::encode($breadcrumbs);
 echo Html::hiddenInput('treeManageHash', $security->hashData($dataToHash, $module->treeEncryptSalt));
 
 // remove signature
@@ -262,10 +283,12 @@ echo Html::hiddenInput('treeMoveHash', $security->hashData($dataToHash, $module-
         <?php if ($iconsList === 'text'): ?>
             <div class="row">
                 <div class="col-sm-4">
-                    <?= $form->field($node, $iconTypeAttribute)->dropdownList([
+                    <?=
+                    $form->field($node, $iconTypeAttribute)->dropdownList([
                         TreeView::ICON_CSS => 'CSS Suffix',
                         TreeView::ICON_RAW => 'Raw Markup',
-                    ], $inputOpts) ?>
+                            ], $inputOpts)
+                    ?>
                 </div>
                 <div class="col-sm-8">
                     <?= $form->field($node, $iconAttribute)->textInput($inputOpts) ?>
@@ -280,7 +303,8 @@ echo Html::hiddenInput('treeMoveHash', $security->hashData($dataToHash, $module-
                 <?= $nameField ?>
             </div>
             <div class="col-sm-6">
-                <?= /** @noinspection PhpUndefinedMethodInspection */
+                <?=
+                /** @noinspection PhpUndefinedMethodInspection */
                 $form->field($node, $iconAttribute)->multiselect($iconsList, [
                     'item' => function ($index, $label, $name, $checked, $value) use ($inputOpts) {
                         if ($index == 0 && $value == '') {
@@ -288,13 +312,14 @@ echo Html::hiddenInput('treeMoveHash', $security->hashData($dataToHash, $module-
                             $value = '';
                         }
                         return '<div class="radio">' . Html::radio($name, $checked, [
-                            'value' => $value,
-                            'label' => $label,
-                            'disabled' => !empty($inputOpts['readonly']) || !empty($inputOpts['disabled'])
-                        ]) . '</div>';
+                                    'value' => $value,
+                                    'label' => $label,
+                                    'disabled' => !empty($inputOpts['readonly']) || !empty($inputOpts['disabled'])
+                                ]) . '</div>';
                     },
                     'selector' => 'radio',
-                ]) ?>
+                ])
+                ?>
             </div>
         </div>
     <?php endif; ?>
