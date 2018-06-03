@@ -94,7 +94,7 @@ class Posts extends \plathir\smartblog\common\models\Posts {
 
     public function getUrlpath() {
         $category = Categorytree::findOne($this->category);
-        return $category->path . '/';
+        return $category->path;
     }
 
 }

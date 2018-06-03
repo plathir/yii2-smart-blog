@@ -1,4 +1,5 @@
 <?php
+
 namespace plathir\smartblog\backend\models;
 
 use yii\db\ActiveRecord;
@@ -52,11 +53,14 @@ class Categorytree extends \kartik\tree\models\Tree {
         $parents = $this->parents()->all();
         $path = '';
         foreach ($parents as $parent) {
-            $path .= $parent->slug . '/';
+            $path[] = $parent->slug;
         }
-        $path .= $this->slug;
-        
-        return $path;
+        $path[] = $this->slug;
+
+        if ($path) {
+            return implode('/', $path);
+        } else
+            return '';
     }
 
 }

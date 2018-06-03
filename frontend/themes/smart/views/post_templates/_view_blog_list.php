@@ -1,18 +1,19 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use plathir\smartblog\common\widgets\RatingWidget;
 use \plathir\user\common\helpers\UserHelper;
 
 $userHelper = new UserHelper();
 
 $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->post_image;
+$post_url = urldecode(Url::to(['/blog/posts/view/', 'path' => $model->urlpath, 'id' => $model->id, 'slug' => $model->slug], true));
 ?>
-
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <div class="panel-heading-title"><?= Html::a($model->description, ['/blog/posts/view', 'id' => $model->id, 'path' => $model->urlpath , 'slug' => $model->slug],['encode'=> true]) ?>  </div>
+        <div class="panel-heading-title"><?= Html::a($model->description, $post_url); ?>  </div>
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
@@ -31,7 +32,7 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
                         &nbsp;
                         <?php
                         if (\yii::$app->user->can('BlogUpdatePost')) {
-                            echo Html::a('<i class="fa fa-edit"></i>', ['/blog/posts/update', 'id' => $model->id, 'slug' => $model->path . $model->slug], ['class' => 'pull-right btn btn-success btn-xs']);
+                            echo Html::a('<i class="fa fa-edit"></i>', ['/blog/posts/update', 'id' => $model->id, 'path' => $model->urlpath, 'slug' => $model->slug], ['class' => 'pull-right btn btn-success btn-xs']);
                         }
                         ?>
                     </div>
@@ -45,8 +46,8 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
             <div class="col-xs-12 col-sm-5 col-lg-4 post-image-box">
                 <img class="img-responsive" src="<?= $imageURL; ?>">
             </div>
-            <div class="blog-intro-text">
-                <?= $model->Urlpath ?>
+            <div class="blog-intro-text"> 
+                <?php print_r($model->urlpath); ?>
                 <?= $model->intro_text ?> 
             </div>
         </div>
@@ -59,7 +60,7 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
                     <?= $userHelper->getProfileFullName($model->user_created) ?>
                 </div>
                 <div class="pull-right">
-                    <?= Html::a(Yii::t('blog', 'More &raquo;'), ['/blog/posts/view', 'id' => $model->id, 'slug' => $model->slug], ['class' => 'btn btn-default']) ?> 
+                    <?= Html::a(Yii::t('blog', 'More &raquo;'), $post_url, ['class' => 'btn btn-default']) ?> 
                 </div>
             </div>
         </div>  

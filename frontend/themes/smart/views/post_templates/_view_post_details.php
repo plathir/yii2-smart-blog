@@ -82,7 +82,7 @@ $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->
 
     </div>
 </div>
-<?= $model->urlpath; ?>
+<?php print_r($model->urlpath); ?>
 <?=
 plathir\smartblog\frontend\widgets\SimilarPostsWidget::widget([
     'postID' => $model->id,
