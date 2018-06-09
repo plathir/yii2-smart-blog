@@ -3,10 +3,12 @@
 use yii\helpers\Html;
 use plathir\smartblog\common\widgets\RatingWidget;
 use \plathir\user\common\helpers\UserHelper;
+use yii\helpers\Url;
 
 $userHelper = new UserHelper();
 
 $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->post_image;
+$post_url = urldecode(Url::to(['/blog/posts/view/', 'path' => $model->urlpath, 'id' => $model->id, 'slug' => $model->slug], true));
 ?>
 
 <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">

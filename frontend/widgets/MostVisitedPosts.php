@@ -26,7 +26,7 @@ class MostVisitedPosts extends Widget {
     public function run() {
         $this->registerClientAssets();
         $this->registerTranslations();
-        $helper = new \plathir\smartblog\helpers\PostHelper();
+        $helper = new \plathir\smartblog\frontend\helpers\PostHelper();
         $posts = $helper->getMostVisitedPosts($this->posts_num);
 
         return $this->render('most_visited_posts_widget', [

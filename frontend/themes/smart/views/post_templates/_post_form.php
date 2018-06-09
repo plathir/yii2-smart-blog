@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\ElFinder;
 use kartik\tree\TreeViewInput;
-use plathir\smartblog\backend\models\Categorytree as Category;
+use plathir\smartblog\frontend\models\Categorytree as Category;
 use plathir\cropper\Widget as NewWidget;
 use yii\helpers\Url;
 use dosamigos\selectize\SelectizeTextInput;

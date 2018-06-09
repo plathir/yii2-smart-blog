@@ -3,7 +3,7 @@
 namespace plathir\smartblog\backend\widgets;
 
 use yii\base\Widget;
-use plathir\smartblog\helpers\PostHelper;
+use plathir\smartblog\backend\helpers\PostHelper;
 use Yii;
 
 class TopRated extends Widget {
@@ -24,7 +24,7 @@ class TopRated extends Widget {
 
     public function run() {
         $this->registerClientAssets();
-        $helper = new \plathir\smartblog\helpers\PostHelper();
+        $helper = new \plathir\smartblog\backend\helpers\PostHelper();
         $topRated = $helper->getTopRated($this->posts_num);
 
         return $this->render('top_rated_posts_widget', [

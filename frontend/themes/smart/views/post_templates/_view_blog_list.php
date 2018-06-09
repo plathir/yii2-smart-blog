@@ -32,7 +32,7 @@ $post_url = urldecode(Url::to(['/blog/posts/view/', 'path' => $model->urlpath, '
                         &nbsp;
                         <?php
                         if (\yii::$app->user->can('BlogUpdatePost')) {
-                            echo Html::a('<i class="fa fa-edit"></i>', ['/blog/posts/update', 'id' => $model->id, 'path' => $model->urlpath, 'slug' => $model->slug], ['class' => 'pull-right btn btn-success btn-xs']);
+                            echo Html::a('<i class="fa fa-edit"></i>', urldecode(Url::to(['/blog/posts/update', 'id' => $model->id, 'path' => $model->urlpath, 'slug' => $model->slug])), ['class' => 'pull-right btn btn-success btn-xs']);
                         }
                         ?>
                     </div>

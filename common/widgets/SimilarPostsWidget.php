@@ -25,7 +25,7 @@ class SimilarPostsWidget extends Widget {
 
     public function run() {
         $this->registerClientAssets();
-        $helper = new \plathir\smartblog\helpers\PostHelper();
+        $helper = new \plathir\smartblog\backend\helpers\PostHelper();
         $posts = $helper->findSimilarPosts($this->postID);
 
         return $this->render('similar_posts_widget', [

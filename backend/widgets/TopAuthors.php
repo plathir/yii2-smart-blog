@@ -4,7 +4,7 @@ namespace plathir\smartblog\backend\widgets;
 
 use yii\base\Widget;
 use yii\base\InvalidConfigException;
-use plathir\smartblog\helpers\PostHelper;
+use plathir\smartblog\backend\helpers\PostHelper;
 use Yii;
 
 class TopAuthors extends Widget {
@@ -25,7 +25,7 @@ class TopAuthors extends Widget {
 
     public function run() {
         $this->registerClientAssets();
-        $helper = new \plathir\smartblog\helpers\PostHelper();
+        $helper = new \plathir\smartblog\backend\helpers\PostHelper();
         $topAuthors = $helper->getTopAuthors($this->authors_num);
 
         return $this->render('top_authors', [

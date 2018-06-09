@@ -8,9 +8,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use plathir\smartblog\common\models\Tags;
-use plathir\smartblog\helpers\PostHelper;
+use plathir\smartblog\frontend\helpers\PostHelper;
 use yii\data\ArrayDataProvider;
-use \plathir\smartblog\backend\models\Category;
+use \plathir\smartblog\frontend\models\Category;
 
 /**
  * PostsController implements the CRUD actions for Posts model.
@@ -116,7 +116,7 @@ class PostsController extends Controller {
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id, $path= [] ,$slug = "") {
+    public function actionView($id, $path= "",$slug = "") {
         return $this->render('view', [
                     'model' => $this->findModel($id),
         ]);
@@ -153,7 +153,7 @@ class PostsController extends Controller {
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id) {
+    public function actionUpdate($id, $path= "",$slug = "") {
         $model = $this->findModel($id);
         if ((\yii::$app->user->can('BlogUpdateOwnPost', ['post' => $model])) || (\yii::$app->user->can('BlogUpdatePost'))) {
 

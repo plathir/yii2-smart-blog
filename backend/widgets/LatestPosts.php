@@ -4,7 +4,7 @@ namespace plathir\smartblog\backend\widgets;
 
 use yii\base\Widget;
 use yii\base\InvalidConfigException;
-use plathir\smartblog\helpers\PostHelper;
+use plathir\smartblog\backend\helpers\PostHelper;
 use Yii;
 
 class LatestPosts extends Widget {
@@ -24,7 +24,7 @@ class LatestPosts extends Widget {
 
     public function run() {
         $this->registerClientAssets();
-        $helper = new \plathir\smartblog\helpers\PostHelper();
+        $helper = new \plathir\smartblog\backend\helpers\PostHelper();
         $posts = $helper->getLatestPosts($this->latest_num);
 
         return $this->render('latest_posts_widget', [

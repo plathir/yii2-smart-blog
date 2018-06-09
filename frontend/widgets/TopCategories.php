@@ -4,7 +4,7 @@ namespace plathir\smartblog\frontend\widgets;
 
 use yii\base\Widget;
 use yii\base\InvalidConfigException;
-use plathir\smartblog\helpers\PostHelper;
+use plathir\smartblog\frontend\helpers\PostHelper;
 use Yii;
 
 class TopCategories extends Widget {
@@ -26,7 +26,7 @@ class TopCategories extends Widget {
     public function run() {
         $this->registerClientAssets();
         $this->registerTranslations();
-        $helper = new \plathir\smartblog\helpers\PostHelper();
+        $helper = new \plathir\smartblog\frontend\helpers\PostHelper();
         $topCategories = $helper->getTopCategories($this->category_num);
 
         return $this->render('top_categories', [

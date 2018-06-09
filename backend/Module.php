@@ -1,12 +1,10 @@
 <?php
-
 namespace plathir\smartblog\backend;
 
 use yii\helpers\Url;
 use Yii;
 
 class Module extends \yii\base\Module {
-
     use \kartik\base\TranslationTrait;
 
     public $controllerNamespace = 'plathir\smartblog\backend\controllers';

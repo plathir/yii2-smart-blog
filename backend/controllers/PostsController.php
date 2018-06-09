@@ -136,7 +136,7 @@ class PostsController extends Controller {
     }
 
     public function actionTags($tag) {
-        $helper = new \plathir\smartblog\helpers\PostHelper();
+        $helper = new \plathir\smartblog\backend\helpers\PostHelper();
         $posts = $helper->getPostsbyTags($tag);
 
         $dataProvider = new ArrayDataProvider([

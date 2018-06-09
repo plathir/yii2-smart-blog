@@ -1,6 +1,6 @@
 <?php
 
-namespace plathir\smartblog\helpers;
+namespace plathir\smartblog\backend\helpers;
 
 use plathir\smartblog\backend\models\Posts;
 use plathir\smartblog\common\models\Tags;

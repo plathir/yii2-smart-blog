@@ -1,12 +1,12 @@
 <?php
 
-namespace plathir\smartblog\backend\helper;
+namespace plathir\smartblog\frontend\helper;
 
-use plathir\smartblog\backend\models\Posts;
+use plathir\smartblog\frontend\models\Posts;
 use plathir\smartblog\common\models\Tags;
 use plathir\smartblog\common\models\PostsTags;
 
-class PostsHelper {
+class PostHelper {
 
     public function getLatestPosts($numOfPosts) {
         $posts = Posts::find()
@@ -63,7 +63,7 @@ class PostsHelper {
         $topAuthors = '';
         foreach ($temp_topAuthors as $Author) {
             $userid = $Author['author'];
-            $username = PostsHelper::getUserName($userid);
+            $username = PostHelper::getUserName($userid);
             $topAuthors[] = [
                 'userid' => $userid,
                 'author' => $username,

@@ -26,7 +26,7 @@ class UserMenu extends Widget {
     public function run() {
         $this->registerClientAssets();
         $this->registerTranslations();
-        $helper = new \plathir\smartblog\helpers\PostHelper();
+        $helper = new \plathir\smartblog\frontend\helpers\PostHelper();
         $posts = $helper->getLatestPosts($this->latest_num);
 
         return $this->render('user_menu_widget', [

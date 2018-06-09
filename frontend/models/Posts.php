@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
 use yii\behaviors\SluggableBehavior;
 use Yii;
 use yii\helpers\Markdown;
-use plathir\smartblog\backend\models\Categorytree;
+use plathir\smartblog\frontend\models\Categorytree;
 
 class Posts extends \plathir\smartblog\common\models\Posts {
 

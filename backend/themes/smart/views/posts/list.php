@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use kartik\widgets\StarRating;
-use plathir\smartblog\helpers\PostHelper;
+use plathir\smartblog\backend\helpers\PostHelper;
 
 $postHelper = new PostHelper();
 

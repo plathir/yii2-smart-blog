@@ -4,7 +4,7 @@ namespace plathir\smartblog\frontend\widgets;
 
 use yii\base\Widget;
 use yii\base\InvalidConfigException;
-use \plathir\smartblog\backend\helper\PostsHelper;
+use \plathir\smartblog\frontend\helpers\PostHelper;
 use Yii;
 
 class SimilarPostsWidget extends Widget {
@@ -23,7 +23,7 @@ class SimilarPostsWidget extends Widget {
 
     public function run() {
         $this->registerClientAssets();
-        $helper = new PostsHelper();
+        $helper = new PostHelper();
         $posts = $helper->findSimilarPosts($this->postID);
 
         return $this->render('similar_posts_widget', [

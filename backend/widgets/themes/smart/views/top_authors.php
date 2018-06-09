@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use plathir\smartblog\helpers\PostHelper;
+use plathir\smartblog\backend\helpers\PostHelper;
 use plathir\user\common\helpers\UserHelper;
 
 $userHelper = new UserHelper();
