@@ -11,7 +11,7 @@ use plathir\smartblog\common\models\Tags;
 use plathir\smartblog\frontend\helpers\PostHelper;
 use yii\data\ArrayDataProvider;
 use \plathir\smartblog\frontend\models\Category;
-
+use yii\helpers\Url;
 /**
  * PostsController implements the CRUD actions for Posts model.
  */
@@ -156,18 +156,18 @@ class PostsController extends Controller {
     public function actionUpdate($id, $path= "",$slug = "") {
         $model = $this->findModel($id);
         if ((\yii::$app->user->can('BlogUpdateOwnPost', ['post' => $model])) || (\yii::$app->user->can('BlogUpdatePost'))) {
-
-
+            $post_url = urldecode(Url::to(['/blog/posts/view/', 'path' => $model->urlpath, 'id' => $model->id, 'slug' => $model->slug], true));  
+            $post_url_update = urldecode(Url::to(['/blog/posts/update/', 'path' => $model->urlpath, 'id' => $model->id, 'slug' => $model->slug], true));
             if ($model->load(Yii::$app->request->post())) {
                 if (!isset($model->user_last_change)) {
                     $model->user_last_change = \Yii::$app->user->getId();
                 }
 
                 if ($model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id]);
+                    return $this->redirect($post_url);
                 } else {
                     return $this->render('update', [
-                                'model' => $model,
+                               'model' => $model,
                     ]);
                 }
             } else {

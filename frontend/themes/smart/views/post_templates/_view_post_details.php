@@ -6,19 +6,22 @@ use plathir\smartblog\common\widgets\TagsWidget;
 use \plathir\smartblog\common\widgets\GalleryWidget;
 use plathir\upload\ListFilesWidget;
 use plathir\smartblog\common\widgets\RatingWidget;
+use yii\helpers\Url;
 
 $userHelper = new UserHelper();
 
 $imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->post_image;
+$post_url = urldecode(Url::to(['/blog/posts/view/', 'path' => $model->urlpath, 'id' => $model->id, 'slug' => $model->slug], true));
+$post_url_update = urldecode(Url::to(['/blog/posts/update/', 'path' => $model->urlpath, 'id' => $model->id, 'slug' => $model->slug], true));
 ?>
 
 <div class="blog-post-details-area">
     <div>
-        <div class="post-details-header"><?= Html::a($model->description, ['/blog/posts/view', 'id' => $model->id, 'slug' => $model->slug]) ?>
+        <div class="post-details-header"><?= Html::a($model->description, $post_url) ?>
             &nbsp;
             <?php
             if (\yii::$app->user->can('BlogUpdatePost')) {
-                echo Html::a('<i class="fa fa-edit"></i>', ['/blog/posts/update', 'id' => $model->id, 'slug' => $model->slug], ['class' => 'pull-right btn btn-success btn-sm button-edit']);
+                echo Html::a('<i class="fa fa-edit"></i>', $post_url_update, ['class' => 'pull-right btn btn-success btn-sm button-edit']);
             }
             ?>
         </div>
