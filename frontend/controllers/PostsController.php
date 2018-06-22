@@ -40,7 +40,7 @@ class PostsController extends Controller {
                 'class' => \yii\filters\AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['list', 'view', 'index', 'userposts', 'tags', 'tagslist', 'category'],
+                        'actions' => ['list', 'view', 'index', 'userposts', 'tags', 'tagslist', 'category', 'author'],
                         'allow' => true,
                     ],
                     [
@@ -220,7 +220,7 @@ class PostsController extends Controller {
         }
     }
 
-    public function actionUserposts($userid, $username ='') {
+    public function actionUserposts($userid, $username = '') {
         $posts = Posts::find()->where(['user_created' => $userid, 'publish' => 1])->all();
 
         $PostModel = new Posts();
@@ -244,7 +244,7 @@ class PostsController extends Controller {
                         'userid' => $userid
             ]);
         } else {
-            throw new NotFoundHttpException(Yii::t('blog', 'The requested page does not exist.'));
+            throw new NotFoundHttpException(Yii::t('blog', 'The requested page does not exist. - ' . $userid));
         }
     }
 
