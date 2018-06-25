@@ -8,6 +8,7 @@ use plathir\smartblog\common\models\PostsTags;
 use plathir\smartblog\common\models\PostsRating;
 use \Yii;
 use plathir\smartblog\frontend\models\Category;
+use plathir\smartblog\frontend\models\Categorytree;
 
 class PostHelper {
 
@@ -234,13 +235,13 @@ class PostHelper {
 
         foreach ($temp_topCategories as $Category) {
             $category_id = $Category['category'];
-            $cat = Category::findOne($category_id);
-
+            $cat = Categorytree::findOne($category_id);
             $topCategories[] = [
                 'image' => $cat->ImageUrl,
                 'category' => $cat->id,
                 'name' => $cat->name,
                 'slug' => $cat->slug,
+                'path' => $cat->path,
                 'cnt' => $Category['cnt']
             ];
         }

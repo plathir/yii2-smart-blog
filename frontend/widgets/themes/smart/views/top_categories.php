@@ -17,7 +17,7 @@ use plathir\user\common\helpers\UserHelper;
                     <?php
                     if ($topCategories) {
                         foreach ($topCategories as $Category) {
-                     //       print_r($Category)
+                            print_r($Category)
                             ?>
                             <tr>
                                 <td> 
@@ -29,7 +29,7 @@ use plathir\user\common\helpers\UserHelper;
                                     ?>
                                 </td>      
                                 
-                                <td><?= Html::a($Category["name"], ['/blog/posts/category', 'id' => $Category["category"], 'slug' => $Category["slug"]]) ?></td>
+                                <td><?= Html::a($Category["path"], ['/blog/posts/category', 'id' => $Category["category"], 'slug' => $Category["slug"]]) ?></td>
                                 <td><?= '' //Html::a($Category["name"], ['/blog/posts/category', 'id' => $Category["category"], 'slug' => $Category["slug"]])  ?></td>
                                 <td><?= $Category['cnt'] ?></td>
 

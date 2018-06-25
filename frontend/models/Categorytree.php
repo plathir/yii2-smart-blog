@@ -1,8 +1,10 @@
 <?php
+
 namespace plathir\smartblog\frontend\models;
 
 use yii\db\ActiveRecord;
 use yii\behaviors\SluggableBehavior;
+use Yii;    
 
 /**
  * This is your extended tree model.
@@ -34,6 +36,14 @@ class Categorytree extends \kartik\tree\models\Tree {
             return implode('/', $path);
         } else
             return '';
+    }
+
+    function getImageUrl() {
+        if ($this->image) {
+            return Yii::getAlias($this->module->CategoryImagePathPreview) . '/' . $this->id . '/' . $this->image;
+        } else {
+            return Yii::getAlias($this->module->CategoryImagePathPreview) . '/nophoto.png';
+        }
     }
 
 }
