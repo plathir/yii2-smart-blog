@@ -240,7 +240,7 @@ class PostHelper {
                 'image' => $cat->ImageUrl,
                 'category' => $cat->id,
                 'name' => $cat->name,
-                'slug' => $cat->slug,
+                'slug' => $cat->path,
                 'path' => $cat->path,
                 'cnt' => $Category['cnt']
             ];
