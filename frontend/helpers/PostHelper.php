@@ -217,6 +217,10 @@ class PostHelper {
         $posts = Posts::find()->where(['=', 'category', $id])
                 ->andWhere(['publish' => 1])
                 ->all();
+        foreach ($posts as $post) {
+            //    echo $post->id. 'Category :', $post->category.'<br>';
+        }
+        //   die();
         return $posts;
     }
 
@@ -251,6 +255,39 @@ class PostHelper {
         } else {
             return null;
         }
+    }
+
+    public function getCategoriesWithSubCategories($CategoryLevel, $CategoryID = '') {
+        $Categories = '';
+
+        if (!$CategoryID) {
+            $Categories = $this->getCategoriesByLevel($CategoryLevel);
+        } else {
+            $Categories = $this->getSubCategories($CategoryID);
+        }
+        return $Categories;
+    }
+
+    public function getCategoriesByLevel($CategoryLevel) {
+        $Categories = '';
+
+        $Categories = Categorytree::find()->where(['=', 'lvl', $CategoryLevel])
+                ->andWhere(['=', 'active', '1'])
+                ->all();
+
+        return $Categories;
+    }
+
+    public function getSubCategories($categoryID) {
+
+        $Categ = Categorytree::findOne($categoryID);
+        $SubCat = $Categ->childrens;
+        return $SubCat;
+    }
+
+    public function getCategoryPosts($CategoryID) {
+
+        return $Posts;
     }
 
 }

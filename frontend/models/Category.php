@@ -27,5 +27,5 @@ class Category extends \yii\db\ActiveRecord {
             return Yii::getAlias($this->module->CategoryImagePathPreview) . '/nophoto.png';
         }
     }
-
+   
 }

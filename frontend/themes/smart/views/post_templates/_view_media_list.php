@@ -20,7 +20,6 @@ $post_url = urldecode(Url::to(['/blog/posts/view/', 'path' => $model->urlpath, '
                 <h4 class="media-heading"><?= Html::a($descr, $post_url ) ?><br><small><?= Yii::$app->formatter->asDatetime($model->created_at) ?></small></h4>
                 <p><?php
                     $intro_text = (strlen($model->intro_text) > 100) ? mb_substr($model->intro_text, 0, 99) . '...' : $model->intro_text;
-                    echo $intro_text;
                     ?>
                 </p>
             </div>

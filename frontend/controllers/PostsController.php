@@ -1,4 +1,5 @@
 <?php
+
 namespace plathir\smartblog\frontend\controllers;
 
 use Yii;
@@ -12,6 +13,7 @@ use plathir\smartblog\frontend\helpers\PostHelper;
 use yii\data\ArrayDataProvider;
 use \plathir\smartblog\frontend\models\Category;
 use yii\helpers\Url;
+
 /**
  * PostsController implements the CRUD actions for Posts model.
  */
@@ -40,7 +42,7 @@ class PostsController extends Controller {
                 'class' => \yii\filters\AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['list', 'view', 'index', 'userposts', 'tags', 'tagslist', 'category', 'author'],
+                        'actions' => ['list', 'view', 'index', 'userposts', 'tags', 'tagslist', 'category', 'categoryall','author'],
                         'allow' => true,
                     ],
                     [
@@ -116,7 +118,7 @@ class PostsController extends Controller {
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id, $path= "",$slug = "") {
+    public function actionView($id, $path = "", $slug = "") {
         return $this->render('view', [
                     'model' => $this->findModel($id),
         ]);
@@ -153,10 +155,10 @@ class PostsController extends Controller {
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id, $path= "",$slug = "") {
+    public function actionUpdate($id, $path = "", $slug = "") {
         $model = $this->findModel($id);
         if ((\yii::$app->user->can('BlogUpdateOwnPost', ['post' => $model])) || (\yii::$app->user->can('BlogUpdatePost'))) {
-            $post_url = urldecode(Url::to(['/blog/posts/view/', 'path' => $model->urlpath, 'id' => $model->id, 'slug' => $model->slug], true));  
+            $post_url = urldecode(Url::to(['/blog/posts/view/', 'path' => $model->urlpath, 'id' => $model->id, 'slug' => $model->slug], true));
             $post_url_update = urldecode(Url::to(['/blog/posts/update/', 'path' => $model->urlpath, 'id' => $model->id, 'slug' => $model->slug], true));
             if ($model->load(Yii::$app->request->post())) {
                 if (!isset($model->user_last_change)) {
@@ -167,7 +169,7 @@ class PostsController extends Controller {
                     return $this->redirect($post_url);
                 } else {
                     return $this->render('update', [
-                               'model' => $model,
+                                'model' => $model,
                     ]);
                 }
             } else {
@@ -269,10 +271,13 @@ class PostsController extends Controller {
         ]);
     }
 
-    public function actionCategory($id, $slug='') {
+    public function actionCategory($id, $slug = '') {
+
+
+        $category = Category::findOne($id);
+
         $helper = new PostHelper();
         $posts = $helper->getPostsbyCategory($id);
-        $category = Category::findOne($id);
 
         $dataProvider = new ArrayDataProvider([
             'allModels' => $posts,
@@ -283,11 +288,47 @@ class PostsController extends Controller {
                 'pageSize' => 20,
             ],
         ]);
+
         return $this->render('category', [
                     'dataProvider' => $dataProvider,
                     'posts' => $posts,
                     'category' => $id,
-                    'categ' => $category
+                    'categ' => $category,
+                    'disp_subcat' => false
+        ]);
+    }
+
+    public function actionCategoryall($id, $slug = '') {
+        $category = Category::findOne($id);
+        $helper = new PostHelper();
+        $posts = [];
+
+        $Categories = $helper->getCategoriesWithSubCategories('', $id);
+        foreach ($Categories as $cat) {
+            $h_posts = $helper->getPostsbyCategory($cat->id);
+            if ($h_posts) {
+                foreach ($h_posts as $w_post) {
+                    $posts[] = $w_post;
+                }
+            }
+        }
+
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $posts,
+            'sort' => [
+                'attributes' => ['id'],
+            ],
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+
+        return $this->render('category', [
+                    'dataProvider' => $dataProvider,
+                    'posts' => $posts,
+                    'category' => $id,
+                    'categ' => $category,
+                    'disp_subcat' => true
         ]);
     }
 

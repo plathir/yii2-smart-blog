@@ -24,7 +24,6 @@ class Categorytree extends \kartik\tree\models\Tree {
     }
 
     public function getPath() {
-
         $parents = $this->parents()->all();
         $path = '';
         foreach ($parents as $parent) {
@@ -46,4 +45,8 @@ class Categorytree extends \kartik\tree\models\Tree {
         }
     }
 
+    function getChildrens() {
+        $childs = $this->children()->all();
+        return $childs;
+    }
 }
