@@ -46,8 +46,7 @@ $post_url = urldecode(Url::to(['/blog/posts/view/', 'path' => $model->urlpath, '
             <div class="col-xs-12 col-sm-5 col-lg-4 post-image-box">
                 <img class="img-responsive" src="<?= $imageURL; ?>">
             </div>
-            <div class="blog-intro-text"> 
-                <?php print_r($model->urlpath); ?>
+            <div class="blog-intro-text">                 
                 <?= $model->intro_text ?> 
             </div>
         </div>
