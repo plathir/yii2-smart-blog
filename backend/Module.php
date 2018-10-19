@@ -72,8 +72,8 @@ class Module extends \yii\base\Module {
                         \kartik\tree\Module::NODE_REMOVE => Url::to(['/blog/categorytree/remove']),
                         \kartik\tree\Module::NODE_MOVE => Url::to(['/blog/categorytree/move']),
                     ],
-                    //  'nodeView' => '@kvtree/views/_form'
-                    'nodeView' => '/categorytree/_form'
+                      'nodeView' => '@kvtree/views/_form'
+                   // 'nodeView' => '/categorytree/_form'
                 ],
             ]
         ];
