@@ -21,12 +21,19 @@ echo GridView::widget([
     'columns' => [
         'id',
         [
+            'format' => 'raw',
+            'value' => function($model ) {
+                return Html::a(Html::img($model->ImageUrlThumb, ['alt' => '...',
+                                    'width' => '100',
+                                    'align' => 'center']), ['view', 'id' => $model->id], []);
+            }
+        ],
+        [
             'attribute' => 'description',
             'value' => function( $model ) {
-                return Html::a($model->description, ['view', 'id' => $model->id ], []);
+                return Html::a($model->description, ['view', 'id' => $model->id], []);
             },
-                    'format' => 'html',
-                ]
-            ]
-        ]);
-        
+            'format' => 'html',
+        ]
+    ]
+]);

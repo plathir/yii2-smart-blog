@@ -5,7 +5,7 @@ use yii\widgets\DetailView;
 use plathir\upload\ListFilesWidget;
 use yii\bootstrap\Tabs;
 use plathir\smartblog\common\widgets\TagsWidget;
-use \plathir\smartblog\common\widgets\SimilarPostsWidget;
+use \plathir\smartblog\backend\widgets\SimilarPostsWidget;
 use \plathir\smartblog\common\widgets\GalleryWidget;
 use kartik\widgets\StarRating;
 use \plathir\smartblog\common\widgets\RatingWidget;

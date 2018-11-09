@@ -65,8 +65,8 @@ class Posts_s extends Posts {
                 ->andFilterWhere(['like', 'intro_text', $this->intro_text])
                 ->andFilterWhere(['like', 'full_text', $this->full_text])
                 ->andFilterWhere(['like', 'post_image', $this->post_image])
-                ->andFilterWhere(['like', "( FROM_UNIXTIME(posts.created_at, '" . Yii::$app->settings->getSettings('DBShortDateFormat') . " %h:%i:%s %p' ))", $this->created_at])
-                ->andFilterWhere(['like', "( FROM_UNIXTIME(posts.updated_at, '" . Yii::$app->settings->getSettings('DBShortDateFormat') . " %h:%i:%s %p' ))", $this->updated_at]);
+                ->andFilterWhere(['like', "( FROM_UNIXTIME(" . $this->tableName() . ".created_at, '" . Yii::$app->settings->getSettings('DBShortDateFormat') . " %h:%i:%s %p' ))", $this->created_at])
+                ->andFilterWhere(['like', "( FROM_UNIXTIME(" . $this->tableName() . ".updated_at, '" . Yii::$app->settings->getSettings('DBShortDateFormat') . " %h:%i:%s %p' ))", $this->updated_at]);
 
         return $dataProvider;
     }

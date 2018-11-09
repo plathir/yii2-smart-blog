@@ -1,13 +1,15 @@
 <?php
 
-namespace plathir\smartblog\common\widgets;
+namespace plathir\smartblog\backend\widgets;
 
 use yii\base\Widget;
 use yii\base\InvalidConfigException;
+use Yii;
 
 class SimilarPostsWidget extends Widget {
 
     public $postID;
+    public $Theme = 'smart';    
     public $selection_parameters = [];
 
     public function init() {
@@ -39,4 +41,12 @@ class SimilarPostsWidget extends Widget {
         $assets = Asset::register($view);
     }
 
+        public function getViewPath() {
+        return Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/backend/widgets/themes/' . $this->Theme . '/views';
+    }
+
+    public function getTemplatePath() {
+        return '@vendor/plathir/yii2-smart-blog/backend/themes/' . $this->Theme . '/views';
+    }
+    
 }

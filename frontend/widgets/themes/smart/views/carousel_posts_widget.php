@@ -2,6 +2,7 @@
 
 use yii\bootstrap\Carousel;
 use yii\helpers\Html;
+use yii\web\View;
 
 if ($widget->title) {
     //  echo '<h3>' . $widget->title . '</h3>';
@@ -26,7 +27,7 @@ foreach ($posts as $post) {
         'content' => '<img src="' . $post->imageUrl . '" max-height: ' . $widget->height . '; width="100%"/>',
         // the item contains both the image and the caption
         'caption' => '<div style="background:rgba(0, 0, 0, 0.2);"><h4><u>' . Html::a($descr, ['/blog/posts/view', 'id' => $post->id, 'slug' => $post->slug], ['style' => "color:white;"]) . '</u></h4><p>' . $intro . '</p></div>',
-        'options' => ['style' => "width:100%; height: " . $widget->height . ";"]
+        'options' => ['style' => "width:100%; height: " . $widget->height . "; swipe: 30;"]
     ];
 }
 
@@ -39,5 +40,16 @@ if ($items) {
     echo '<br>';
 }
 
-
+// Swipe Carousel
+//$this->registerJsFile('https://cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.4/jquery.touchSwipe.min.js', ['depends' => 'yii\web\JqueryAsset']);
+//
+//
+//$this->registerJs('$(".carousel").swipe({
+//  swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
+//    if (direction == "left") $(this).carousel("next");
+//    if (direction == "right") $(this).carousel("prev");
+//  },
+//  allowPageScroll:"vertical"
+//
+//});', View::POS_END);
 
