@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('blog', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('blog', '<i fa fa-save /i> Save'), ['class' => 'btn btn-success btn-flat btn-loader']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
