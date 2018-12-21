@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use plathir\widgets\common\helpers\LayoutHelper;
 ?>
 
 
@@ -35,7 +36,10 @@ if (\Yii::$app->view->theme) {
 <?php
 ?>
 
-<?= $content ?>
+<?php
+$layoutHelper = new LayoutHelper();
+echo $layoutHelper->LoadLayout(__FILE__, $content);
+?>
 
 <?php $this->endContent(); ?>
 
