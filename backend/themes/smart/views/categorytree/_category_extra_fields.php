@@ -1,8 +1,5 @@
 <?php
 
-use plathir\cropper\Widget as NewWidget;
-use yii\helpers\Url;
-use yii\widgets\Pjax;
 use yii\helpers\Html;
 
 $viewID = uniqid();
