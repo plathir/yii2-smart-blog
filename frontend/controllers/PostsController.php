@@ -42,7 +42,15 @@ class PostsController extends Controller {
                 'class' => \yii\filters\AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['list', 'view', 'index', 'userposts', 'tags', 'tagslist', 'category', 'categoryall','author'],
+                        'actions' => ['list', 
+                                      'view', 
+                                      'index', 
+                                      'userposts', 
+                                      'tags', 
+                                      'tagslist', 
+                                      'category', 
+                                      'categoryall',
+                                      'author'],
                         'allow' => true,
                     ],
                     [
