@@ -31,12 +31,22 @@ use lav45\aceEditor\AceEditorWidget;
                 <?php echo $form->field($model, 'code_editor')->widget(SwitchInput::classname(), []); ?>
                 <?php
                 if ($model->code_editor) {
+                    echo $form->field($model, 'css')->widget(AceEditorWidget::className(), [
+                        'theme' => 'idle_fingers',
+                        'mode' => 'css',
+                        'showPrintMargin' => false,
+                        'fontSize' => 14,
+                        'height' => 300,
+                        'options' => [
+                            'style' => 'border: 1px solid #ccc; border-radius: 4px;'
+                        ]
+                    ]);                    
                     echo $form->field($model, 'full_text')->widget(AceEditorWidget::className(), [
                         'theme' => 'idle_fingers',
                         'mode' => 'html',
                         'showPrintMargin' => false,
                         'fontSize' => 14,
-                        'height' => 300,
+                        'height' => 500,
                         'options' => [
                             'style' => 'border: 1px solid #ccc; border-radius: 4px;'
                         ]

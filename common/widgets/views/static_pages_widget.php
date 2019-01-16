@@ -7,13 +7,19 @@ if ($widget->displayIntroText) {
 }
 ?>
 
+<?php
+if ($model->css && $model->code_editor) {
+    echo $this->registerCss($model->css);
+}
+?>
+
 <div class="container-fluid">
     <div class="row">
-            <?php
-            if ($model->full_text) {
-               echo yii\helpers\HtmlPurifier::process($model->full_text);
-               echo '<br>';
-            }
-            ?>
+        <?php
+        if ($model->full_text) {
+            echo yii\helpers\HtmlPurifier::process($model->full_text);
+            echo '<br>';
+        }
+        ?>
     </div>
 </div>
