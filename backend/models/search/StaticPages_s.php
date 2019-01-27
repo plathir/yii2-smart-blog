@@ -10,14 +10,17 @@ use plathir\smartblog\backend\models\StaticPages as StaticPages;
  * Posts_s represents the model behind the search form about `app\models\Posts`.
  */
 class StaticPages_s extends StaticPages {
-
+     public $description;
     /**
      * @inheritdoc
      */
     public function rules() {
         return [
             [['id', 'user_created', 'user_last_change', 'publish'], 'integer'],
-            [['description', 'intro_text', 'full_text', 'created_at', 'updated_at', 'tags'], 'safe'],
+            [['description'], 'safe'],
+            [['full_text'], 'safe'],
+            [['intro_text'], 'safe'],
+            [['created_at', 'updated_at', 'tags'], 'safe'],
         ];
     }
 
@@ -38,6 +41,7 @@ class StaticPages_s extends StaticPages {
      */
     public function search($params) {
         $query = StaticPages::find();
+        $query->joinWith(['langtext']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

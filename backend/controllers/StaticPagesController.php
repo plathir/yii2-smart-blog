@@ -4,6 +4,7 @@ namespace plathir\smartblog\backend\controllers;
 
 use Yii;
 use plathir\smartblog\backend\models\StaticPages;
+use plathir\smartblog\backend\models\StaticPagesLang;
 use plathir\smartblog\backend\models\search\StaticPages_s;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -21,7 +22,7 @@ class StaticPagesController extends Controller {
 
     public function __construct($id, $module) {
         parent::__construct($id, $module);
-                $this->layout = "main";
+        $this->layout = "main";
     }
 
     public function behaviors() {
@@ -127,14 +128,43 @@ class StaticPagesController extends Controller {
         $model = new StaticPages();
         $model->user_created = \Yii::$app->user->getId();
         $model->user_last_change = \Yii::$app->user->getId();
+        $modelLang = new StaticPagesLang();
+ 
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $model->full_text = \yii\helpers\HtmlPurifier::process($model->full_text);
-            $model->update();
-            return $this->redirect(['view', 'id' => $model->id]);
+
+        if ($model->load(Yii::$app->request->post()) && $modelLang->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                $model->descr = $modelLang->description;
+               // $model->full_text = \yii\helpers\HtmlPurifier::process($model->full_text);
+                if ($model->update()) {                    
+                    $modelLang->id = $model->id;
+                    $modelLang->lang = Yii::$app->language;
+                    if ($modelLang->save()) {
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    } else {
+                        return $this->render('create', [
+                                    'model' => $model,
+                                    'modelLang' => $modelLang,
+                        ]);
+                    }
+                } else {
+                    return $this->render('create', [
+                                'model' => $model,
+                                'modelLang' => $modelLang,
+                    ]);
+                }
+            } else {
+                return $this->render('create', [
+                            'model' => $model,
+                            'modelLang' => $modelLang,
+                ]);
+            }
         } else {
+
             return $this->render('create', [
                         'model' => $model,
+                        'modelLang' => $modelLang,
+                        ''
             ]);
         }
     }
@@ -147,22 +177,27 @@ class StaticPagesController extends Controller {
      */
     public function actionUpdate($id) {
         $model = $this->findModel($id);
+        $modelLang = $this->findModelLang($id);
+         
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()) && $modelLang->load(Yii::$app->request->post())) {
             if (!isset($model->user_last_change)) {
                 $model->user_last_change = \Yii::$app->user->getId();
             }
-
+            $model->descr = $modelLang->description;
             if ($model->save()) {
+                $modelLang->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 return $this->render('update', [
                             'model' => $model,
+                            'modelLang' => $modelLang,
                 ]);
             }
         } else {
             return $this->render('update', [
                         'model' => $model,
+                        'modelLang' => $modelLang,
             ]);
         }
     }
@@ -190,6 +225,17 @@ class StaticPagesController extends Controller {
             return $model;
         } else {
             throw new NotFoundHttpException(Yii::t('blog', 'The requested page does not exist.'));
+        }
+    }
+
+        protected function findModelLang($id) {
+        if (($model = StaticPagesLang::findOne(['id'=>$id , 'lang'=> Yii::$app->language ])) !== null) {
+            return $model;
+        } else {
+           $model = new StaticPagesLang();
+           $model->id = $id;
+           $model->lang = Yii::$app->language;
+           return $model;
         }
     }
 }

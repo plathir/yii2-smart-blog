@@ -3,7 +3,7 @@
 namespace plathir\smartblog\common\widgets;
 
 use yii\base\Widget;
-use plathir\smartblog\common\models\StaticPages;
+use plathir\smartblog\backend\models\StaticPages;
 use yii\web\NotFoundHttpException;
 
 class StaticPagesWidget extends Widget {

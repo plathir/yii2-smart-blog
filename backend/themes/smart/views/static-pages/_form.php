@@ -26,8 +26,8 @@ use lav45\aceEditor\AceEditorWidget;
         <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdStaticPages']]); ?>
         <div class="row">
             <div class="col-lg-9 col-md-9 col-sm-9">
-                <?= $form->field($model, 'description')->textInput(['maxlength' => 255]) ?>
-                <?= $form->field($model, 'intro_text')->textarea(['rows' => 6]) ?>        
+                <?= $form->field($modelLang, 'description')->textInput(['maxlength' => 255]) ?>
+                <?= $form->field($modelLang, 'intro_text')->textarea(['rows' => 6]) ?>        
                 <?php echo $form->field($model, 'code_editor')->widget(SwitchInput::classname(), []); ?>
                 <?php
                 if ($model->code_editor) {
@@ -40,7 +40,7 @@ use lav45\aceEditor\AceEditorWidget;
                         'options' => [
                             'style' => 'border: 1px solid #ccc; border-radius: 4px;'
                         ]
-                    ]);                    
+                    ]);
                     echo $form->field($model, 'full_text')->widget(AceEditorWidget::className(), [
                         'theme' => 'idle_fingers',
                         'mode' => 'html',
@@ -52,7 +52,7 @@ use lav45\aceEditor\AceEditorWidget;
                         ]
                     ]);
                 } else {
-                    echo $form->field($model, 'full_text')->widget(CKEditor::className(), [
+                    echo $form->field($modelLang, 'full_text')->widget(CKEditor::className(), [
                         'editorOptions' => ElFinder::ckeditorOptions('blog/elfinder', [/* Some CKEditor Options */
                         ]),
                     ]);
