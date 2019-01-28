@@ -59,9 +59,8 @@ class StaticPages_s extends StaticPages {
         ]);
 
         $query->andFilterWhere(['like', 'description', $this->description])
-                ->andFilterWhere(['like', 'intro_text', $this->intro_text])
-                ->andFilterWhere(['like', 'full_text', $this->full_text]);
-
+              ->andFilterWhere(['like', 'intro_text', $this->intro_text])
+              ->andFilterWhere(['like', 'full_text', $this->full_text]);
 
         return $dataProvider;
     }

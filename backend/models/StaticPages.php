@@ -1,5 +1,4 @@
 <?php
-
 namespace plathir\smartblog\backend\models;
 
 use plathir\cropper\behaviors\UploadImageBehavior;
@@ -16,6 +15,7 @@ class StaticPages extends \plathir\smartblog\common\models\StaticPages {
     use \plathir\smartblog\backend\traits\ModuleTrait;
 
     public $descr;
+
     public function behaviors() {
         return [
             'timestampBehavior' =>
@@ -56,33 +56,55 @@ class StaticPages extends \plathir\smartblog\common\models\StaticPages {
 
     public function getDescription() {
         $descr = '';
+        $main_descr = '';
         foreach ($this->langtext as $texts) {
             if ($texts->lang == Yii::$app->language) {
                 $descr = $texts->description;
             }
+            if ($texts->lang == Yii::$app->settings->getSettings('MasterContentLang')) {
+                $main_descr = $texts->description;
+            }
         }
-        // $this->descr = $descr;
+        if (!$descr) {
+            $descr = $main_descr;
+        }
         return $descr;
     }
 
     public function getFull_text() {
         $full_text = '';
+        $main_full_text = '';
         foreach ($this->langtext as $texts) {
             if ($texts->lang == Yii::$app->language) {
                 $full_text = $texts->full_text;
             }
+            if ($texts->lang == Yii::$app->settings->getSettings('MasterContentLang')) {
+                $main_full_text = $texts->full_text;
+            }
         }
 
+        if (!$full_text) {
+            $full_text = $main_full_text;
+        }
         return $full_text;
     }
 
     public function getIntro_text() {
         $intro_text = '';
+        $main_intro_text = '';
         foreach ($this->langtext as $texts) {
             if ($texts->lang == Yii::$app->language) {
                 $intro_text = $texts->intro_text;
             }
+            if ($texts->lang == Yii::$app->settings->getSettings('MasterContentLang')) {
+                $main_intro_text = $texts->intro_text;
+            }
+        }
+
+        if (!$intro_text) {
+            $intro_text = $main_intro_text;
         }
         return $intro_text;
     }
+
 }

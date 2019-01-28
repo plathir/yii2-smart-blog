@@ -138,7 +138,7 @@ class StaticPagesController extends Controller {
                // $model->full_text = \yii\helpers\HtmlPurifier::process($model->full_text);
                 if ($model->update()) {                    
                     $modelLang->id = $model->id;
-                    $modelLang->lang = Yii::$app->language;
+                    $modelLang->lang = Yii::$app->settings->getSettings('MasterContentLang');
                     if ($modelLang->save()) {
                         return $this->redirect(['view', 'id' => $model->id]);
                     } else {
@@ -229,12 +229,12 @@ class StaticPagesController extends Controller {
     }
 
         protected function findModelLang($id) {
-        if (($model = StaticPagesLang::findOne(['id'=>$id , 'lang'=> Yii::$app->language ])) !== null) {
+        if (($model = StaticPagesLang::findOne(['id'=>$id , 'lang'=> Yii::$app->settings->getSettings('MasterContentLang') ])) !== null) {
             return $model;
         } else {
            $model = new StaticPagesLang();
            $model->id = $id;
-           $model->lang = Yii::$app->language;
+           $model->lang = Yii::$app->settings->getSettings('MasterContentLang');
            return $model;
         }
     }
