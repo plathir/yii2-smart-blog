@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\bootstrap\Tabs;
+use yii\helpers\HtmlPurifier;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Posts */
@@ -26,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <p>
             <?= Html::a('<i class="fa fa-pencil-square-o"></i>&nbsp;' . 'Update', ['update', 'id' => $model->id], ['class' => 'btn btn-success btn-flat']) ?>
+            
             <?=
             Html::a('<i class="fa fa-trash-o"></i>&nbsp;' . 'Delete', ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger btn-flat',
@@ -35,6 +37,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ])
             ?>
+          <?= Html::a('<i class="fa fa-pencil-square-o"></i>&nbsp;' . 'Translate', ['translate', 'id' => $model->id], ['class' => 'btn btn-success btn-flat']) ?>
+
         </p>
 
         <?php
@@ -78,17 +82,20 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value' => $model->publish == true ? '<span class="label label-success">Published</span>' : '<span class="label label-danger">Unpublished</span>',
                     'format' => 'html'
                 ],
+                            
             ],
         ]);
         ?>
         <br><strong>Preview : </strong><br><br>
-        <?= $model->full_text; ?>
+        <?=  $model->full_text; ?>
         <?php
-
-        $transl = Yii::$app->translate->translate('en', 'el', $model->full_text);
-        echo $transl['text'][0];
+        
+        $html = Yii::$app->translate->translate('en-US', 'el', $model->full_text)        ;
+        
+        
+        //$transl = Yii::$app->translate->translate('en-us', 'el', $model->full_text);
+        echo $html['text'][0];
 
         ?>
-
     </div>
 </div>

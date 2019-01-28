@@ -129,14 +129,14 @@ class StaticPagesController extends Controller {
         $model->user_created = \Yii::$app->user->getId();
         $model->user_last_change = \Yii::$app->user->getId();
         $modelLang = new StaticPagesLang();
- 
+
 
 
         if ($model->load(Yii::$app->request->post()) && $modelLang->load(Yii::$app->request->post())) {
             if ($model->save()) {
                 $model->descr = $modelLang->description;
-               // $model->full_text = \yii\helpers\HtmlPurifier::process($model->full_text);
-                if ($model->update()) {                    
+                // $model->full_text = \yii\helpers\HtmlPurifier::process($model->full_text);
+                if ($model->update()) {
                     $modelLang->id = $model->id;
                     $modelLang->lang = Yii::$app->settings->getSettings('MasterContentLang');
                     if ($modelLang->save()) {
@@ -178,7 +178,7 @@ class StaticPagesController extends Controller {
     public function actionUpdate($id) {
         $model = $this->findModel($id);
         $modelLang = $this->findModelLang($id);
-         
+
 
         if ($model->load(Yii::$app->request->post()) && $modelLang->load(Yii::$app->request->post())) {
             if (!isset($model->user_last_change)) {
@@ -228,14 +228,28 @@ class StaticPagesController extends Controller {
         }
     }
 
-        protected function findModelLang($id) {
-        if (($model = StaticPagesLang::findOne(['id'=>$id , 'lang'=> Yii::$app->settings->getSettings('MasterContentLang') ])) !== null) {
+    protected function findModelLang($id) {
+        if (($model = StaticPagesLang::findOne(['id' => $id, 'lang' => Yii::$app->settings->getSettings('MasterContentLang')])) !== null) {
             return $model;
         } else {
-           $model = new StaticPagesLang();
-           $model->id = $id;
-           $model->lang = Yii::$app->settings->getSettings('MasterContentLang');
-           return $model;
+            $model = new StaticPagesLang();
+            $model->id = $id;
+            $model->lang = Yii::$app->settings->getSettings('MasterContentLang');
+            return $model;
         }
     }
+
+    public function actionTranslate($id) {
+        $model = $this->findModel($id);
+        $modelLang = $this->findModelLang($id);
+        
+        if ($model->load(Yii::$app->request->post()) && $modelLang->load(Yii::$app->request->post())) {
+            
+            
+            
+        } else {
+            
+        }
+    }
+
 }
