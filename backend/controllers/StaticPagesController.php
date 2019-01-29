@@ -1,5 +1,4 @@
 <?php
-
 namespace plathir\smartblog\backend\controllers;
 
 use Yii;
@@ -9,6 +8,7 @@ use plathir\smartblog\backend\models\search\StaticPages_s;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\base\Model;
 
 /**
  * StaticPagesController implements the CRUD actions for StaticPages model.
@@ -47,6 +47,7 @@ class StaticPagesController extends Controller {
                             'view',
                             'delete',
                             'get',
+                            'translate',
                             'deletetempfile',
                             'tagslist',
                             'browse-images',
@@ -239,16 +240,26 @@ class StaticPagesController extends Controller {
         }
     }
 
-    public function actionTranslate($id) {
+    public function actionTranslate($id, $lang) {
         $model = $this->findModel($id);
-        $modelLang = $this->findModelLang($id);
-        
-        if ($model->load(Yii::$app->request->post()) && $modelLang->load(Yii::$app->request->post())) {
-            
-            
-            
+        $modelLang = StaticPagesLang::find()->where(['id' => $id, 'lang' => $lang])->One();
+        if (!$modelLang) {
+            $masterLang = Yii::$app->settings->getSettings('MasterContentLang');
+            $modelLang = new StaticPagesLang();
+            $modelLang->id = $id;
+            $modelLang->lang = $lang;
+            $modelLang->description = Yii::$app->translate->translate($masterLang, $lang, $model->description)['text'][0];
+            $modelLang->intro_text = Yii::$app->translate->translate($masterLang, $lang, $model->intro_text)['text'][0];
+            $modelLang->full_text = Yii::$app->translate->translate($masterLang, $lang, $model->full_text)['text'][0];
+        }
+        if ($modelLang->load(Yii::$app->request->post()) && $modelLang->save()) {
+            Yii::$app->session->setFlash('success', "Save translation successfully.");
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            
+            return $this->render('translation', [
+                        'model' => $model,
+                        'modelLang' => $modelLang,
+            ]);
         }
     }
 
