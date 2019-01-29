@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\base\Model;
+use yii\helpers\Html;
 
 /**
  * StaticPagesController implements the CRUD actions for StaticPages model.
@@ -186,6 +187,8 @@ class StaticPagesController extends Controller {
                 $model->user_last_change = \Yii::$app->user->getId();
             }
             $model->descr = $modelLang->description;
+            $model->descr = $modelLang->description;
+            $model->descr = $modelLang->description;
             if ($model->save()) {
                 $modelLang->save();
                 return $this->redirect(['view', 'id' => $model->id]);
@@ -249,8 +252,8 @@ class StaticPagesController extends Controller {
             $modelLang->id = $id;
             $modelLang->lang = $lang;
             $modelLang->description = Yii::$app->translate->translate($masterLang, $lang, $model->description)['text'][0];
-            $modelLang->intro_text = Yii::$app->translate->translate($masterLang, $lang, $model->intro_text)['text'][0];
-            $modelLang->full_text = Yii::$app->translate->translate($masterLang, $lang, $model->full_text)['text'][0];
+            $modelLang->intro_text = Yii::$app->translate->translate($masterLang, $lang, $model->intro_text, 'plain')['text'][0];
+            $modelLang->full_text = html::decode(Yii::$app->translate->translate($masterLang, $lang, $model->full_text)['text'][0]);
         }
         if ($modelLang->load(Yii::$app->request->post()) && $modelLang->save()) {
             Yii::$app->session->setFlash('success', "Save translation successfully.");

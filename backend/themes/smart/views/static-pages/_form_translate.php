@@ -31,10 +31,28 @@ use lav45\aceEditor\AceEditorWidget;
                 echo strtoupper($modelLang->lang ) . '<br>';
                 echo $model-> Description .'<br>';
                 echo $form->field($modelLang, 'description')->textInput(["maxlength" => true]);
-                echo $form->field($modelLang, 'intro_text')->textInput(["maxlength" => true]);
-                echo $form->field($modelLang, 'full_text')->textInput(["maxlength" => true]);
+                echo $form->field($modelLang, 'intro_text')->textarea(['rows' => 6]);
+//                echo $form->field($modelLang, 'full_text')->textInput(["maxlength" => true]);
 
-        ?>
+                if ($model->code_editor) {
+                    echo $form->field($modelLang, 'full_text')->widget(AceEditorWidget::className(), [
+                        'theme' => 'idle_fingers',
+                        'mode' => 'html',
+                        'showPrintMargin' => false,
+                        'fontSize' => 14,
+                        'height' => 500,
+                        'options' => [
+                            'style' => 'border: 1px solid #ccc; border-radius: 4px;'
+                        ]
+                    ]);
+                } else {
+                    echo $form->field($modelLang, 'full_text')->widget(CKEditor::className(), [
+                        'editorOptions' => ElFinder::ckeditorOptions('blog/elfinder', [/* Some CKEditor Options */
+                        ]),
+                    ]);
+                }
+                ?>
+
 
         <div class="form-group">
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']); ?>

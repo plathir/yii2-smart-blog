@@ -41,7 +41,7 @@ use lav45\aceEditor\AceEditorWidget;
                             'style' => 'border: 1px solid #ccc; border-radius: 4px;'
                         ]
                     ]);
-                    echo $form->field($model, 'full_text')->widget(AceEditorWidget::className(), [
+                    echo $form->field($modelLang, 'full_text')->widget(AceEditorWidget::className(), [
                         'theme' => 'idle_fingers',
                         'mode' => 'html',
                         'showPrintMargin' => false,
