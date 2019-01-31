@@ -54,6 +54,7 @@ use lav45\aceEditor\AceEditorWidget;
                 } else {
                     echo $form->field($modelLang, 'full_text')->widget(CKEditor::className(), [
                         'editorOptions' => ElFinder::ckeditorOptions('blog/elfinder', [/* Some CKEditor Options */
+                            'entities_greek' => false
                         ]),
                     ]);
                 }

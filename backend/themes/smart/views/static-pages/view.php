@@ -24,84 +24,104 @@ $this->params['breadcrumbs'][] = $this->title;
 
     </div><!-- /.box-header -->
     <div class="box-body">
+        <div class="col-lg-9">
 
-        <p>
-            <?= Html::a('<i class="fa fa-pencil-square-o"></i>&nbsp;' . 'Update', ['update', 'id' => $model->id], ['class' => 'btn btn-success btn-flat']) ?>
 
-            <?=
-            Html::a('<i class="fa fa-trash-o"></i>&nbsp;' . 'Delete', ['delete', 'id' => $model->id], [
-                'class' => 'btn btn-danger btn-flat',
-                'data' => [
-                    'confirm' => 'Are you sure you want to delete this item?',
-                    'method' => 'post',
-                ],
-            ])
-            ?>
+
+            <p>
+                <?= Html::a('<i class="fa fa-pencil-square-o"></i>&nbsp;' . 'Update', ['update', 'id' => $model->id], ['class' => 'btn btn-success btn-flat']) ?>
+
+                <?=
+                Html::a('<i class="fa fa-trash-o"></i>&nbsp;' . 'Delete', ['delete', 'id' => $model->id], [
+                    'class' => 'btn btn-danger btn-flat',
+                    'data' => [
+                        'confirm' => 'Are you sure you want to delete this item?',
+                        'method' => 'post',
+                    ],
+                ])
+                ?>
+
+            </p>
+
             <?php
-            $appLanguage = Yii::$app->settings->getSettings('MasterContentLang');
-            foreach (Yii::$app->urlManager->languages as $language) {
-                if ($language != $appLanguage) {
-                    if ($language == 'el') {
-                        $temp_lang = 'gr';
-                    } else {
-                        $temp_lang = $language;
-                    }
-                    echo Html::a('<i class="fa fa-pencil-square-o"></i>&nbsp;' . 'Translate ' . '<img src="https://www.countryflags.io/' . $temp_lang . '/flat/16.png">', ['translate', 'id' => $model->id, 'lang' => $language], ['class' => 'btn btn-success btn-flat']);
-                }
+            if ($model->css && $model->code_editor) {
+                echo $this->registerCss($model->css);
             }
             ?>
-        </p>
 
-        <?php
-        if ($model->css && $model->code_editor) {
-            echo $this->registerCss($model->css);
-        }
-        ?>
-
-        <?php
-        $userModel = new $model->module->userModel();
-        $categoryModel = new plathir\smartblog\backend\models\Category();
-        ?>
+            <?php
+            $userModel = new $model->module->userModel();
+            $categoryModel = new plathir\smartblog\backend\models\Category();
+            ?>
 
 
-        <?php
-        //echo Html::a('test', \yii\helpers\Url::to(['posts/view', 'id' => $model->id, 'slug' => $model->slug]));
+            <?php
+            //echo Html::a('test', \yii\helpers\Url::to(['posts/view', 'id' => $model->id, 'slug' => $model->slug]));
 
-        echo DetailView::widget([
-            'model' => $model,
-            'template' => '<tr><th style="width:20%">{label}</th><td style="width:80%">{value}</td></tr>',
-            'attributes' => [
-                'id',
-                'description',
-                'slug',
-                'intro_text:ntext',
+            echo DetailView::widget([
+                'model' => $model,
+                'template' => '<tr><th style="width:20%">{label}</th><td style="width:80%">{value}</td></tr>',
+                'attributes' => [
+                    'id',
+                    'description',
+                    'slug',
+                    'intro_text:ntext',
 //                            'full_text:html',
-                [
-                    'attribute' => 'user_created',
-                    'value' => $userModel::findOne(['id' => $model->user_created])->{$model->module->userNameField},
-                    'format' => 'text'
+                    [
+                        'attribute' => 'user_created',
+                        'value' => $userModel::findOne(['id' => $model->user_created])->{$model->module->userNameField},
+                        'format' => 'text'
+                    ],
+                    'created_at:datetime',
+                    [
+                        'attribute' => 'user_last_change',
+                        'value' => $userModel::findOne(['id' => $model->user_last_change])->{$model->module->userNameField},
+                        'format' => 'html'
+                    ],
+                    'updated_at:datetime',
+                    [
+                        'attribute' => 'publish',
+                        'value' => $model->publish == true ? '<span class="label label-success">Published</span>' : '<span class="label label-danger">Unpublished</span>',
+                        'format' => 'html'
+                    ],
                 ],
-                'created_at:datetime',
-                [
-                    'attribute' => 'user_last_change',
-                    'value' => $userModel::findOne(['id' => $model->user_last_change])->{$model->module->userNameField},
-                    'format' => 'html'
-                ],
-                'updated_at:datetime',
-                [
-                    'attribute' => 'publish',
-                    'value' => $model->publish == true ? '<span class="label label-success">Published</span>' : '<span class="label label-danger">Unpublished</span>',
-                    'format' => 'html'
-                ],
-            ],
-        ]);
-        ?>
-        <br><strong>Preview : </strong><br><br>
-        <?= $model->full_text; ?>
-        <?php
-        //   $html = Yii::$app->translate->translate('en-US', 'el', $model->full_text);
-        //$transl = Yii::$app->translate->translate('en-us', 'el', $model->full_text);
-        //  echo $html['text'][0];
-        ?>
+            ]);
+            ?>
+        </div>
+        <div class="col-lg-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Translations</div>
+                <div class="panel-body">
+                    <div class="list-group">
+                        <?php
+                        $appLanguage = Yii::$app->settings->getSettings('MasterContentLang');
+                        foreach (Yii::$app->urlManager->languages as $language) {
+                            if ($language != $appLanguage) {
+                                if ($language == 'el') {
+                                    $temp_lang = 'gr';
+                                } else {
+                                    $temp_lang = $language;
+                                }
+                                ?>
+                                <?= Html::a('<i class="fa fa-pencil-square-o"></i>&nbsp;' . 'Translate ' . '<img src="https://www.countryflags.io/' . $temp_lang . '/flat/16.png">', ['translate', 'id' => $model->id, 'lang' => $language], ['class' => 'list-group-item list-group-item-info']); ?>
+                                <?php
+                            }
+                        }
+                        ?>  
+                    </div>
+                </div>
+
+            </div>  
+        </div>
+        <div class="col-lg-12">
+            <br><strong>Preview : </strong><br><br>
+            <?= $model->full_text; ?>
+            <?php
+            //   $html = Yii::$app->translate->translate('en-US', 'el', $model->full_text);
+            //$transl = Yii::$app->translate->translate('en-us', 'el', $model->full_text);
+            //  echo $html['text'][0];
+            ?>
+
+        </div>
     </div>
 </div>

@@ -246,6 +246,7 @@ class StaticPagesController extends Controller {
     public function actionTranslate($id, $lang) {
         $model = $this->findModel($id);
         $modelLang = StaticPagesLang::find()->where(['id' => $id, 'lang' => $lang])->One();
+        
         if (!$modelLang) {
             $masterLang = Yii::$app->settings->getSettings('MasterContentLang');
             $modelLang = new StaticPagesLang();
@@ -253,7 +254,7 @@ class StaticPagesController extends Controller {
             $modelLang->lang = $lang;
             $modelLang->description = Yii::$app->translate->translate($masterLang, $lang, $model->description)['text'][0];
             $modelLang->intro_text = Yii::$app->translate->translate($masterLang, $lang, $model->intro_text, 'plain')['text'][0];
-            $modelLang->full_text = html::decode(Yii::$app->translate->translate($masterLang, $lang, $model->full_text)['text'][0]);
+            $modelLang->full_text = html::decode(Yii::$app->translate->translate($masterLang, $lang, $model->full_text)['text'][0]);   
         }
         if ($modelLang->load(Yii::$app->request->post()) && $modelLang->save()) {
             Yii::$app->session->setFlash('success', "Save translation successfully.");
