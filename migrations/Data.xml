@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<blogData>
+    <widgetTypes>
+        <widget_type>
+            <tech_name>be_blog_carousel</tech_name>
+            <module_name>backend-blog</module_name>
+            <widget_name>Backend Blog Carousel</widget_name>
+            <widget_class>\plathir\smartblog\backend\widgets\CarouselPosts</widget_class>
+            <description>Blog Carousel</description>
+        </widget_type>
+        
+        <widget_type>
+            <tech_name>be_blog_latest_posts</tech_name>
+            <module_name>backend-blog</module_name>
+            <widget_name>Latest Posts</widget_name>
+            <widget_class>plathir\smartblog\backend\widgets\LatestPosts</widget_class>
+            <description>Latest Posts</description>
+        </widget_type>
+        
+        <widget_type>
+            <tech_name>be_blog_most_visited_post</tech_name>
+            <module_name>backend-blog</module_name>
+            <widget_name>Most Visited Posts</widget_name>
+            <widget_class>plathir\smartblog\backend\widgets\MostVisitedPosts</widget_class>
+            <description>Most Visited Posts</description>
+        </widget_type>
+
+        <widget_type>
+            <tech_name>be_blog_static_pages_widget</tech_name>
+            <module_name>backend-blog</module_name>
+            <widget_name>Static Page</widget_name>
+            <widget_class>plathir\smartblog\common\widgets\StaticPagesWidget</widget_class>
+            <description>Static Page</description>
+        </widget_type>
+
+        <widget_type>
+            <tech_name>be_blog_tag_cloud</tech_name>
+            <module_name>backend-blog</module_name>
+            <widget_name>Tag Cloud</widget_name>
+            <widget_class>plathir\smartblog\backend\widgets\TagCloud</widget_class>
+            <description>Tag Cloud</description>
+        </widget_type>
+
+        <widget_type>
+            <tech_name>be_blog_top_authors</tech_name>
+            <module_name>backend-blog</module_name>
+            <widget_name>Top Authors</widget_name>
+            <widget_class>plathir\smartblog\backend\widgets\TopAuthors</widget_class>
+            <description>Top Authors</description>
+        </widget_type>
+
+        <widget_type>
+            <tech_name>be_blog_top_rated</tech_name>
+            <module_name>backend-blog</module_name>
+            <widget_name>Top Rated</widget_name>
+            <widget_class>plathir\smartblog\backend\widgets\TopRated</widget_class>
+            <description>Top Rated</description>
+        </widget_type>
+                          
+        <widget_type>
+            <tech_name>be_blog_categories_with_subcategories</tech_name>
+            <module_name>frontend-blog</module_name>
+            <widget_name>Blog Categories with Subcategories</widget_name>
+            <widget_class>plathir\smartblog\frontend\widgets\CategoriesWithSubCategories</widget_class>
+            <description>Blog Categories with Subcategories</description>
+        </widget_type>
+        
+        <widget_type>
+            <tech_name>fe_blog_carousel</tech_name>
+            <module_name>frontend-blog</module_name>
+            <widget_name>Frontend Carousel</widget_name>
+            <widget_class>plathir\smartblog\frontend\widgets\CarouselPosts</widget_class>
+            <description>Frontend Carousel</description>
+        </widget_type>        
+        
+        <widget_type>
+            <tech_name>fe_blog_latest_posts</tech_name>
+            <module_name>frontend-blog</module_name>
+            <widget_name>Frontend Latest Posts</widget_name>
+            <widget_class>plathir\smartblog\frontend\widgets\LatestPosts</widget_class>
+            <description>Frontend Latest Posts</description>
+        </widget_type>             
+        
+        <widget_type>
+            <tech_name>fe_blog_most_visited_posts</tech_name>
+            <module_name>frontend-blog</module_name>
+            <widget_name>Frontend Most Visited Posts</widget_name>
+            <widget_class>plathir\smartblog\frontend\widgets\MostVisitedPosts</widget_class>
+            <description>Frontend Most Visited Posts</description>
+        </widget_type>      
+        
+        <widget_type>
+            <tech_name>fe_blog_tag_cloud_posts</tech_name>
+            <module_name>frontend-blog</module_name>
+            <widget_name>Frontend Tag Cloud Blog</widget_name>
+            <widget_class>plathir\smartblog\frontend\widgets\TagCloud</widget_class>
+            <description>Frontend Tag Cloud Blog</description>
+        </widget_type>   
+        
+        <widget_type>
+            <tech_name>fe_blog_top_authors</tech_name>
+            <module_name>frontend-blog</module_name>
+            <widget_name>FrontEnd Top Authors</widget_name>
+            <widget_class>plathir\smartblog\frontend\widgets\TopAuthors</widget_class>
+            <description>FrontEnd Top Authors</description>
+        </widget_type>          
+        
+        <widget_type>
+            <tech_name>fe_blog_top_categories</tech_name>
+            <module_name>frontend-blog</module_name>
+            <widget_name>FrontEnd Top Categories</widget_name>
+            <widget_class>plathir\smartblog\frontend\widgets\TopCategories</widget_class>
+            <description>Top Categories</description>
+        </widget_type>      
+        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+    </widgetTypes>
+    
+    <positions>
+        <position>
+            <tech_name></tech_name>
+            <name></name>
+            <publish></publish>
+            <module_name></module_name>
+        </position>
+        <position>
+            <tech_name></tech_name>
+            <name></name>
+            <publish></publish>
+            <module_name></module_name>
+        </position>
+    </positions>
+    <widgets>
+        <widget>
+            <widget_type></widget_type>
+            <name></name>
+            <description></description>
+            <position></position>
+            <config></config>
+            <rules></rules>
+            <publish></publish>
+            <created_at></created_at>
+            <updated_at></updated_at>
+        </widget>
+    </widgets>
+    
+    <menu>
+        <items>
+            <item>
+                <name></name> 
+                <parent></parent> 
+                <route></route> 
+                <order></order> 
+                <data></data> 
+                <app></app> 
+                <items>
+                    <item>
+                        <name></name> 
+                        <parent></parent> 
+                        <route></route> 
+                        <order></order> 
+                        <data></data> 
+                        <app></app> 
+                    </item>
+                </items>
+            </item>
+        </items>
+    </menu>
+    
+</blogData>

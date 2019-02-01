@@ -140,25 +140,25 @@ use mihaildev\elfinder\ElFinder;
                 ])
                 ?>
                 <div class="row-fluid">
-                <?php
-                echo $form->field($model, 'attachments')->widget(UplWidget::className(), [
-                    'uploadUrl' => Url::toRoute(['/blog/posts/uploadfile']),
-                    'previewUrl' => $model->module->ImagePathPreview,
-                    'tempPreviewUrl' => $model->module->ImageTempPathPreview,
-                    'KeyFolder' => $model->id,
-                ]);
-                ?>
+                    <?php
+                    echo $form->field($model, 'attachments')->widget(UplWidget::className(), [
+                        'uploadUrl' => Url::toRoute(['/blog/posts/uploadfile']),
+                        'previewUrl' => $model->module->ImagePathPreview,
+                        'tempPreviewUrl' => $model->module->ImageTempPathPreview,
+                        'KeyFolder' => $model->id,
+                    ]);
+                    ?>
                 </div>
                 <div class="row-fluid">
-<?php
-echo $form->field($model, 'gallery')->widget(UplWidget::className(), [
-    'uploadUrl' => Url::toRoute(['/blog/posts/uploadfile']),
-    'previewUrl' => $model->module->ImagePathPreview,
-    'tempPreviewUrl' => $model->module->ImageTempPathPreview,
-    'KeyFolder' => $model->id,
-    'galleryType' => true,
-]);
-?>
+                    <?php
+                    echo $form->field($model, 'gallery')->widget(UplWidget::className(), [
+                        'uploadUrl' => Url::toRoute(['/blog/posts/uploadfile']),
+                        'previewUrl' => $model->module->ImagePathPreview,
+                        'tempPreviewUrl' => $model->module->ImageTempPathPreview,
+                        'KeyFolder' => $model->id,
+                        'galleryType' => true,
+                    ]);
+                    ?>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3">
@@ -166,7 +166,7 @@ echo $form->field($model, 'gallery')->widget(UplWidget::className(), [
                     <!-- Default panel contents -->
                     <div class="panel-heading">Post Infos</div>
                     <div class="panel-body">
-<?php echo $form->field($model, 'publish')->widget(SwitchInput::classname(), []); ?>
+                        <?php echo $form->field($model, 'publish')->widget(SwitchInput::classname(), []); ?>
 
                         <?php
                         echo $form->field($model, 'created_at')->widget(DateControl::classname(), [
@@ -216,10 +216,10 @@ echo $form->field($model, 'gallery')->widget(UplWidget::className(), [
         </div>
 
         <div class="form-group">
-<?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Create' : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Create' : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
 
-<?php ActiveForm::end(); ?>        
+        <?php ActiveForm::end(); ?>        
 
     </div>
 

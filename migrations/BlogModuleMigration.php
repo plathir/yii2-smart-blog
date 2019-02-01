@@ -1,5 +1,4 @@
 <?php
-
 namespace plathir\smartblog\migrations;
 
 use yii\db\Migration;
@@ -9,6 +8,15 @@ class BlogModuleMigration extends Migration {
     public function up() {
 
         $this->CreateModuleTables();
+
+
+//        $this->CreateModuleWidgetTypes();
+//
+//        $this->CreateModulePositions();
+//
+//        $this->CreateModuleWidgets();
+//
+//        $this->CreateModuleMenu();        
     }
 
     public function down() {
@@ -18,6 +26,7 @@ class BlogModuleMigration extends Migration {
         $this->dropIfExist('posts_rating');
         $this->dropIfExist('tags');
         $this->dropIfExist('static_pages');
+        $this->dropIfExist('static_pages_lang');
     }
 
     public function CreateModuleTables() {
@@ -28,6 +37,7 @@ class BlogModuleMigration extends Migration {
         $this->dropIfExist('posts_rating');
         $this->dropIfExist('tags');
         $this->dropIfExist('static_pages');
+        $this->dropIfExist('static_pages_lang');
 
         // Categories 
 
@@ -86,7 +96,7 @@ class BlogModuleMigration extends Migration {
             'tag_id' => $this->integer(),
         ]);
 
-        $this->addPrimaryKey('posts_tags_pk', 'posts_tags_tags', ['post_id', 'tag_id']);
+        $this->addPrimaryKey('posts_tags_pk', 'posts_tags', ['post_id', 'tag_id']);
         $this->addForeignKey('fk_posts_tags', 'posts_tags', 'post_id', 'posts', 'id', 'CASCADE', 'CASCADE');
 
 
@@ -118,12 +128,89 @@ class BlogModuleMigration extends Migration {
             'publish' => $this->string(1)->notNull(),
             'tags' => $this->text(),
         ]);
+
+        $this->createTable('static_pages_lang', [
+            'id' => $this->bigPrimaryKey(),
+            'lang' => $this->string(2)->notNull(),
+            'description' => $this->string(255)->notNull(),
+            'intro_text' => $this->text()->notNull(),
+            'full_text' => $this->text()->notNull(),
+        ]);
+        $this->addPrimaryKey('pk_static_pages_lang', 'static_pages_lang', ['id', 'lang']);
+        $this->addForeignKey('fk_static_pages_lang', 'static_pages_lang', 'id', 'static_pages', 'id', 'CASCADE', 'CASCADE');
     }
 
     public function dropIfExist($tableName) {
         if (in_array($tableName, $this->getDb()->schema->tableNames)) {
             $this->dropTable($tableName);
         }
+    }
+
+    public function CreateModuleWidgetTypes() {
+
+//// Latest Posts
+//        $this->insert('widgets_types', [
+//            'tech_name' => 'be_recipes_latest_recipes',
+//            'module_name' => 'backend-recipes',
+//            'widget_name' => 'Latest Recipes',
+//            'widget_class' => '\apps\recipes\backend\widgets\LatestRecipes',
+//            'description' => 'Latest Recipes',
+//        ]);
+    }
+
+    public function CreateModulePositions() {
+
+        //Positions
+        $this->insert('widgets_positions', [
+            'tech_name' => 'be_recipes_dashboard',
+            'name' => 'Backend Recipes DashBoard',
+            'publish' => '1',
+            'module_name' => 'backend-recipes',
+        ]);
+    }
+
+    public Function CreateModuleWidgets() {
+
+// Add to widgets List
+//        $this->insert('widgets', [
+//            'widget_type' => 'be_recipes_latest_recipes',
+//            'name' => 'Latest Recipes',
+//            'description' => 'Latest Recipes',
+//            'position' => 'be_recipes_dashboard',
+//            'config' => '{"latest_num":"3","Theme":"smart"}',
+//            'rules' => '',
+//            'publish' => 1,
+//            'created_at' => new Expression('NOW()'),
+//            'updated_at' => new Expression('NOW()'),
+//        ]);
+//        $id1 = Yii::$app->db->getLastInsertID();
+//        
+//        
+//        // add to position Sort Order
+//        $this->insert('widgets_positions_sorder', [
+//            'position_tech_name' => 'be_recipes_dashboard',
+//            'widget_sort_order' => $id1 . ',' . $id2 . ',' . $id3 . ',' . $id4 . ',' . $id5 . ',' . $id6
+//        ]);
+    }
+
+    public function CreateModuleMenu() {
+        /**
+         *  Insert to menu
+         */
+//        $this->insert('menu', [
+//            'name' => 'RecipesMenu',
+//            'parent' => NULL,
+//            'route' => NULL,
+//            'order' => NULL,
+//            'data' => NULL,
+//            'app' => 'recipes',
+//        ]);
+//        $key_parent = Yii::$app->db->getLastInsertID();
+//
+//        $this->insert('apps_menu', [
+//            'app_name' => 'recipes',
+//            'menu_id' => $key_parent,
+//        ]);
     }
 
 }
