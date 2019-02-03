@@ -118,29 +118,40 @@ and open the template in the editor.
             <widget_name>FrontEnd Top Categories</widget_name>
             <widget_class>plathir\smartblog\frontend\widgets\TopCategories</widget_class>
             <description>Top Categories</description>
-        </widget_type>      
-        
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+        </widget_type>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
     </widgetTypes>
     
     <positions>
         <position>
-            <tech_name></tech_name>
-            <name></name>
-            <publish></publish>
-            <module_name></module_name>
+            <tech_name>be_blog_position1</tech_name>
+            <name>Position 1</name>
+            <publish>1</publish>
+            <module_name>backend-blog</module_name>
         </position>
         <position>
-            <tech_name></tech_name>
-            <name></name>
-            <publish></publish>
-            <module_name></module_name>
+            <tech_name>be_blog_position2</tech_name>
+            <name>Position 2</name>
+            <publish>1</publish>
+            <module_name>backend-blog</module_name>
         </position>
+        <position>
+            <tech_name>be_blog_position3</tech_name>
+            <name>Position 1</name>
+            <publish>1</publish>
+            <module_name>backend-blog</module_name>
+        </position>
+        <position>
+            <tech_name>be_blog_position4</tech_name>
+            <name>Position 4</name>
+            <publish>1</publish>
+            <module_name>backend-blog</module_name>
+        </position>
+        
     </positions>
     <widgets>
         <widget>
-            <widget_type></widget_type>
-            <name></name>
+            <widget_type>fdfds</widget_type>
+            <name>Test</name>
             <description></description>
             <position></position>
             <config></config>
@@ -154,22 +165,61 @@ and open the template in the editor.
     <menu>
         <items>
             <item>
-                <name></name> 
-                <parent></parent> 
-                <route></route> 
-                <order></order> 
-                <data></data> 
-                <app></app> 
+                <name>Item 1</name> 
+                <route>sdgsfdg</route> 
+                <order>ffff</order> 
+                <data>dfdsf</data> 
+                <app>blog</app> 
                 <items>
                     <item>
-                        <name></name> 
-                        <parent></parent> 
-                        <route></route> 
-                        <order></order> 
-                        <data></data> 
-                        <app></app> 
+                        <name>Item 1.1</name> 
+                        <route>sdgsfdg</route> 
+                        <data>dfdsf</data> 
+                        <app>blog</app>                         
+                        <items>
+                            <item>
+                                <name>Item 1.1.1</name> 
+                                <route>sdgsfdg</route> 
+                                <data>dfdsf</data> 
+                                <app>blog</app>                         
+                            </item>
+                            <item>
+                                <name>Item 1.1.2</name> 
+                                <route>sdgsfdg</route> 
+                                <data>dfdsf</data> 
+                                <app>blog</app>                         
+                            </item>
+
+                        </items>                        
                     </item>
+                    
+                    <item>
+                        <name>Item 1.2</name> 
+                        <route>sdgsfdg</route> 
+                        <data>dfdsf</data> 
+                        <app>blog</app>                         
+                        <items>
+                            <item>
+                                <name>Item 1.2.1</name> 
+                                <route>sdgsfdg</route> 
+                                <data>dfdsf</data> 
+                                <app>blog</app>                         
+                            </item>
+                            <item>
+                                <name>Item 1.2.2</name> 
+                                <route>sdgsfdg</route> 
+                                <data>dfdsf</data> 
+                                <app>blog</app>                         
+                            </item>
+                        </items>                        
+                    </item>                    
                 </items>
+            </item>
+            <item>
+                <name>Item 2</name> 
+                <route>/route2/test</route> 
+                <data>data2</data> 
+                <app>blog</app> 
             </item>
         </items>
     </menu>
