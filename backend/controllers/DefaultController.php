@@ -1,8 +1,8 @@
 <?php
-
 namespace plathir\smartblog\backend\controllers;
 
 use yii\web\Controller;
+use Yii;
 
 /**
  * @property \plathir\smartblog\backend\Module $module
@@ -33,7 +33,7 @@ class DefaultController extends Controller {
     }
 
     public function actionLoadxml() {
-        $filename = '/var/www/smartbase.local/vendor/plathir/yii2-smart-blog/migrations/Data.xml';
+        $filename = Yii::getAlias('@vendor/plathir/yii2-smart-blog/migrations/Data.xml');
         $xml = file_get_contents($filename);
 
         $reader = new \plathir\smartblog\components\migration\ReadDataXML();

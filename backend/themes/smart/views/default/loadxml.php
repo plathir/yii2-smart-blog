@@ -43,11 +43,23 @@ if ($xml) {
     }
 
     if (array_key_exists("Menu", $xml)) {
-?>
+        ?>
         <h4>Menus</h4>
-<?php
-        echo '<pre>';
-        print_r($xml["Menu"]);
-        echo '</pre>';
+        <?php
+        $Menu = $xml["Menu"];
+        foreach ($Menu as $Item) {
+            echo $Item["id"] . ' - ' .
+            $Item["name"] . ' - ' .
+            $Item["route"] . ' - ' .
+            $Item["data"] . ' - ' .
+            $Item["app"] . ' - ' .
+            $Item["parent_id"] . ' - ' .
+            $Item["depth"] .
+            '<br>';
+        }
+
+//        echo '<pre>';
+//        print_r($xml["Menu"]);
+//        echo '</pre>';
     }
 }

@@ -167,7 +167,6 @@ and open the template in the editor.
             <item>
                 <name>Item 1</name> 
                 <route>sdgsfdg</route> 
-                <order>ffff</order> 
                 <data>dfdsf</data> 
                 <app>blog</app> 
                 <items>
@@ -181,15 +180,16 @@ and open the template in the editor.
                                 <name>Item 1.1.1</name> 
                                 <route>sdgsfdg</route> 
                                 <data>dfdsf</data> 
-                                <app>blog</app>                         
+                                <app>blog</app>   
+                                <items></items>                      
                             </item>
                             <item>
                                 <name>Item 1.1.2</name> 
                                 <route>sdgsfdg</route> 
                                 <data>dfdsf</data> 
-                                <app>blog</app>                         
+                                <app>blog</app>  
+                                <items></items>                                             
                             </item>
-
                         </items>                        
                     </item>
                     
@@ -197,19 +197,21 @@ and open the template in the editor.
                         <name>Item 1.2</name> 
                         <route>sdgsfdg</route> 
                         <data>dfdsf</data> 
-                        <app>blog</app>                         
+                        <app>blog</app>   
                         <items>
                             <item>
                                 <name>Item 1.2.1</name> 
                                 <route>sdgsfdg</route> 
                                 <data>dfdsf</data> 
-                                <app>blog</app>                         
+                                <app>blog</app>    
+                                <items></items>                                           
                             </item>
                             <item>
                                 <name>Item 1.2.2</name> 
                                 <route>sdgsfdg</route> 
                                 <data>dfdsf</data> 
-                                <app>blog</app>                         
+                                <app>blog</app>   
+                                <items></items>                                            
                             </item>
                         </items>                        
                     </item>                    
@@ -220,6 +222,15 @@ and open the template in the editor.
                 <route>/route2/test</route> 
                 <data>data2</data> 
                 <app>blog</app> 
+                <items>
+                    <item>
+                        <name>Item 2.1</name> 
+                        <route>sssssssss</route> 
+                        <data>dfdsf</data> 
+                        <app>blog</app>   
+                        <items></items>                                            
+                    </item>                    
+                </items>                      
             </item>
         </items>
     </menu>

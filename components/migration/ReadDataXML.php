@@ -1,5 +1,4 @@
 <?php
-
 namespace plathir\smartblog\components\migration;
 
 class ReadDataXML {
@@ -16,8 +15,8 @@ class ReadDataXML {
         $data["WidgetTypes"] = $this->parseElement($xml->widgetTypes->widget_type);
         $data["Widgets"] = $this->parseElement($xml->widgets->widget);
         $data["Positions"] = $this->parseElement($xml->positions->position);
-        $h_menu = $this->parseElement($xml->menu->items->item);
-        $data["Menu"] = $this->sortMenu($this->NormalizeMenu($h_menu));
+        //$h_menu = $this->parseElement($xml->menu->items->item);
+        $data["Menu"] = $this->normalizeMenu($this->parseElement($xml->menu->items->item));
         return $data;
     }
 
@@ -38,45 +37,55 @@ class ReadDataXML {
         return $h_elements;
     }
 
-    public function NormalizeMenu($xmldata, $parent = '') {
-        static $newmenu;
-        $i = 0;
+    function flatten($arr, $parent = '') {
+        $result = [];
         static $id;
 
-        foreach ($xmldata as $element_val) {
-            $i++;
-            $id++;
-            foreach ($element_val as $key => $val) {
-                if ($key != 'items') {
-                    $items[$key] = $val;      
-                } else {
-                    $this->NormalizeMenu($val, $element_val);
+        if (is_array($arr)) {
+            foreach ($arr as $item) {
+                $id++;
+                $item["id"] = $id;
+                if (isset($item['items'])) {
+                    $result = array_merge($result, $this->flatten($item['items'], $item));
                 }
+                unset($item['items']);
+                $item["parent_id"] = ($parent) ? $parent["id"] : '';
+                $result[] = $item;
             }
-
-            if ($parent) {             
-                $items['parent'] = $parent["name"];
-            } else {
-                $items['parent'] = '';
-            }
-            $items['id'] = $id;
-            $items['order'] = $i;
-            $newmenu[] = $items;
-
-            $items = '';
         }
-        
-        return $newmenu;
+        return $result;
     }
 
     public function sortMenu($menu) {
-        $new_array = '';
-
-//        $id = array_column($menu, 'id');
-//
-//        array_multisort($id, SORT_ASC, $menu);
-
+        $id = array_column($menu, 'id');
+        array_multisort($id, SORT_ASC, $menu);
         return $menu;
+    }
+
+    function array_set_depth($array, $depth = -1) {
+        $subdepth = $depth + 1;
+        if ($depth < 0) {
+            foreach ($array as $key => $subarray) {
+                $temp[$key] = $this->array_set_depth(($subarray), $subdepth);
+            }
+            return $temp;
+        }
+        $array['depth'] = $depth;
+        if (isset($array['items'])) {
+            if (is_array($array['items'])) {
+                foreach ($array['items'] as $key => $subarray) {
+                    $temp[$key] = $this->array_set_depth($subarray, $subdepth);
+                }
+                unset($array['items']);
+                $array['items'] = $temp;
+            }
+        }
+        return $array;
+    }
+
+    public function normalizeMenu($array) {
+        $array = $this->array_set_depth($array);
+        return $this->sortMenu($this->flatten($array));
     }
 
 }
