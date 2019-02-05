@@ -57,9 +57,17 @@ if ($xml) {
             $Item["depth"] .
             '<br>';
         }
+    }
 
-//        echo '<pre>';
-//        print_r($xml["Menu"]);
-//        echo '</pre>';
+    if (array_key_exists("Layouts", $xml)) {
+        if ($xml["Layouts"]) {
+            ?>
+            <h4>Layouts</h4>
+            <?php
+            $Layouts = $xml["Layouts"];
+            foreach ($Layouts as $Layouts) {
+                echo $Layouts["tech_name"] . ' - ' . $Layouts["name"] . '<br>';
+            }
+        }
     }
 }

@@ -9,17 +9,29 @@ class ReadDataXML {
     public $Menu;
     public $new_menu;
 
+/**
+ *  Read XML
+ * 
+ * @param type $xmlfile
+ * @return type
+ */
     public function readxml($xmlfile) {
 
         $xml = simplexml_load_string($xmlfile);
         $data["WidgetTypes"] = $this->parseElement($xml->widgetTypes->widget_type);
         $data["Widgets"] = $this->parseElement($xml->widgets->widget);
         $data["Positions"] = $this->parseElement($xml->positions->position);
-        //$h_menu = $this->parseElement($xml->menu->items->item);
         $data["Menu"] = $this->normalizeMenu($this->parseElement($xml->menu->items->item));
+        $data["Layouts"] = $this->parseElement($xml->layouts->layout);
         return $data;
     }
 
+    /**
+     * Parse Element
+     * 
+     * @param type $xmldata
+     * @return string
+     */
     public function parseElement($xmldata) {
         $h_element = '';
         $h_elements = '';
@@ -37,6 +49,14 @@ class ReadDataXML {
         return $h_elements;
     }
 
+    /**
+     *  Flaten  array
+     * 
+     * @staticvar type $id
+     * @param type $arr
+     * @param type $parent
+     * @return type
+     */
     function flatten($arr, $parent = '') {
         $result = [];
         static $id;
@@ -62,6 +82,13 @@ class ReadDataXML {
         return $menu;
     }
 
+    /**
+     * Array Set Depth
+     * 
+     * @param type $array
+     * @param type $depth
+     * @return type
+     */
     function array_set_depth($array, $depth = -1) {
         $subdepth = $depth + 1;
         if ($depth < 0) {
@@ -83,6 +110,12 @@ class ReadDataXML {
         return $array;
     }
 
+    /**
+     *  Normalize Menu
+     * 
+     * @param type $array
+     * @return type
+     */
     public function normalizeMenu($array) {
         $array = $this->array_set_depth($array);
         return $this->sortMenu($this->flatten($array));
