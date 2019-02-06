@@ -36,7 +36,7 @@ class DefaultController extends Controller {
         $filename = Yii::getAlias('@vendor/plathir/yii2-smart-blog/migrations/Data.xml');
         $xml = file_get_contents($filename);
 
-        $reader = new \plathir\smartblog\components\migration\ReadDataXML();
+        $reader = new \plathir\apps\components\migration\ReadDataXML();
         $data = $reader->readxml($xml);
         return $this->render('loadxml', ['xml' => $data]);
     }
