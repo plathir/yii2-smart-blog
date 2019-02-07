@@ -7,6 +7,7 @@ use \plathir\smartblog\common\widgets\GalleryWidget;
 use plathir\upload\ListFilesWidget;
 use plathir\smartblog\common\widgets\RatingWidget;
 use yii\helpers\Url;
+use dosamigos\disqus\Comments;
 
 $userHelper = new UserHelper();
 
@@ -85,6 +86,15 @@ $post_url_update = urldecode(Url::to(['/blog/posts/update/', 'path' => $model->u
 
     </div>
 </div>
+<?php
+if (Yii::$app->settings->getSettings('DisqusShortname') && Yii::$app->settings->getSettings('Comments') ) {
+    echo Comments::widget([
+        'shortname' => Yii::$app->settings->getSettings('DisqusShortname'),
+        'identifier' => $model->id
+    ]);
+}
+?>
+
 <?=
 plathir\smartblog\frontend\widgets\SimilarPostsWidget::widget([
     'postID' => $model->id,
