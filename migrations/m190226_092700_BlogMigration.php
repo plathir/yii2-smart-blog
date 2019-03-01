@@ -1,53 +1,51 @@
 <?php
-namespace plathir\smartblog\migrations;
 
 use yii\db\Migration;
+use yii\db\Schema;
 
-class BlogModuleMigration extends Migration {
+class m190226_092700_BlogMigration extends Migration {
 
     public function up() {
 
-        $this->CreateModuleTables();
-
-
-//        $this->CreateModuleWidgetTypes();
-//
-//        $this->CreateModulePositions();
-//
-//        $this->CreateModuleWidgets();
-//
-//        $this->CreateModuleMenu();        
+        $this->CreateCategoriesTable();
+        $this->CreatePostsTable();
+        $this->CreateTagsTable();
+        $this->CreatePostsTagsTable();
+        $this->CreatePostsRatingTable();
+        $this->CreateStaticPagesTable();
+        $this->CreateStaticPagesLangTable();
+        $this->CreatePostsLangTable();
+        $this->CreateCarouselTable();
+        $this->CreateCarouselItemsTable();
     }
 
     public function down() {
-        $this->dropIfExist('categories');
-        $this->dropIfExist('posts');
+
+        $this->dropIfExist('carousel_items');
+        $this->dropIfExist('carousel');
+        $this->dropIfExist('posts_lang');
+        $this->dropIfExist('static_pages_lang');
+        $this->dropIfExist('static_pages');
         $this->dropIfExist('posts_tags');
         $this->dropIfExist('posts_rating');
         $this->dropIfExist('tags');
-        $this->dropIfExist('static_pages');
-        $this->dropIfExist('static_pages_lang');
+        $this->dropIfExist('posts');
+        $this->dropIfExist('categories');
     }
 
-    public function CreateModuleTables() {
-
+    public function CreateCategoriesTable() {
         $this->dropIfExist('categories');
-        $this->dropIfExist('posts');
-        $this->dropIfExist('posts_tags');
-        $this->dropIfExist('posts_rating');
-        $this->dropIfExist('tags');
-        $this->dropIfExist('static_pages');
-        $this->dropIfExist('static_pages_lang');
 
         // Categories 
 
-        $this->createTable('catergories', [
+        $this->createTable('categories', [
             'id' => $this->bigPrimaryKey(),
             'root' => $this->integer(),
             'lft' => $this->integer()->notNull(),
             'rgt' => $this->integer()->notNull(),
             'lvl' => $this->smallInteger(5)->notNull(),
             'name' => $this->string(60)->notNull(),
+            'slug' => $this->string(100)->notNull(),
             'description' => Schema::TYPE_TEXT,
             'image' => $this->string(255),
             'icon' => $this->string(255),
@@ -63,22 +61,27 @@ class BlogModuleMigration extends Migration {
             'movable_l' => $this->boolean()->notNull()->defaultValue(true),
             'movable_r' => $this->boolean()->notNull()->defaultValue(true),
             'removable' => $this->boolean()->notNull()->defaultValue(true),
-            'removable_all' => $this->boolean()->notNull()->defaultValue(false)
-        ]);
+            'removable_all' => $this->boolean()->notNull()->defaultValue(false),
+            'child_allowed' => $this->integer(6)->notNull()->defaultValue(0)
+                ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
 
         $this->createIndex('blog_tree_NK1', 'categories', 'root');
         $this->createIndex('blog_tree_NK2', 'categories', 'lft');
         $this->createIndex('blog_tree_NK3', 'categories', 'rgt');
         $this->createIndex('blog_tree_NK4', 'categories', 'lvl');
         $this->createIndex('blog_tree_NK5', 'categories', 'active');
+    }
+
+    public function CreatePostsTable() {
+        $this->dropIfExist('posts');
 
         $this->createTable('posts', [
-            'id' => $this->bigPrimaryKey(),
+            'id' => $this->PrimaryKey(),
             'slug' => $this->string(255)->notNull(),
             'description' => $this->string(255)->notNull(),
             'intro_text' => $this->text()->notNull(),
             'full_text' => $this->text()->notNull(),
-            'image' => $this->string()->notNull(),
+            'post_image' => $this->string()->notNull(),
             'user_created' => $this->integer(11)->notNull(),
             'created_at' => $this->integer(11)->notNull(),
             'user_last_change' => $this->integer(11)->notNull(),
@@ -89,34 +92,50 @@ class BlogModuleMigration extends Migration {
             'attachments' => $this->text(),
             'gallery' => $this->text(),
             'views' => $this->integer(),
-        ]);
+                ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+    }
+
+    public function CreateTagsTable() {
+        $this->dropIfExist('tags');
+        $this->createTable('tags', [
+            'id' => $this->PrimaryKey(),
+            'name' => $this->string(255),
+            'posts_cnt' => $this->integer(),
+                ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+    }
+
+    public function CreatePostsTagsTable() {
+        $this->dropIfExist('posts_tags');
 
         $this->createTable('posts_tags', [
-            'post_id' => $this->integer(),
-            'tag_id' => $this->integer(),
-        ]);
+            'post_id' => $this->integer(11),
+            'tag_id' => $this->integer(11),
+                ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
 
-        $this->addPrimaryKey('posts_tags_pk', 'posts_tags', ['post_id', 'tag_id']);
+        $this->addPrimaryKey('pk_posts_tags', 'posts_tags', ['post_id', 'tag_id']);
         $this->addForeignKey('fk_posts_tags', 'posts_tags', 'post_id', 'posts', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('fk_tags', 'posts_tags', 'tag_id', 'tags', 'id', 'CASCADE', 'CASCADE');
+    }
+
+    public function CreatePostsRatingTable() {
+        $this->dropIfExist('posts_rating');
 
 
         $this->createTable('posts_rating', [
-            'post_id' => $this->bigPrimaryKey(),
+            'post_id' => $this->PrimaryKey(),
             'rating_sum' => $this->integer(),
             'rating_count' => $this->integer(),
             'last_ip' => $this->string(20),
-        ]);
+                ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+        $this->addForeignKey('fk_posts_rating', 'posts_rating', 'post_id', 'posts', 'id', 'CASCADE', 'CASCADE');
+    }
 
+    public function CreateStaticPagesTable() {
 
-        $this->createTable('tags', [
-            'id' => $this->bigPrimaryKey(),
-            'name' => $this->string(255),
-            'posts_cnt' => $this->integer,
-        ]);
-
+        $this->dropIfExist('static_pages');
 
         $this->createTable('static_pages', [
-            'id' => $this->bigPrimaryKey(),
+            'id' => $this->PrimaryKey(),
             'slug' => $this->string(255)->notNull(),
             'description' => $this->string(255)->notNull(),
             'intro_text' => $this->text()->notNull(),
@@ -127,17 +146,74 @@ class BlogModuleMigration extends Migration {
             'updated_at' => $this->integer(11)->notNull(),
             'publish' => $this->string(1)->notNull(),
             'tags' => $this->text(),
-        ]);
+                ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+
+        $this->createIndex('indx_user_created', 'static_pages', 'user_created');
+        $this->createIndex('indx_user_last_change', 'static_pages', 'user_last_change');
+
+        $this->addForeignKey('fk_static_pages_user_cr', 'static_pages', 'user_created', 'user', 'id', 'RESTRICT', 'RESTRICT');
+        $this->addForeignKey('fk_static_pages_user_up', 'static_pages', 'user_last_change', 'user', 'id', 'RESTRICT', 'RESTRICT');
+    }
+
+    public function CreateStaticPagesLangTable() {
+
+        $this->dropIfExist('static_pages_lang');
 
         $this->createTable('static_pages_lang', [
-            'id' => $this->bigPrimaryKey(),
+            'id' => $this->integer(11),
             'lang' => $this->string(2)->notNull(),
             'description' => $this->string(255)->notNull(),
             'intro_text' => $this->text()->notNull(),
             'full_text' => $this->text()->notNull(),
-        ]);
+                ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+
         $this->addPrimaryKey('pk_static_pages_lang', 'static_pages_lang', ['id', 'lang']);
-        $this->addForeignKey('fk_static_pages_lang', 'static_pages_lang', 'id', 'static_pages', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('fk_st_pages_lang', 'static_pages_lang', 'id', 'static_pages', 'id', 'CASCADE', 'CASCADE');
+    }
+
+    public function CreatePostsLangTable() {
+
+        $this->dropIfExist('posts_lang');
+
+        $this->createTable('posts_lang', [
+            'id' => $this->integer(11),
+            'lang' => $this->string(2)->notNull(),
+            'description' => $this->string(255)->notNull(),
+            'intro_text' => $this->text()->notNull(),
+            'full_text' => $this->text()->notNull(),
+                ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+
+        $this->addPrimaryKey('pk_sposts_lang', 'posts_lang', ['id', 'lang']);
+        $this->addForeignKey('fk_posts_lang', 'posts_lang', 'id', 'posts', 'id', 'CASCADE', 'CASCADE');
+    }
+
+    public function CreateCarouselTable() {
+        $this->dropIfExist('carousel');
+
+        $this->createTable('carousel', [
+            'id' => $this->PrimaryKey(),
+            'title' => $this->string(255),
+            'created_at' => $this->integer(11),
+            'created_by' => $this->integer(11),
+            'updated_at' => $this->integer(11),
+            'updated_by' => $this->integer(11),
+                ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+    }
+
+    public function CreateCarouselItemsTable() {
+        $this->dropIfExist('carousel_items');
+
+        $this->createTable('carousel_items', [
+            'id' => $this->PrimaryKey(),
+            'carousel_id' => $this->integer(11),
+            'post_id' => $this->integer(11),
+                ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+
+        $this->createIndex('indx_carousel_id', 'carousel_items', 'carousel_id');
+        $this->createIndex('indx_post_id', 'carousel_items', 'post_id');
+
+        $this->addForeignKey('fk_st_carousel_id', 'carousel_items', 'carousel_id', 'carousel', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('fk_st_post_id', 'carousel_items', 'post_id', 'posts', 'id', 'CASCADE', 'CASCADE');
     }
 
     public function dropIfExist($tableName) {
@@ -161,12 +237,12 @@ class BlogModuleMigration extends Migration {
     public function CreateModulePositions() {
 
         //Positions
-        $this->insert('widgets_positions', [
-            'tech_name' => 'be_recipes_dashboard',
-            'name' => 'Backend Recipes DashBoard',
-            'publish' => '1',
-            'module_name' => 'backend-recipes',
-        ]);
+//        $this->insert('widgets_positions', [
+//            'tech_name' => 'be_recipes_dashboard',
+//            'name' => 'Backend Recipes DashBoard',
+//            'publish' => '1',
+//            'module_name' => 'backend-recipes',
+//        ]);
     }
 
     public Function CreateModuleWidgets() {
