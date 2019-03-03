@@ -26,8 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="box-body">
         <div class="col-lg-9">
 
-
-
             <p>
                 <?= Html::a('<i class="fa fa-pencil-square-o"></i>&nbsp;' . 'Update', ['update', 'id' => $model->id], ['class' => 'btn btn-success btn-flat']) ?>
 

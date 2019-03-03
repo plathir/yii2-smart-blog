@@ -6,6 +6,7 @@ use plathir\upload\behaviors\MultipleUploadBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\behaviors\SluggableBehavior;
+use plathir\smartblog\backend\models\PostsLang;
 use Yii;
 use yii\helpers\Markdown;
 use plathir\smartblog\backend\models\Categorytree;
@@ -113,4 +114,72 @@ class Posts extends \plathir\smartblog\common\models\Posts {
         return $category->path;
     }
 
+       public function getRoute() {
+        return ['posts/view', 'id' => $this->id, 'slug' => $this->slug];
+    }
+
+    public function getUrl() {
+        return \yii\helpers\Url::to($this->getRoute());
+    }
+
+    public function getLangtext() {
+        return $this->hasMany(PostsLang::className(), ['id' => 'id']);
+    }
+
+    public function getDescription() {
+
+        $descr = '';
+        $main_descr = '';
+        foreach ($this->langtext as $texts) {
+            if ($texts->lang == Yii::$app->language) {
+                $descr = $texts->description;
+            }
+            if ($texts->lang == Yii::$app->settings->getSettings('MasterContentLang')) {
+                $main_descr = $texts->description;
+            }
+        }
+        if (!$descr) {
+
+            $descr = $main_descr;
+        }
+        return $descr;
+    }
+
+    public function getFull_text() {
+        $full_text = '';
+        $main_full_text = '';
+        foreach ($this->langtext as $texts) {
+            if ($texts->lang == Yii::$app->language) {
+                $full_text = $texts->full_text;
+            }
+            if ($texts->lang == Yii::$app->settings->getSettings('MasterContentLang')) {
+                $main_full_text = $texts->full_text;
+            }
+        }
+
+        if (!$full_text) {
+            $full_text = $main_full_text;
+        }
+        return $full_text;
+    }
+
+    public function getIntro_text() {
+        $intro_text = '';
+        $main_intro_text = '';
+        foreach ($this->langtext as $texts) {
+            if ($texts->lang == Yii::$app->language) {
+                $intro_text = $texts->intro_text;
+            }
+            if ($texts->lang == Yii::$app->settings->getSettings('MasterContentLang')) {
+                $main_intro_text = $texts->intro_text;
+            }
+        }
+
+        if (!$intro_text) {
+            $intro_text = $main_intro_text;
+        }
+        return $intro_text;
+    }
+    
+    
 }

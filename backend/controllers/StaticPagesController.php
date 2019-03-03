@@ -187,8 +187,8 @@ class StaticPagesController extends Controller {
                 $model->user_last_change = \Yii::$app->user->getId();
             }
             $model->descr = $modelLang->description;
-            $model->descr = $modelLang->description;
-            $model->descr = $modelLang->description;
+            $model->intro_text = $modelLang->intro_text;
+            $model->full_text = $modelLang->full_text;
             if ($model->save()) {
                 $modelLang->save();
                 return $this->redirect(['view', 'id' => $model->id]);

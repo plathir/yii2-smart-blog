@@ -4,12 +4,14 @@ namespace plathir\smartblog\backend\controllers;
 
 use Yii;
 use plathir\smartblog\backend\models\Posts;
+use plathir\smartblog\backend\models\PostsLang;
 use plathir\smartblog\backend\models\search\Posts_s;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ArrayDataProvider;
 use plathir\smartblog\common\models\Tags;
+use yii\helpers\Html;
 
 /**
  * PostsController implements the CRUD actions for Posts model.
@@ -23,7 +25,7 @@ class PostsController extends Controller {
 
     public function __construct($id, $module) {
         parent::__construct($id, $module);
-                $this->layout = "main";
+        $this->layout = "main";
     }
 
     public function behaviors() {
@@ -68,6 +70,7 @@ class PostsController extends Controller {
                             'postrate',
                             'tagsrebuild',
                             'category',
+                            'translate',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -230,17 +233,41 @@ class PostsController extends Controller {
         $model = new Posts();
         $model->user_created = \Yii::$app->user->getId();
         $model->user_last_change = \Yii::$app->user->getId();
+        $modelLang = new StaticPagesLang();
 
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            //      $model->user_created = \Yii::$app->user->getId();
-            //      $model->user_last_change = \Yii::$app->user->getId();
-            $model->update();
-            Yii::$app->getSession()->setFlash('success', Yii::t('blog', 'Post : {id} created ! ', ['id' => $model->id]));
-            return $this->redirect(['view', 'id' => $model->id]);
+       if ($model->load(Yii::$app->request->post()) && $modelLang->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                $model->descr = $modelLang->description;
+                // $model->full_text = \yii\helpers\HtmlPurifier::process($model->full_text);
+                if ($model->update()) {
+                    $modelLang->id = $model->id;
+                    $modelLang->lang = Yii::$app->settings->getSettings('MasterContentLang');
+                    if ($modelLang->save()) {
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    } else {
+                        return $this->render('create', [
+                                    'model' => $model,
+                                    'modelLang' => $modelLang,
+                        ]);
+                    }
+                } else {
+                    return $this->render('create', [
+                                'model' => $model,
+                                'modelLang' => $modelLang,
+                    ]);
+                }
+            } else {
+                return $this->render('create', [
+                            'model' => $model,
+                            'modelLang' => $modelLang,
+                ]);
+            }
         } else {
+
             return $this->render('create', [
                         'model' => $model,
+                        'modelLang' => $modelLang,
+                        ''
             ]);
         }
     }
@@ -253,13 +280,19 @@ class PostsController extends Controller {
      */
     public function actionUpdate($id) {
         $model = $this->findModel($id);
+        $modelLang = $this->findModelLang($id);
 
-        if ($model->load(Yii::$app->request->post())) {
+
+        if ($model->load(Yii::$app->request->post()) && $modelLang->load(Yii::$app->request->post())) {
             if (!isset($model->user_last_change)) {
                 $model->user_last_change = \Yii::$app->user->getId();
             }
+            $model->descr = $modelLang->description;
+            $model->intro_text = $modelLang->intro_text;
+            $model->full_text = $modelLang->full_text;
 
             if ($model->save()) {
+                $modelLang->save();
                 Yii::$app->getSession()->setFlash('success', Yii::t('blog', 'Post : {id} updated ! ', ['id' => $model->id]));
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
@@ -331,8 +364,46 @@ class PostsController extends Controller {
 
     public function actionCategory($categories) {
         $params = explode('/', $categories);
-        print_r($params);
-        die();
+//        print_r($params);
+//        die();
+    }
+
+    protected function findModelLang($id) {
+
+        if (($model = PostsLang::findOne(['id' => $id, 'lang' => Yii::$app->settings->getSettings('MasterContentLang')])) !== null) {
+            echo 'In';
+            die();
+            return $model;
+        } else {
+            $model = new PostsLang();
+            $model->id = $id;
+            $model->lang = Yii::$app->settings->getSettings('MasterContentLang');
+            return $model;
+        }
+    }
+
+    public function actionTranslate($id, $lang) {
+        $model = $this->findModel($id);
+        $modelLang = PostsLang::find()->where(['id' => $id, 'lang' => $lang])->One();
+
+        if (!$modelLang) {
+            $masterLang = Yii::$app->settings->getSettings('MasterContentLang');
+            $modelLang = new PostsLang();
+            $modelLang->id = $id;
+            $modelLang->lang = $lang;
+            $modelLang->description = Yii::$app->translate->translate($masterLang, $lang, $model->description)['text'][0];
+            $modelLang->intro_text = Yii::$app->translate->translate($masterLang, $lang, $model->intro_text, 'plain')['text'][0];
+            $modelLang->full_text = html::decode(Yii::$app->translate->translate($masterLang, $lang, $model->full_text)['text'][0]);
+        }
+        if ($modelLang->load(Yii::$app->request->post()) && $modelLang->save()) {
+            Yii::$app->session->setFlash('success', "Save translation successfully.");
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('translation', [
+                        'model' => $model,
+                        'modelLang' => $modelLang,
+            ]);
+        }
     }
 
 }

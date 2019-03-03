@@ -44,73 +44,99 @@ $this->params['breadcrumbs'][] = $this->title;
                 ?>
             </p>
 
-            <?php
-//            echo RatingWidget::widget([
-//                'post_id' => $model->id,
-//            ]);
-            ?>                
 
+            <?php
+            $tr = '';
+            $appLanguage = Yii::$app->settings->getSettings('MasterContentLang');
+            foreach (Yii::$app->urlManager->languages as $language) {
+                if ($language != $appLanguage) {
+                    if ($language == 'el') {
+                        $temp_lang = 'gr';
+                    } else {
+                        $temp_lang = $language;
+                    }
+                    $tr .= Html::a('<i class="fa fa-pencil-square-o"></i>&nbsp;' . 'Translate ' . '<img src="https://www.countryflags.io/' . $temp_lang . '/flat/16.png">', ['translate', 'id' => $model->id, 'lang' => $language], ['class' => 'list-group-item list-group-item-info']);
+                }
+            }
+            ?>  
+
+
+            <?php
+            $tr_html = '';
+            if ($tr) {
+                $tr_html = '<div class="col-lg-3">' .
+                        '<div class="panel panel-default">' .
+                        '<div class="panel-heading">Translations</div>' .
+                        '<div class="panel-body">' .
+                        '<div class="list-group">' .
+                        $tr .
+                        '</div>' .
+                        '</div>' .
+                        '</div>' .
+                        '</div>' .
+                        '<div class="col-lg-9">' .
+                        '</div>';
+            }
+            ?>
 
             <?php
             $userModel = new $model->module->userModel();
             $categoryModel = new plathir\smartblog\backend\models\Category();
+
+            $detailView = $tr_html .
+                    DetailView::widget([
+                        'model' => $model,
+                        'template' => '<tr><th style="width:20%">{label}</th><td style="width:80%">{value}</td></tr>',
+                        'attributes' => [
+                            'id',
+                            'description',
+                            'slug',
+                            'views',
+                            'intro_text:ntext',
+                            [
+                                'attribute' => 'fulltext_html',
+                                'value' => function( $model ) {
+                                    return $model->fulltext_html;
+                                },
+                                'format' => 'raw',
+                            ],
+                            [
+                                'attribute' => 'post_image',
+                                'value' => $model->post_image == '' ? '' : ( $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->post_image),
+                                'format' => $model->post_image == '' ? 'html' : ['image', ['width' => '100', 'height' => '100']],
+                            ],
+                            [
+                                'attribute' => 'user_created',
+                                'value' => $userModel::findOne(['id' => $model->user_created])->{$model->module->userNameField},
+                                'format' => 'text'
+                            ],
+                            'created_at:datetime',
+                            [
+                                'attribute' => 'user_last_change',
+                                'value' => $userModel::findOne(['id' => $model->user_last_change])->{$model->module->userNameField},
+                                'format' => 'html'
+                            ],
+                            'updated_at:datetime',
+                            [
+                                'attribute' => 'publish',
+                                'value' => $model->publish == true ? '<span class="label label-success">Published</span>' : '<span class="label label-danger">Unpublished</span>',
+                                'format' => 'html'
+                            ],
+                            [
+                                'attribute' => 'category',
+                                'value' => $categoryModel::findOne(['id' => $model->category])->name,
+                                'format' => 'text'
+                            ],
+                        ],
+            ]);
+
+
             echo Tabs::widget([
                 'items' => [
                     [
                         'label' => 'Post Contents',
-                        'content' =>
-                        DetailView::widget([
-                            'model' => $model,
-                            'template' => '<tr><th style="width:20%">{label}</th><td style="width:80%">{value}</td></tr>',
-                            'attributes' => [
-//                                [
-//                                    'attribute' => 'rating',
-//                                    'value' => RatingWidget::widget([
-//                                        'post_id' => $model->id,
-//                                    ]),
-//                                    'format' => 'raw'
-//                                ],
-                                'id',
-                                'description',
-                                'slug',
-                                'views',
-                                'intro_text:ntext',
-                                [
-                                    'attribute' => 'fulltext_html',
-                                    'value' => function( $model ) {
-                                        return $model->fulltext_html;
-                                    },
-                                    'format' => 'raw',
-                                ],
-                                [
-                                    'attribute' => 'post_image',
-                                    'value' => $model->post_image == '' ? '' : ( $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->post_image),
-                                    'format' => $model->post_image == '' ? 'html' : ['image', ['width' => '100', 'height' => '100']],
-                                ],
-                                [
-                                    'attribute' => 'user_created',
-                                    'value' => $userModel::findOne(['id' => $model->user_created])->{$model->module->userNameField},
-                                    'format' => 'text'
-                                ],
-                                'created_at:datetime',
-                                [
-                                    'attribute' => 'user_last_change',
-                                    'value' => $userModel::findOne(['id' => $model->user_last_change])->{$model->module->userNameField},
-                                    'format' => 'html'
-                                ],
-                                'updated_at:datetime',
-                                [
-                                    'attribute' => 'publish',
-                                    'value' => $model->publish == true ? '<span class="label label-success">Published</span>' : '<span class="label label-danger">Unpublished</span>',
-                                    'format' => 'html'
-                                ],
-                                [
-                                    'attribute' => 'category',
-                                    'value' => $categoryModel::findOne(['id' => $model->category])->name,
-                                    'format' => 'text'
-                                ],
-                            ],
-                        ]) .
+                        'content' => $detailView
+                        .
                         TagsWidget::widget([
                             'tags' => $model->tags,
                         ]) .
