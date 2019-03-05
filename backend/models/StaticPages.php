@@ -1,14 +1,13 @@
 <?php
 namespace plathir\smartblog\backend\models;
 
-use plathir\cropper\behaviors\UploadImageBehavior;
-use plathir\upload\behaviors\MultipleUploadBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\behaviors\SluggableBehavior;
 use plathir\smartblog\backend\models\StaticPagesLang;
-use Yii;
 use yii\helpers\Inflector;
+use Yii;
+use yii\base\InvalidConfigException;
 
 class StaticPages extends \plathir\smartblog\common\models\StaticPages {
 
@@ -36,7 +35,11 @@ class StaticPages extends \plathir\smartblog\common\models\StaticPages {
                 'slugAttribute' => 'slug',
                 'ensureUnique' => true,
                 'value' => function($event) {
-                    return Inflector::slug($this->descr);
+                    if ($this->slugdescr) {
+                        return Inflector::slug($this->slugdescr);
+                    } else {
+                        throw new InvalidConfigException('slugdescr is null');
+                    }
                 }
             ],
         ];
@@ -55,6 +58,7 @@ class StaticPages extends \plathir\smartblog\common\models\StaticPages {
     }
 
     public function getDescription() {
+
         $descr = '';
         $main_descr = '';
         foreach ($this->langtext as $texts) {
@@ -68,7 +72,23 @@ class StaticPages extends \plathir\smartblog\common\models\StaticPages {
         if (!$descr) {
             $descr = $main_descr;
         }
+
         return $descr;
+    }
+
+    public function getSlugdescr() {
+
+        foreach ($this->langtext as $texts) {
+            if ($texts->lang == Yii::$app->settings->getSettings('MasterContentLang')) {
+                $main_descr = $texts->description;
+            }
+        }
+
+        if ((!$main_descr) && ($this->descr)) {
+            return $this->descr;
+        } else {
+            return $main_descr;
+        }
     }
 
     public function getFull_text() {

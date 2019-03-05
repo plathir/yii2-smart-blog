@@ -1,5 +1,4 @@
 <?php
-
 namespace plathir\smartblog\backend\controllers;
 
 use Yii;
@@ -233,27 +232,20 @@ class PostsController extends Controller {
         $model = new Posts();
         $model->user_created = \Yii::$app->user->getId();
         $model->user_last_change = \Yii::$app->user->getId();
-        $modelLang = new StaticPagesLang();
+        $modelLang = new PostsLang();
 
-       if ($model->load(Yii::$app->request->post()) && $modelLang->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()) && $modelLang->load(Yii::$app->request->post())) {
+            $model->descr = $modelLang->description;
             if ($model->save()) {
-                $model->descr = $modelLang->description;
-                // $model->full_text = \yii\helpers\HtmlPurifier::process($model->full_text);
-                if ($model->update()) {
-                    $modelLang->id = $model->id;
-                    $modelLang->lang = Yii::$app->settings->getSettings('MasterContentLang');
-                    if ($modelLang->save()) {
-                        return $this->redirect(['view', 'id' => $model->id]);
-                    } else {
-                        return $this->render('create', [
-                                    'model' => $model,
-                                    'modelLang' => $modelLang,
-                        ]);
-                    }
+                $modelLang->id = $model->id;
+                $modelLang->lang = Yii::$app->settings->getSettings('MasterContentLang');
+
+                if ($modelLang->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
                 } else {
                     return $this->render('create', [
                                 'model' => $model,
-                                'modelLang' => $modelLang,
+                                'modelLang' => $modelLang
                     ]);
                 }
             } else {
@@ -263,7 +255,6 @@ class PostsController extends Controller {
                 ]);
             }
         } else {
-
             return $this->render('create', [
                         'model' => $model,
                         'modelLang' => $modelLang,
@@ -282,27 +273,32 @@ class PostsController extends Controller {
         $model = $this->findModel($id);
         $modelLang = $this->findModelLang($id);
 
-
         if ($model->load(Yii::$app->request->post()) && $modelLang->load(Yii::$app->request->post())) {
             if (!isset($model->user_last_change)) {
                 $model->user_last_change = \Yii::$app->user->getId();
             }
             $model->descr = $modelLang->description;
-            $model->intro_text = $modelLang->intro_text;
-            $model->full_text = $modelLang->full_text;
 
-            if ($model->save()) {
-                $modelLang->save();
-                Yii::$app->getSession()->setFlash('success', Yii::t('blog', 'Post : {id} updated ! ', ['id' => $model->id]));
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($modelLang->save()) {
+                if ($model->save()) {
+                    Yii::$app->getSession()->setFlash('success', Yii::t('blog', 'Post : {id} updated ! ', ['id' => $model->id]));
+                    return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    return $this->render('update', [
+                                'model' => $model,
+                                'modelLang' => $modelLang,
+                    ]);
+                }
             } else {
                 return $this->render('update', [
                             'model' => $model,
+                            'modelLang' => $modelLang,
                 ]);
             }
         } else {
             return $this->render('update', [
                         'model' => $model,
+                        'modelLang' => $modelLang,
             ]);
         }
     }
@@ -364,15 +360,11 @@ class PostsController extends Controller {
 
     public function actionCategory($categories) {
         $params = explode('/', $categories);
-//        print_r($params);
-//        die();
     }
 
     protected function findModelLang($id) {
 
         if (($model = PostsLang::findOne(['id' => $id, 'lang' => Yii::$app->settings->getSettings('MasterContentLang')])) !== null) {
-            echo 'In';
-            die();
             return $model;
         } else {
             $model = new PostsLang();

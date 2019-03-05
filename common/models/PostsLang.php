@@ -28,7 +28,6 @@ class PostsLang extends \yii\db\ActiveRecord {
             [['description', 'intro_text', 'full_text' ], 'required'],
             [['intro_text', 'full_text'], 'string'],            
             [['full_text'], 'string'],
-            [['full_text'], 'string'],
             [['description'], 'string', 'max' => 255],
         ];
     }

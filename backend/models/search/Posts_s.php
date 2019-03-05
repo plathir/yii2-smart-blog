@@ -1,5 +1,4 @@
 <?php
-
 namespace plathir\smartblog\backend\models\search;
 
 use yii\base\Model;
@@ -11,6 +10,8 @@ use Yii;
  * Posts_s represents the model behind the search form about `app\models\Posts`.
  */
 class Posts_s extends Posts {
+
+    public $description;
 
     /**
      * @inheritdoc
@@ -40,6 +41,7 @@ class Posts_s extends Posts {
      */
     public function search($params) {
         $query = Posts::find();
+        $query->joinWith(['langtext']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -48,7 +50,7 @@ class Posts_s extends Posts {
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
-        
+
         $query->andFilterWhere([
             'id' => $this->id,
             'user_created' => $this->user_created,

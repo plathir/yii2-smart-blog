@@ -55,7 +55,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     } else {
                         $temp_lang = $language;
                     }
+                    $exist = '';
+                    foreach ($model->langtext as $texts) {
+                        if ($texts->lang == $language) {
+                            $exist = Html::a('<i class="fa fa-trash-o"></i>&nbsp;' . 'Exist ', ['deltranslate', 'id' => $model->id, 'lang' => $language]);
+                        }
+                    }
+//                    $tr .= '<div class="row">';
                     $tr .= Html::a('<i class="fa fa-pencil-square-o"></i>&nbsp;' . 'Translate ' . '<img src="https://www.countryflags.io/' . $temp_lang . '/flat/16.png">', ['translate', 'id' => $model->id, 'lang' => $language], ['class' => 'list-group-item list-group-item-info']);
+//                    if ($exist) {
+//                        $tr .= $exist;
+//                    }
+//                    $tr .= '</div>';
                 }
             }
             ?>  
@@ -64,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php
             $tr_html = '';
             if ($tr) {
-                $tr_html = '<div class="col-lg-3">' .
+                $tr_html = '<br><div class="row"><div class="col-lg-3">' .
                         '<div class="panel panel-default">' .
                         '<div class="panel-heading">Translations</div>' .
                         '<div class="panel-body">' .
@@ -75,9 +86,23 @@ $this->params['breadcrumbs'][] = $this->title;
                         '</div>' .
                         '</div>' .
                         '<div class="col-lg-9">' .
-                        '</div>';
+                        '</div></div>';
             }
+
+//            $tr_html = '
+//    <ul class="list-group">
+//        <li class="list-group-item clearfix">
+//            userA <span class="label label-default">admin</span>
+//            <span class="pull-right button-group">
+//                <a href="/admin/userA" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Edit</a> 
+//                <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+//            </span>
+//        </li>
+//    </ul>
+// ';
             ?>
+
+
 
             <?php
             $userModel = new $model->module->userModel();

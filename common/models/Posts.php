@@ -1,5 +1,4 @@
 <?php
-
 namespace plathir\smartblog\common\models;
 
 use Yii;
@@ -12,10 +11,8 @@ use plathir\smartblog\common\models\Tags;
  * @property integer $id
  * @property string $description
  * @property string $slug
- * @property string $intro_text
- * @property string $full_text
  * @property string $post_image
-  * @property integer $user_created
+ * @property integer $user_created
  * @property string $created_at
  * @property integer $user_last_change
  * @property string $updated_at
@@ -40,16 +37,14 @@ class Posts extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['description', 'intro_text', 'full_text', 'user_created', 'category'], 'required'],
-            [['intro_text', 'full_text'], 'string'],
-            [['tags', 'full_text'], 'string'],
-            [['attachments', 'full_text'], 'string'],
-            [['gallery', 'full_text'], 'string'],
+            [['user_created', 'category'], 'required'],
+            [['tags'], 'string'],
+            [['attachments'], 'string'],
+            [['gallery'], 'string'],
             [['post_image'], 'string'],
             [['user_created', 'user_last_change', 'publish'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['category', 'views'], 'integer'],
-            [['description'], 'string', 'max' => 255],
         ];
     }
 
@@ -59,10 +54,7 @@ class Posts extends \yii\db\ActiveRecord {
     public function attributeLabels() {
         return [
             'id' => Yii::t('blog', 'ID'),
-            'description' => Yii::t('blog', 'Description'),
             'slug' => Yii::t('blog', 'Slug'),
-            'intro_text' => Yii::t('blog', 'Intro Text'),
-            'full_text' => Yii::t('blog', 'Full Text'),
             'post_image' => Yii::t('blog', 'Image'),
             'user_created' => Yii::t('blog', 'User Created'),
             'created_at' => Yii::t('blog', 'Date Created'),
@@ -126,5 +118,4 @@ class Posts extends \yii\db\ActiveRecord {
 //        $this->views++;
 //        $this->save();
 //    }
-
 }

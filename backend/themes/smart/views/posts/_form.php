@@ -31,7 +31,7 @@ use mihaildev\elfinder\ElFinder;
         <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdPost']]); ?>
         <div class="row">
             <div class="col-lg-9 col-md-9 col-sm-9">
-                <?= $form->field($model, 'description')->textInput(['maxlength' => 255]) ?>
+                <?= $form->field($modelLang, 'description')->textInput(['maxlength' => 255]) ?>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <?=
@@ -52,7 +52,7 @@ use mihaildev\elfinder\ElFinder;
 
                 </div>
 
-                <?= $form->field($model, 'intro_text')->textarea(['rows' => 6]) ?>        
+                <?= $form->field($modelLang, 'intro_text')->textarea(['rows' => 6]) ?>        
 
                 <?php
 //                echo $form->field($model, 'full_text')->widget(CKEditor::className(), [
@@ -64,7 +64,7 @@ use mihaildev\elfinder\ElFinder;
                 //   echo 'test'. $model->module->editor;
                 switch ($model->module->editor) {
                     case 'CKEditor':
-                        echo $form->field($model, 'full_text')->widget(CKEditor::className(), [
+                        echo $form->field($modelLang, 'full_text')->widget(CKEditor::className(), [
                             'editorOptions' => ElFinder::ckeditorOptions('blog/elfinder', [/* Some CKEditor Options */
                                 'entities_greek' => false
                             ]),
@@ -72,7 +72,7 @@ use mihaildev\elfinder\ElFinder;
 
                         break;
                     case 'markdown':
-                        echo $form->field($model, 'full_text')->widget(\yii2mod\markdown\MarkdownEditor::class, [
+                        echo $form->field($modelLang, 'full_text')->widget(\yii2mod\markdown\MarkdownEditor::class, [
                             'editorOptions' => [
                                 'showIcons' => ["code", "table"],
                                 'renderingConfig' => [
