@@ -78,9 +78,6 @@ class m190226_092700_BlogMigration extends Migration {
         $this->createTable('posts', [
             'id' => $this->PrimaryKey(),
             'slug' => $this->string(255)->notNull(),
-            'description' => $this->string(255)->notNull(),
-            'intro_text' => $this->text()->notNull(),
-            'full_text' => $this->text()->notNull(),
             'post_image' => $this->string()->notNull(),
             'user_created' => $this->integer(11)->notNull(),
             'created_at' => $this->integer(11)->notNull(),
@@ -137,15 +134,14 @@ class m190226_092700_BlogMigration extends Migration {
         $this->createTable('static_pages', [
             'id' => $this->PrimaryKey(),
             'slug' => $this->string(255)->notNull(),
-            'description' => $this->string(255)->notNull(),
-            'intro_text' => $this->text()->notNull(),
-            'full_text' => $this->text()->notNull(),
+            'css' => $this->text(),
             'user_created' => $this->integer(11)->notNull(),
             'created_at' => $this->integer(11)->notNull(),
             'user_last_change' => $this->integer(11)->notNull(),
             'updated_at' => $this->integer(11)->notNull(),
             'publish' => $this->string(1)->notNull(),
             'tags' => $this->text(),
+            'code_editor' => $this->string(1),            
                 ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
 
         $this->createIndex('indx_user_created', 'static_pages', 'user_created');
