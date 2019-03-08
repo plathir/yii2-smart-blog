@@ -2,6 +2,7 @@
 
 use yii\data\ArrayDataProvider;
 use yii\widgets\ListView;
+use yii\widgets\Pjax;
 
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -14,20 +15,25 @@ $this->params['breadcrumbs'][] = $this->title;
 
             $provider = new ArrayDataProvider([
                 'allModels' => $posts,
-//            'pagination' => [
-//                'pageSize' => 3,
-//            ],
+                'pagination' => [
+                    'pageSize' => 3,
+                ],
             ]);
 
             $layout = '{summary}{items}{pager}';
-
+//            Pjax::begin();
             echo ListView::widget([
                 'dataProvider' => $provider,
                 //'itemOptions' => ['class' => 'media'],
+                'itemOptions' => ['class' => 'item'],
                 'itemView' => $view,
                 'layout' => $layout,
                 'summary' => '',
+//                'pager' => ['class' => \kop\y2sp\ScrollPager::className(),
+//                    'triggerOffset' => 5
+//                ]
             ]);
+//            Pjax::end();
             ?>
         </div>
     </div>
