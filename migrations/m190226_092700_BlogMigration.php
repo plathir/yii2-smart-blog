@@ -145,8 +145,8 @@ class m190226_092700_BlogMigration extends Migration {
             'code_editor' => $this->string(1),
                 ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
 
-        $this->createIndex('indx_user_created', 'static_pages', 'user_created');
-        $this->createIndex('indx_user_last_change', 'static_pages', 'user_last_change');
+        $this->createIndex('indx_user_created', '{{%static_pages}}', 'user_created');
+        $this->createIndex('indx_user_last_change', '{{%static_pages}}', 'user_last_change');
 
         $this->addForeignKey('fk_static_pages_user_cr', '{{%static_pages}}', 'user_created', '{{%user}}', 'id', 'RESTRICT', 'RESTRICT');
         $this->addForeignKey('fk_static_pages_user_up', '{{%static_pages}}', 'user_last_change', '{{%user}}', 'id', 'RESTRICT', 'RESTRICT');
