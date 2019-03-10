@@ -90,7 +90,7 @@ class Posts extends \yii\db\ActiveRecord {
 
 // Delete tags if exist        
         if (!$this->isNewRecord) {
-            (new \yii\db\Query())->createCommand()->delete('posts_tags', ['post_id' => $this->id])->execute();
+            (new \yii\db\Query())->createCommand()->delete('{{%posts_tags}}', ['post_id' => $this->id])->execute();
         }
         $temp_tags = explode(',', $this->tags);
         foreach ($temp_tags as $tag) {
@@ -109,7 +109,7 @@ class Posts extends \yii\db\ActiveRecord {
             }
 // Insert new tags            
             if ($tag_id) {
-                (new \yii\db\Query())->createCommand()->insert('posts_tags', ['post_id' => $this->id, 'tag_id' => $tag_id])->execute();
+                (new \yii\db\Query())->createCommand()->insert('{{%posts_tags}}', ['post_id' => $this->id, 'tag_id' => $tag_id])->execute();
             }
         }
     }
