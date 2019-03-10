@@ -18,8 +18,8 @@ use yii\bootstrap\Tabs;
     </div><!-- /.box-header -->
     <div class="box-body">
         <div class="posts-index">
-            <?=
-            Tabs::widget([
+            <?php
+            echo Tabs::widget([
                 'items' => [
                     [
                         'label' => 'Category Tree Admin',
@@ -33,6 +33,7 @@ use yii\bootstrap\Tabs;
                             'isAdmin' => true, // optional (toggle to enable admin mode)
                             'displayValue' => 1, // initial display value
                             'softDelete' => true, // normally not needed to change
+                            'hideCssClass' => 'hidden',
                             'showInactive' => true,
                             'cacheSettings' => ['enableCache' => false]      // normally not needed to change
                         ]),
@@ -80,7 +81,7 @@ use yii\bootstrap\Tabs;
                                     'format' => 'raw',
                                     'value' => function($model, $key, $index, $grid) {
                                         if ($model->image) {
-//                                        return $model->module->CategoryImagePathPreview . '/' . $model->id . '/' . $model->image;
+                                            //                                        return $model->module->CategoryImagePathPreview . '/' . $model->id . '/' . $model->image;
 
                                             return Html::img($model->module->CategoryImagePathPreview . '/' . $model->id . '/' . $model->image, ['alt' => '...',
                                                         // 'class' => 'img-circle',
