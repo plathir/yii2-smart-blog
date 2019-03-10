@@ -160,7 +160,7 @@ class Posts extends \plathir\smartblog\common\models\Posts {
     }
 
     public function getSlugdescr() {
-
+        $main_descr = '';
         foreach ($this->langtext as $texts) {
             if ($texts->lang == Yii::$app->settings->getSettings('MasterContentLang')) {
                 $main_descr = $texts->description;
