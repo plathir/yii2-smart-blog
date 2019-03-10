@@ -1,4 +1,5 @@
 <?php
+
 namespace plathir\smartblog\backend\models;
 
 use yii\behaviors\TimestampBehavior;
@@ -78,6 +79,7 @@ class StaticPages extends \plathir\smartblog\common\models\StaticPages {
 
     public function getSlugdescr() {
 
+        $main_descr = '';
         foreach ($this->langtext as $texts) {
             if ($texts->lang == Yii::$app->settings->getSettings('MasterContentLang')) {
                 $main_descr = $texts->description;
