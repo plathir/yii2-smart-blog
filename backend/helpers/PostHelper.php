@@ -41,7 +41,7 @@ class PostHelper {
 
         $posts_rating = (new \yii\db\Query())
                 ->select(['*, (rating_sum / rating_count) AS rate'])
-                ->from('posts_rating')
+                ->from('{{%posts_rating}}')
                 ->orderBy('rate desc')
                 ->limit($numOfPosts)
                 ->all();
@@ -61,7 +61,7 @@ class PostHelper {
 
         $temp_topAuthors = (new \yii\db\Query())
                 ->select(['user_created as author', 'count(*) as cnt'])
-                ->from('posts')
+                ->from('{{%posts}}')
                 ->groupBy(['user_created'])
                 ->limit(10)
                 ->all();
@@ -223,10 +223,10 @@ class PostHelper {
 
         $topCategories = '';
         $temp_topCategories = (new \yii\db\Query())
-                ->select(['category', 'count(*) as cnt', 'categories.*'])
-                ->join('LEFT JOIN', 'categories', 'categories.id = category')
-                ->from('posts')
-                ->where(['posts.publish' => 1])
+                ->select(['category', 'count(*) as cnt', '{{%categories}}.*'])
+                ->join('LEFT JOIN', '{{%categories}}', '{{%categories}}.id = category')
+                ->from('{{%posts}}')
+                ->where(['{{%posts}}.publish' => 1])
                 ->groupBy(['category'])
                 ->orderBy('cnt desc')
                 ->limit($numOfCategories)
