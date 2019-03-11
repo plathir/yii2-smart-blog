@@ -6,8 +6,6 @@ namespace plathir\smartblog\backend\models;
 class PostsLang extends \plathir\smartblog\common\models\PostsLang {
 
     use \plathir\smartblog\backend\traits\ModuleTrait;
-
-    
     
 
     public function getRoute() {    

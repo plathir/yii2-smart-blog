@@ -17,7 +17,7 @@ use yii\helpers\Url;
 use vintage\search\interfaces\SearchInterface;
 use yii\db\ActiveRecord;
 
-class PostsGlobalSearch extends \plathir\smartblog\backend\models\Posts implements SearchInterface {
+class PostsGlobalSearch extends \plathir\smartblog\backend\models\PostsLang implements SearchInterface {
 
     /**
      * @inheritdoc
@@ -52,7 +52,9 @@ class PostsGlobalSearch extends \plathir\smartblog\backend\models\Posts implemen
     }
 
     public function getFilter() {
-        return ['and', ['publish' => true]];
+   //     return '';
+      //  return ['and', ['publish' => true]];
+        return ['or', ['intro_text' => '']];
     }
 
     public function getModuleName() {
