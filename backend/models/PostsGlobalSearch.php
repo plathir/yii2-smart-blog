@@ -1,11 +1,9 @@
 <?php
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 namespace plathir\smartblog\backend\models;
 
 use yii\helpers\Url;
@@ -17,7 +15,7 @@ use yii\helpers\Url;
 use vintage\search\interfaces\SearchInterface;
 use yii\db\ActiveRecord;
 
-class PostsGlobalSearch extends \plathir\smartblog\backend\models\PostsLang implements SearchInterface {
+class PostsGlobalSearch extends \plathir\smartblog\backend\models\Posts implements SearchInterface {
 
     /**
      * @inheritdoc
@@ -30,7 +28,9 @@ class PostsGlobalSearch extends \plathir\smartblog\backend\models\PostsLang impl
      * @inheritdoc
      */
     public function getSearchDescription() {
-        return $this->intro_text;
+//        return $this->intro_text;
+        $image = '<img src="' . $this->imageUrlThumb . '" style="max-width:100px">';
+        return $image . $this->intro_text;        
     }
 
     /**
@@ -52,13 +52,15 @@ class PostsGlobalSearch extends \plathir\smartblog\backend\models\PostsLang impl
     }
 
     public function getFilter() {
-   //     return '';
-      //  return ['and', ['publish' => true]];
-        return ['or', ['intro_text' => '']];
+        return ['and', ['publish' => true]];
     }
 
     public function getModuleName() {
         return 'Posts';
+    }
+
+    public function getJoinWith() {
+        return 'langtext';
     }
 
 }

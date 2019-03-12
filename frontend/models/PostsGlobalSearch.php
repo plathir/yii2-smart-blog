@@ -1,11 +1,9 @@
 <?php
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 namespace plathir\smartblog\frontend\models;
 
 use yii\helpers\Url;
@@ -30,7 +28,7 @@ class PostsGlobalSearch extends \plathir\smartblog\frontend\models\Posts impleme
      * @inheritdoc
      */
     public function getSearchDescription() {
-         $image = '<img src="' . $this->imageUrlThumb . '" style="max-width:100px">';
+        $image = '<img src="' . $this->imageUrlThumb . '" style="max-width:100px">';
         return $image . $this->intro_text;
     }
 
@@ -58,6 +56,10 @@ class PostsGlobalSearch extends \plathir\smartblog\frontend\models\Posts impleme
 
     public function getModuleName() {
         return 'Posts';
+    }
+
+    public function getJoinWith() {
+        return 'langtext';
     }
 
 }
