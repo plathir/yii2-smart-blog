@@ -10,12 +10,16 @@ use yii\behaviors\SluggableBehavior;
 use plathir\smartblog\frontend\models\PostsLang;
 use Yii;
 use yii\helpers\Markdown;
+use yii\helpers\Inflector;
 use plathir\smartblog\frontend\models\Categorytree;
+use yii\base\InvalidConfigException;
 
 class Posts extends \plathir\smartblog\common\models\Posts {
 
     use \plathir\smartblog\frontend\traits\ModuleTrait;
-
+    
+    public $descr;
+    
     public function behaviors() {
         return [
             'timestampBehavior' =>
@@ -59,12 +63,20 @@ class Posts extends \plathir\smartblog\common\models\Posts {
                     ],
                 ]
             ],
-            'slagBehavior' => [
-                'class' => SluggableBehavior::className(),
-                'attribute' => 'description',
-                'slugAttribute' => 'slug',
-                'ensureUnique' => true,
-            ],
+                    'slagBehavior' => [
+                        'class' => SluggableBehavior::className(),
+                        // 'attribute' => 'description',
+                        'slugAttribute' => 'slug',
+                        'ensureUnique' => true,
+                        'value' => function($event) {
+
+                            if ($this->slugdescr) {
+                                return Inflector::slug($this->slugdescr);
+                            } else {
+                                throw new InvalidConfigException('slugdescr is null');
+                            }
+                        }
+                    ],
         ];
     }
 
@@ -124,10 +136,25 @@ class Posts extends \plathir\smartblog\common\models\Posts {
             }
         }
         if (!$descr) {
-
             $descr = $main_descr;
         }
+
         return $descr;
+    }
+
+    public function getSlugdescr() {
+        $main_descr = '';
+        foreach ($this->langtext as $texts) {
+            if ($texts->lang == Yii::$app->settings->getSettings('MasterContentLang')) {
+                $main_descr = $texts->description;
+            }
+        }
+
+        if ((!$main_descr) && ($this->descr)) {
+            return $this->descr;
+        } else {
+            return $main_descr;
+        }
     }
 
     public function getFull_text() {

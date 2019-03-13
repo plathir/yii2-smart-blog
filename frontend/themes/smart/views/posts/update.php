@@ -10,6 +10,7 @@ use yii\widgets\ListView;
 
         echo $this->render($view, [
             'model' => $model,
+            'modelLang' => $modelLang,
         ])
         ?>
     </div>

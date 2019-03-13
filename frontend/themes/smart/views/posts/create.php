@@ -14,6 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         echo $this->render($view, [
             'model' => $model,
+            'modelLang' => $modelLang,
         ])
         ?>
     </div>

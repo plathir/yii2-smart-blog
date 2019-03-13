@@ -39,6 +39,7 @@ class Posts_s extends Posts {
      */
     public function search($params) {
         $query = Posts::find();
+        $query->joinWith(['langtext']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

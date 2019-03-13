@@ -1,9 +1,9 @@
 <?php
-
 namespace plathir\smartblog\frontend\controllers;
 
 use Yii;
 use plathir\smartblog\frontend\models\Posts;
+use plathir\smartblog\frontend\models\PostsLang;
 use plathir\smartblog\frontend\models\search\Posts_s;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -42,15 +42,15 @@ class PostsController extends Controller {
                 'class' => \yii\filters\AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['list', 
-                                      'view', 
-                                      'index', 
-                                      'userposts', 
-                                      'tags', 
-                                      'tagslist', 
-                                      'category', 
-                                      'categoryall',
-                                      'author'],
+                        'actions' => ['list',
+                            'view',
+                            'index',
+                            'userposts',
+                            'tags',
+                            'tagslist',
+                            'category',
+                            'categoryall',
+                            'author'],
                         'allow' => true,
                     ],
                     [
@@ -142,16 +142,49 @@ class PostsController extends Controller {
             $model = new Posts();
             $model->user_created = \Yii::$app->user->getId();
             $model->user_last_change = \Yii::$app->user->getId();
+            $modelLang = new PostsLang();
 
+            if ($model->load(Yii::$app->request->post()) && $modelLang->load(Yii::$app->request->post())) {
+                $model->descr = $modelLang->description;
+                if ($model->save()) {
+                    $modelLang->id = $model->id;
+                    $modelLang->lang = Yii::$app->settings->getSettings('MasterContentLang');
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                $model->update();
-                return $this->redirect(['view', 'id' => $model->id]);
+                    if ($modelLang->save()) {
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    } else {
+                        return $this->render('create', [
+                                    'model' => $model,
+                                    'modelLang' => $modelLang
+                        ]);
+                    }
+                } else {
+                    return $this->render('create', [
+                                'model' => $model,
+                                'modelLang' => $modelLang,
+                    ]);
+                }
             } else {
                 return $this->render('create', [
                             'model' => $model,
+                            'modelLang' => $modelLang,
+                            ''
                 ]);
             }
+
+//            $model = new Posts();
+//            $model->user_created = \Yii::$app->user->getId();
+//            $model->user_last_change = \Yii::$app->user->getId();
+//
+//
+//            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//                $model->update();
+//                return $this->redirect(['view', 'id' => $model->id]);
+//            } else {
+//                return $this->render('create', [
+//                            'model' => $model,
+//                ]);
+//            }
         } else {
             throw new \yii\web\NotAcceptableHttpException('No Permission to create new post');
         }
@@ -165,24 +198,36 @@ class PostsController extends Controller {
      */
     public function actionUpdate($id, $path = "", $slug = "") {
         $model = $this->findModel($id);
+        $modelLang = $this->findModelLang($id);
         if ((\yii::$app->user->can('BlogUpdateOwnPost', ['post' => $model])) || (\yii::$app->user->can('BlogUpdatePost'))) {
             $post_url = urldecode(Url::to(['/blog/posts/view/', 'path' => $model->urlpath, 'id' => $model->id, 'slug' => $model->slug], true));
             $post_url_update = urldecode(Url::to(['/blog/posts/update/', 'path' => $model->urlpath, 'id' => $model->id, 'slug' => $model->slug], true));
-            if ($model->load(Yii::$app->request->post())) {
+            if ($model->load(Yii::$app->request->post()) && $modelLang->load(Yii::$app->request->post())) {
                 if (!isset($model->user_last_change)) {
                     $model->user_last_change = \Yii::$app->user->getId();
                 }
+                $model->descr = $modelLang->description;
 
-                if ($model->save()) {
-                    return $this->redirect($post_url);
+                if ($modelLang->save()) {
+                    if ($model->save()) {
+                        Yii::$app->getSession()->setFlash('success', Yii::t('blog', 'Post : {id} updated ! ', ['id' => $model->id]));
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    } else {
+                        return $this->render('update', [
+                                    'model' => $model,
+                                    'modelLang' => $modelLang,
+                        ]);
+                    }
                 } else {
                     return $this->render('update', [
                                 'model' => $model,
+                                'modelLang' => $modelLang,
                     ]);
                 }
             } else {
                 return $this->render('update', [
                             'model' => $model,
+                            'modelLang' => $modelLang,
                 ]);
             }
         } else {
@@ -306,6 +351,19 @@ class PostsController extends Controller {
         ]);
     }
 
+    
+    protected function findModelLang($id) {
+
+        if (($model = PostsLang::findOne(['id' => $id, 'lang' => Yii::$app->settings->getSettings('MasterContentLang')])) !== null) {
+            return $model;
+        } else {
+            $model = new PostsLang();
+            $model->id = $id;
+            $model->lang = Yii::$app->settings->getSettings('MasterContentLang');
+            return $model;
+        }
+    }    
+    
     public function actionCategoryall($id, $slug = '') {
         $category = Category::findOne($id);
         $helper = new PostHelper();
