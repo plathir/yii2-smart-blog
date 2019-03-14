@@ -127,8 +127,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                             [
                                 'attribute' => 'post_image',
-                                'value' => $model->post_image == '' ? '' : ( $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->post_image),
-                                'format' => $model->post_image == '' ? 'html' : ['image', ['width' => '100', 'height' => '100']],
+                                'value' => $model->imageurl ,
+                                'format' => ['image', ['width' => '100', 'height' => '100']],
                             ],
                             [
                                 'attribute' => 'user_created',

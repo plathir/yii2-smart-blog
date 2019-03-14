@@ -7,7 +7,6 @@ use \plathir\user\common\helpers\UserHelper;
 
 $userHelper = new UserHelper();
 
-$imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->post_image;
 $post_url = urldecode(Url::to(['/blog/posts/view/', 'path' => $model->urlpath, 'id' => $model->id, 'slug' => $model->slug], true));
 ?>
 
@@ -44,7 +43,7 @@ $post_url = urldecode(Url::to(['/blog/posts/view/', 'path' => $model->urlpath, '
     <div class="panel-body">   
         <div class="row  blog-post-area">
             <div class="col-xs-12 col-sm-5 col-lg-4 post-image-box">
-                <img class="img-responsive" src="<?= $imageURL; ?>">
+                <img class="img-responsive" src="<?= $model->imageurl; ?>">
             </div>
             <div class="blog-intro-text">                 
                 <?= $model->intro_text ?> 

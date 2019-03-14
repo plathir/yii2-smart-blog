@@ -93,7 +93,7 @@ class Posts extends \plathir\smartblog\common\models\Posts {
         if ($this->post_image) {
             return Yii::getAlias($this->module->ImagePathPreview) . '/' . $this->id . '/thumbs/' . $this->post_image;
         } else {
-            return Yii::getAlias($this->module->ImagePathPreview) . '/nophoto.png';
+            return Yii::getAlias($this->module->ImagePathPreview) . '/nophoto_thumb.png';
         }
     }
 

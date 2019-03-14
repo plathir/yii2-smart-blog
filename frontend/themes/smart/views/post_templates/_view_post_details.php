@@ -11,7 +11,6 @@ use dosamigos\disqus\Comments;
 
 $userHelper = new UserHelper();
 
-$imageURL = $model->module->ImagePathPreview . '/' . $model->id . '/' . $model->post_image;
 $post_url = urldecode(Url::to(['/blog/posts/view/', 'path' => $model->urlpath, 'id' => $model->id, 'slug' => $model->slug], true));
 $post_url_update = urldecode(Url::to(['/blog/posts/update/', 'path' => $model->urlpath, 'id' => $model->id, 'slug' => $model->slug], true));
 ?>
@@ -44,7 +43,7 @@ $post_url_update = urldecode(Url::to(['/blog/posts/update/', 'path' => $model->u
     <div>   
         <div class="row">
             <div class="post-details-image-box col-xs-12 col-sm-12 col-lg-12">
-                <img class="img-responsive" src="<?= $imageURL; ?>">
+                <img class="img-responsive" src="<?= $model->imageurl; ?>">
             </div>
 
             <div class="blog-intro-text">
