@@ -3,6 +3,7 @@ namespace plathir\smartblog\frontend;
 
 use yii\helpers\Url;
 use Yii;
+use plathir\smartblog\backend\blogAsset;
 
 class Module extends \yii\base\Module {
      use \kartik\base\TranslationTrait;
@@ -31,7 +32,8 @@ class Module extends \yii\base\Module {
     public $store_image_height = 600;      // image store size
     public $store_thumbnail_width = 266;   // thumbnail store size
     public $store_thumbnail_height = 200;  // thumbnail store size
-
+    public $assetBundle = '';
+    
     public function init() {
         $path = Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/themes/' . $this->Theme . '/views';
         $this->setViewPath($path);
@@ -60,6 +62,7 @@ class Module extends \yii\base\Module {
             ],
         ];
 
+        $this->assetBundle = blogAsset::register(Yii::$app->view);
         parent::init();
         $this->registerTranslations();
 

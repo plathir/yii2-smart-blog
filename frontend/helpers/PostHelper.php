@@ -9,6 +9,7 @@ use plathir\smartblog\common\models\PostsRating;
 use \Yii;
 use plathir\smartblog\frontend\models\Category;
 use plathir\smartblog\frontend\models\Categorytree;
+use plathir\blog\backend\blogAsset;
 
 class PostHelper {
 
@@ -289,5 +290,9 @@ class PostHelper {
 
         return $Posts;
     }
-
+    public function getBlogNoImage($id, $view = null) {
+        $bundle = blogAsset::register($view);
+        return $bundle->baseUrl . '/img/no_photo.png';
+    }
+    
 }

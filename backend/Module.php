@@ -1,10 +1,13 @@
 <?php
+
 namespace plathir\smartblog\backend;
 
 use yii\helpers\Url;
 use Yii;
+use plathir\smartblog\backend\blogAsset;
 
 class Module extends \yii\base\Module {
+
     use \kartik\base\TranslationTrait;
 
     public $controllerNamespace = 'plathir\smartblog\backend\controllers';
@@ -31,6 +34,7 @@ class Module extends \yii\base\Module {
     public $store_image_height = 600;      // image store size
     public $store_thumbnail_width = 266;   // thumbnail store size
     public $store_thumbnail_height = 200;  // thumbnail store size
+    public $assetBundle = '';
 
     public function init() {
 
@@ -73,8 +77,8 @@ class Module extends \yii\base\Module {
                         \kartik\tree\Module::NODE_MOVE => Url::to(['/blog/categorytree/move']),
                     ],
                     'alertFadeDuration' => 2000,
-                      'nodeView' => '@kvtree/views/_form'
-                   // 'nodeView' => '/categorytree/_form'
+                    'nodeView' => '@kvtree/views/_form'
+                // 'nodeView' => '/categorytree/_form'
                 ],
             ]
         ];
@@ -82,6 +86,9 @@ class Module extends \yii\base\Module {
 
         parent::init();
         $this->registerTranslations();
+        $this->assetBundle = blogAsset::register(Yii::$app->view);
+
+        parent::init();
         // custom initialization code goes here
     }
 
