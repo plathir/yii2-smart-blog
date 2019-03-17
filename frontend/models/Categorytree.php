@@ -20,7 +20,7 @@ class Categorytree extends \kartik\tree\models\Tree {
      * @inheritdoc
      */
     public static function tableName() {
-        return 'categories';
+        return '{{%categories}}';
     }
 
     public function getPath() {
