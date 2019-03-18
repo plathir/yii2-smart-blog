@@ -37,14 +37,32 @@ class Categorytree extends \kartik\tree\models\Tree {
             return '';
     }
 
-    function getImageUrl() {
+//    function getImageUrl() {
+//        if ($this->image) {
+//            return Yii::getAlias($this->module->CategoryImagePathPreview) . '/' . $this->id . '/' . $this->image;
+//        } else {
+//            return Yii::getAlias($this->module->CategoryImagePathPreview) . '/nophoto.png';
+//        }
+//    }
+
+    
+        function getImageUrl() {
         if ($this->image) {
             return Yii::getAlias($this->module->CategoryImagePathPreview) . '/' . $this->id . '/' . $this->image;
         } else {
-            return Yii::getAlias($this->module->CategoryImagePathPreview) . '/nophoto.png';
+            return $this->module->assetBundle->baseUrl . '/img/nophoto.png';
+            //return Yii::getAlias($this->module->CategoryImagePathPreview) . '/nophoto.png';
         }
     }
 
+    function getImageUrlThumb() {
+        if ($this->post_image) {
+            return Yii::getAlias($this->module->CategoryImagePathPreview) . '/' . $this->id . '/thumbs/' . $this->image;
+        } else {
+            return $this->module->assetBundle->baseUrl . '/img/nophoto_thumb.png';
+        }
+    }
+    
     function getChildrens() {
         $childs = $this->children()->all();
         return $childs;
