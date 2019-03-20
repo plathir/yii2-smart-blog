@@ -64,7 +64,7 @@ class Module extends \yii\base\Module {
 
         $this->modules = [
             'settings' => [
-                'class' => 'plathir\settings\Module',
+                'class' => 'plathir\settings\backend\Module',
                 'modulename' => 'blog'
             ],
             'treemanager' => [
