@@ -192,10 +192,10 @@ class PostHelper {
     }
 
     public function OwnUnpublishFilter($posts) {
-        $newPosts = '';
+        $newPosts = [];
 
         if ($posts) {
-            $usr = '';
+            $usr = [];
             if (Yii::$app->user->identity) {
                 $usr = Yii::$app->user->identity->id;
             }
