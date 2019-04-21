@@ -19,7 +19,7 @@ class PostHelper {
                 ->orderBy(['created_at' => SORT_DESC])
                 ->limit($numOfPosts)
                 ->all();
-        $newPosts = '';
+        $newPosts = [];
         if ($posts) {
             return $this->OwnUnpublishFilter($posts);
         } else {
@@ -67,7 +67,7 @@ class PostHelper {
                 ->groupBy(['user_created'])
                 ->limit(10)
                 ->all();
-        $topAuthors = '';
+        $topAuthors = [];
         foreach ($temp_topAuthors as $Author) {
             $userid = $Author['author'];
             $username = PostHelper::getUserName($userid);
@@ -193,10 +193,10 @@ class PostHelper {
     }
 
     public function OwnUnpublishFilter($posts) {
-        $newPosts = '';
+        $newPosts = [];
 
         if ($posts) {
-            $usr = '';
+            $usr = [];
             if (Yii::$app->user->identity) {
                 $usr = Yii::$app->user->identity->id;
             }
@@ -227,7 +227,7 @@ class PostHelper {
 
     public function getTopCategories($numOfCategories) {
 
-        $topCategories = '';
+        $topCategories = [];
         $temp_topCategories = (new \yii\db\Query())
                 ->select(['category', 'count(*) as cnt', '{{%categories}}.*'])
                 ->join('LEFT JOIN', '{{%categories}}', '{{%categories}}.id = category')
@@ -259,7 +259,7 @@ class PostHelper {
     }
 
     public function getCategoriesWithSubCategories($CategoryLevel, $CategoryID = '') {
-        $Categories = '';
+        $Categories = [];
 
         if (!$CategoryID) {
             $Categories = $this->getCategoriesByLevel($CategoryLevel);
