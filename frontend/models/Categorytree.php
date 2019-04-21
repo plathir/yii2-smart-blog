@@ -25,7 +25,7 @@ class Categorytree extends \kartik\tree\models\Tree {
 
     public function getPath() {
         $parents = $this->parents()->all();
-        $path = '';
+        $path = [];
         foreach ($parents as $parent) {
             $path[] = $parent->slug;
         }
@@ -36,14 +36,6 @@ class Categorytree extends \kartik\tree\models\Tree {
         } else
             return '';
     }
-
-//    function getImageUrl() {
-//        if ($this->image) {
-//            return Yii::getAlias($this->module->CategoryImagePathPreview) . '/' . $this->id . '/' . $this->image;
-//        } else {
-//            return Yii::getAlias($this->module->CategoryImagePathPreview) . '/nophoto.png';
-//        }
-//    }
 
     
         function getImageUrl() {

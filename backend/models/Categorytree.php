@@ -51,7 +51,7 @@ class Categorytree extends \kartik\tree\models\Tree {
     public function getPath() {
 
         $parents = $this->parents()->all();
-        $path = '';
+        $path = [];
         foreach ($parents as $parent) {
             $path[] = $parent->slug;
         }
