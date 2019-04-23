@@ -7,7 +7,7 @@ if ($galleryArray) {
     echo '<strong>' . $widget->title . '</strong>';
 
 
-    $items = '';
+    $items = [];
 
     foreach ($galleryArray as $image) {
 
