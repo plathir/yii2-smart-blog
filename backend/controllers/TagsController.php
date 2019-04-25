@@ -49,7 +49,7 @@ class TagsController extends Controller {
         if (\yii::$app->user->can('BlogRebuildTags')) {
             $posts_tags = PostsTags::find()->select(['tag_id'])->groupBy('tag_id')->orderBy(['tag_id' => SORT_ASC])->all();
             $db_tags = Tags::find()->select(['id'])->groupBy('id')->orderBy(['id' => SORT_ASC])->all();
-            $stored_tags = '';
+            $stored_tags = [];
             foreach ($posts_tags as $tag) {
                 $activeTags[] = $tag['tag_id'];
             }
