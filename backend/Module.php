@@ -43,7 +43,12 @@ class Module extends \yii\base\Module {
         $cat = 'kvtree';
         $this->initI18N($dir, $cat);
 
-        $path = Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/backend/themes/' . $this->Theme . '/views';
+        if (Yii::$app->settings->getSettings('BackendTheme') != null) {
+            $path = Yii::getAlias('@realAppPath') . '/themes/admin/' . Yii::$app->settings->getSettings('BackendTheme') . '/module/blog/views';
+        } else {
+            $path = Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/backend/themes/' . $this->Theme . '/views';
+        }        
+        
         $this->setViewPath($path);
 
         $this->controllerMap = [

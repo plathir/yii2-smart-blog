@@ -1,4 +1,5 @@
 <?php
+
 namespace plathir\smartblog\frontend;
 
 use yii\helpers\Url;
@@ -6,7 +7,8 @@ use Yii;
 use plathir\smartblog\backend\blogAsset;
 
 class Module extends \yii\base\Module {
-     use \kartik\base\TranslationTrait;
+
+    use \kartik\base\TranslationTrait;
 
     public $controllerNamespace = 'plathir\smartblog\frontend\controllers';
     public $mediaUrl = '';
@@ -33,9 +35,15 @@ class Module extends \yii\base\Module {
     public $store_thumbnail_width = 266;   // thumbnail store size
     public $store_thumbnail_height = 200;  // thumbnail store size
     public $assetBundle = '';
-    
+
     public function init() {
-        $path = Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/themes/' . $this->Theme . '/views';
+
+        if (Yii::$app->settings->getSettings('FrontendTheme') != null) {
+            $path = Yii::getAlias('@realAppPath') . '/themes/site/' . Yii::$app->settings->getSettings('FrontendTheme') . '/module/blog/views';
+        } else {
+            $path = Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/themes/' . $this->Theme . '/views';
+        }
+
         $this->setViewPath($path);
 
         $this->controllerMap = [
