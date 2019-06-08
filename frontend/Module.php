@@ -35,16 +35,15 @@ class Module extends \yii\base\Module {
     public $store_thumbnail_width = 266;   // thumbnail store size
     public $store_thumbnail_height = 200;  // thumbnail store size
     public $assetBundle = '';
+    public $themePath = '';
 
     public function init() {
 
-        if (Yii::$app->settings->getSettings('FrontendTheme') != null) {
-            $path = Yii::getAlias('@realAppPath') . '/themes/site/' . Yii::$app->settings->getSettings('FrontendTheme') . '/module/blog/views';
-        } else {
-            $path = Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/themes/' . $this->Theme . '/views';
-        }
-
-        $this->setViewPath($path);
+   //     echo $this->getBasePath();
+        $themeHelper = new \frontend\helpers\ThemesHelper();
+        $this->themePath = $themeHelper->ModuleThemePath('blog', __FILE__);
+               
+        $this->setViewPath($this->themePath);
 
         $this->controllerMap = [
             'elfinder' => [

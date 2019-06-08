@@ -8,6 +8,7 @@ $positionHelper = new PositionHelper();
 ?>
 <div class="body-content">
     <?php
+   
     $layoutHelper = new LayoutHelper();
     echo $layoutHelper->LoadLayout(__FILE__);
     ?>
