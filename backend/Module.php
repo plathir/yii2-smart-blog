@@ -5,6 +5,7 @@ namespace plathir\smartblog\backend;
 use yii\helpers\Url;
 use Yii;
 use plathir\smartblog\backend\blogAsset;
+use \common\helpers\ThemesHelper;
 
 class Module extends \yii\base\Module {
 
@@ -43,11 +44,9 @@ class Module extends \yii\base\Module {
         $cat = 'kvtree';
         $this->initI18N($dir, $cat);
 
-        if (Yii::$app->settings->getSettings('BackendTheme') != null) {
-            $path = Yii::getAlias('@realAppPath') . '/themes/admin/' . Yii::$app->settings->getSettings('BackendTheme') . '/module/blog/views';
-        } else {
-            $path = Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/backend/themes/' . $this->Theme . '/views';
-        }        
+        $helper = new ThemesHelper();
+        $path = $helper->ModuleThemePath('blog', 'backend', dirname(__FILE__) . '/themes/smart');
+        $path = $path .'/views';
         
         $this->setViewPath($path);
 

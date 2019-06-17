@@ -5,6 +5,7 @@ namespace plathir\smartblog\frontend;
 use yii\helpers\Url;
 use Yii;
 use plathir\smartblog\backend\blogAsset;
+use \common\helpers\ThemesHelper;
 
 class Module extends \yii\base\Module {
 
@@ -38,18 +39,10 @@ class Module extends \yii\base\Module {
 
     public function init() {
 
-   //     echo $this->getBasePath();
-   //     $themeHelper = new \frontend\helpers\ThemesHelper();
-   //     $this->themePath = $themeHelper->ModuleThemePath('blog', __FILE__);
+        $helper = new ThemesHelper();
+        $path = $helper->ModuleThemePath('blog', 'frontend', dirname(__FILE__) . "/themes/$this->Theme");
+        $path = $path .'/views';
 
-        if (Yii::$app->settings->getSettings('FrontEndTheme') != null) {
-            $path = Yii::getAlias('@realAppPath') . '/themes/site/' . Yii::$app->settings->getSettings('FrontendTheme') . '/module/blog/views';
-        } else {
-            $path = Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/themes/' . $this->Theme . '/views';
-        }        
-             
-        
-     //   $this->setViewPath($this->themePath);
         $this->setViewPath($path);
 
         $this->controllerMap = [
