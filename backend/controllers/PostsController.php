@@ -232,6 +232,7 @@ class PostsController extends Controller {
         $model = new Posts();
         $model->user_created = \Yii::$app->user->getId();
         $model->user_last_change = \Yii::$app->user->getId();
+        $model->views = 0;
         $modelLang = new PostsLang();
 
         if ($model->load(Yii::$app->request->post()) && $modelLang->load(Yii::$app->request->post())) {

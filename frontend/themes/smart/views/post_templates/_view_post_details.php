@@ -14,13 +14,12 @@ $userHelper = new UserHelper();
 $post_url = urldecode(Url::to(['/blog/posts/view/', 'path' => $model->urlpath, 'id' => $model->id, 'slug' => $model->slug], true));
 $post_url_update = urldecode(Url::to(['/blog/posts/update/', 'path' => $model->urlpath, 'id' => $model->id, 'slug' => $model->slug], true));
 ?>
-
 <div class="blog-post-details-area">
     <div>
         <div class="post-details-header"><?= Html::a($model->description, $post_url) ?>
             &nbsp;
             <?php
-            if (\yii::$app->user->can('BlogUpdatePost')) {
+            if  ( \yii::$app->user->can('BlogUpdatePost', ['post' => $model] ) || \yii::$app->user->can('BlogUpdateOwnPost', ['post' => $model]) ) {
                 echo Html::a('<i class="fa fa-edit"></i>', $post_url_update, ['class' => 'pull-right btn btn-success btn-sm button-edit']);
             }
             ?>

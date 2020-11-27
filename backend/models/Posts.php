@@ -70,9 +70,8 @@ class Posts extends \plathir\smartblog\common\models\Posts {
                         'slugAttribute' => 'slug',
                         'ensureUnique' => true,
                         'value' => function($event) {
-
                             if ($this->slugdescr) {
-                                return Inflector::slug($this->slugdescr);
+                               return Inflector::slug($this->slugdescr);
                             } else {
                                 throw new InvalidConfigException('slugdescr is null');
                             }

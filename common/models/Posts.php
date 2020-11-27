@@ -1,9 +1,11 @@
 <?php
+
 namespace plathir\smartblog\common\models;
 
 use Yii;
 use plathir\smartblog\backend\models\PostsRating;
 use plathir\smartblog\common\models\Tags;
+use plathir\smartblog\common\models\PostsLang;
 
 /**
  * This is the model class for table "smartblog_posts".
@@ -118,4 +120,10 @@ class Posts extends \yii\db\ActiveRecord {
 //        $this->views++;
 //        $this->save();
 //    }
+
+
+    public function getTexts() {
+        return $this->hasMany(PostsLang::className(), ['id' => 'id' ]);
+    }
+
 }

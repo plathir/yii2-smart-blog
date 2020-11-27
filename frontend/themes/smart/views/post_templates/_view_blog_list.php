@@ -30,7 +30,7 @@ $post_url = urldecode(Url::to(['/blog/posts/view/', 'path' => $model->urlpath, '
                     <div class="panel-heading-details pull-right"><i class="fa fa-fw fa-clock-o"></i><?= Yii::$app->formatter->asDatetime($model->created_at) ?>
                         &nbsp;
                         <?php
-                        if (\yii::$app->user->can('BlogUpdatePost')) {
+                        if (\yii::$app->user->can('BlogUpdateOwnPost', ['post' => $model] ) || \yii::$app->user->can('BlogUpdatePost', ['post' => $model])) {
                             echo Html::a('<i class="fa fa-edit"></i>', urldecode(Url::to(['/blog/posts/update', 'id' => $model->id, 'path' => $model->urlpath, 'slug' => $model->slug])), ['class' => 'pull-right btn btn-success btn-xs']);
                         }
                         ?>
