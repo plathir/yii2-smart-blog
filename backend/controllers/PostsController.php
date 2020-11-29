@@ -384,9 +384,9 @@ class PostsController extends Controller {
             $modelLang = new PostsLang();
             $modelLang->id = $id;
             $modelLang->lang = $lang;
-            $modelLang->description = Yii::$app->translate->translate($masterLang, $lang, $model->description)['text'][0];
-            $modelLang->intro_text = Yii::$app->translate->translate($masterLang, $lang, $model->intro_text, 'plain')['text'][0];
-            $modelLang->full_text = html::decode(Yii::$app->translate->translate($masterLang, $lang, $model->full_text)['text'][0]);
+            $modelLang->description = Yii::$app->translate->translate($masterLang, $lang, $model->description, 'plain');
+            $modelLang->intro_text = Yii::$app->translate->translate($masterLang, $lang, $model->intro_text, 'plain');
+            $modelLang->full_text = html::decode(Yii::$app->translate->translate($masterLang, $lang, $model->full_text));
         }
         if ($modelLang->load(Yii::$app->request->post()) && $modelLang->save()) {
             Yii::$app->session->setFlash('success', "Save translation successfully.");
