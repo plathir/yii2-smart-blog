@@ -11,7 +11,7 @@ use \backend\widgets\SmartDate;
 /* @var $searchModel app\models\Posts_s */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Posts';
+$this->title = Yii::t('blog','Posts');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -149,17 +149,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         'filterOptions' => ['class' => 'hidden-xs hidden-sm hidden-md'],
                         'headerOptions' => ['class' => 'hidden-xs hidden-sm hidden-md'],
                         'contentOptions' => ['data-columnname' => 'Upadted_at', 'style' => 'width: 12%;', 'class' => 'hidden-xs hidden-sm hidden-md'],
-                    ],                                
-                                
-                    [
-                        'attribute' => 'publish',
+                    ],         
+                     [
+                      'attribute' => 'publish',
+                       'filter' => \yii\bootstrap\Html::activeDropDownList($searchModel, 'publish', ['0' => 'Unpublished', '1' => 'Published'], ['class' => 'form-control', 'prompt' => 'Select...']),                         
                         'value' => function($model, $key, $index, $widget) {
-                            return $model->publish == true ? '<span class="label label-success">Published</span>' : '<span class="label label-danger">Unpublished</span>';
-                        },
-                        'format' => 'html',
-                        'filter' => \yii\bootstrap\Html::activeDropDownList($searchModel, 'publish', ['0' => 'Unpublished', '1' => 'Published'], ['class' => 'form-control', 'prompt' => 'Select...']),
-                        'contentOptions' => ['style' => 'width: 10%;']
-                    ],
+                           return $model->publishbadge; 
+                        } ,
+                      'format' => 'html',   
+                     ],                               
                     ['class' => 'yii\grid\ActionColumn',
                         'contentOptions' => ['style' => 'min-width: 70px;']
                     ],

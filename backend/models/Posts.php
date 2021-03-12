@@ -66,14 +66,14 @@ class Posts extends \plathir\smartblog\common\models\Posts {
                     ],
                     'slagBehavior' => [
                         'class' => SluggableBehavior::className(),
-                        // 'attribute' => 'description',
                         'slugAttribute' => 'slug',
                         'ensureUnique' => true,
                         'value' => function($event) {
                             if ($this->slugdescr) {
                                return Inflector::slug($this->slugdescr);
                             } else {
-                                throw new InvalidConfigException('slugdescr is null');
+                                
+                                //throw new InvalidConfigException('slugdescr is null');
                             }
                         }
                     ],
@@ -101,10 +101,10 @@ class Posts extends \plathir\smartblog\common\models\Posts {
         $badge = '';
         switch ($this->publish) {
             case 0:
-                $badge = '<span class="label label-danger">Unpublished</span>';
+                $badge = '<span class="label label-danger">'.Yii::t('blog','Unpublished').'</span>';
                 break;
             case 1:
-                $badge = '<span class="label label-success">Published</span>';
+                $badge = '<span class="label label-success">'.Yii::t('blog','Published').'</span>';
                 break;
             default:
                 break;

@@ -5,7 +5,7 @@ use yii\helpers\Html;
 ?>
 <div class="box box-info">
     <div class="box-header with-border">
-        <h3 class="box-title"><?php echo $widget->title ?></h3>
+        <h3 class="box-title"><?php echo Yii::t('blog', $widget->title) ?></h3>
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -51,7 +51,8 @@ use yii\helpers\Html;
                                 <td><?= Yii::$app->formatter->asDatetime($post->created_at) ?></td>
                                 <td><?= $post->PublishBadge ?></td>
                             </tr>
-                        <?php }
+                        <?php
+                        }
                     }
                     ?>
                 </tbody>

@@ -11,14 +11,14 @@ $postHelper = new PostHelper();
 /* @var $searchModel app\models\Posts_s */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Posts';
+$this->title = Yii::t('blog', 'Posts');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="posts-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <p>
-        <?= Html::a('Create Posts', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('blog', 'Create Post'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php

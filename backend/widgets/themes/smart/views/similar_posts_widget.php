@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 
-echo '<h3>Similar Posts :</h3>';
+echo '<h3>'.Yii::t('blog','Similar Posts'). ' :</h3>';
 
 $provider = new ArrayDataProvider([
     'allModels' => $posts,

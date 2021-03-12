@@ -68,6 +68,7 @@ class Posts extends \yii\db\ActiveRecord {
             'attachments' => Yii::t('blog', 'Attachments'),
             'gallery' => Yii::t('blog', 'Gallery'),
             'views' => Yii::t('blog', 'Views'),
+            'description' => Yii::t('blog', 'Description'),
         ];
     }
 

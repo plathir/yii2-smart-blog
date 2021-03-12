@@ -9,7 +9,7 @@ use yii\bootstrap\Tabs;
 
 <div class="box box-info">
     <div class="box-header with-border">
-        <h3 class="box-title">Categories</h3>
+        <h3 class="box-title"><?= Yii::t('blog', 'Categories') ?></h3>
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -22,24 +22,24 @@ use yii\bootstrap\Tabs;
             echo Tabs::widget([
                 'items' => [
                     [
-                        'label' => 'Category Tree Admin',
+                        'label' => Yii::t('blog', 'Categories'),
                         'content' => '<br>' . TreeView::widget([
                             // single query fetch to render the tree
                             'query' => \plathir\smartblog\backend\models\Categorytree::find()->addOrderBy('root, lft'),
                             'nodeAddlViews' => [
                                 kartik\tree\Module::VIEW_PART_2 => '/categorytree/_category_extra_fields'
                             ],
-                            'headingOptions' => ['label' => 'Categories'],
+                            'headingOptions' => ['label' => Yii::t('kvtree', 'Categories')],
                             'isAdmin' => true, // optional (toggle to enable admin mode)
                             'displayValue' => 1, // initial display value
                             'softDelete' => true, // normally not needed to change
                             'hideCssClass' => 'hidden',
                             'showInactive' => true,
-                            'cacheSettings' => ['enableCache' => false]      // normally not needed to change
+                            'cacheSettings' => ['enableCache' => false], // normally not needed to change
                         ]),
                     ],
                     [
-                        'label' => 'Extra fields',
+                        'label' => Yii::t('blog', 'Extra fields'),
                         'content' => '<br>' . GridView::widget([
                             'dataProvider' => $dataProvider,
                             'filterModel' => $searchModel,

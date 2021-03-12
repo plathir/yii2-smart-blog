@@ -40,14 +40,17 @@ class Module extends \yii\base\Module {
     public function init() {
 
         // The following three lines initialize i18n for kvtree
-        $dir = '@vendor/kartik-v/yii2-tree-manager/messages';
+        //$dir = '@vendor/kartik-v/yii2-tree-manager/messages';
+        $dir = Yii::getAlias('@backend/messages');
         $cat = 'kvtree';
+
+//        $dir = Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/messages';
         $this->initI18N($dir, $cat);
 
         $helper = new ThemesHelper();
         $path = $helper->ModuleThemePath('blog', 'backend', dirname(__FILE__) . '/themes/smart');
-        $path = $path .'/views';
-        
+        $path = $path . '/views';
+
         $this->setViewPath($path);
 
         $this->controllerMap = [
@@ -81,13 +84,12 @@ class Module extends \yii\base\Module {
                         \kartik\tree\Module::NODE_MOVE => Url::to(['/blog/categorytree/move']),
                     ],
                     'alertFadeDuration' => 2000,
-                    'nodeView' => '@kvtree/views/_form'
-                // 'nodeView' => '/categorytree/_form'
+                    'nodeView' => '@kvtree/views/_form',
                 ],
             ]
         ];
 
-
+        
         parent::init();
         $this->registerTranslations();
         $this->assetBundle = blogAsset::register(Yii::$app->view);

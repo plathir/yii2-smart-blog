@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Message translations.
  *
@@ -17,5 +18,46 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
- 
+    'File Manager' => 'Διαχείριση Αρχείων',
+    'Settings' => 'Ρυθμίσεις',
+    'Categories' => 'Κατηγορίες',
+    'Blog' => 'Ιστολόγιο',
+    'Posts' => 'Αναρτήσεις',
+    'Tags' => 'Ετικέτες',
+    'Tag' => 'Ετικέτα',
+    'ID' => 'ID',
+    'Image' => 'Φωτογραφία',
+    'User Created' => 'Δημιουργία Χρήστης',
+    'Date Created' => 'Ημερομηνία Δημιουργίας',
+    'User Last Change' => 'Χρήστης τελευταίας αλλαγγής',
+    'Date Last Change' => 'Ημερομηνία τελευταίας αλλαγής',
+    'Publish' => 'Κατάσταση',
+    'Category' => 'Κατηγορία',
+    'Tags' => 'Ετικέτες',
+    'Attachments' => 'Συνημμένα',
+    'Gallery' => 'Γκαλερί',
+    'Views' => 'Προβολές',
+    'Description' => 'Περιγραφή',
+    'Create Post' => 'Δημιουργία Ανάρτησης',
+    'Create' => 'Δημιουργία',
+    'Unpublished' => 'Αδημοσίευτο',
+    'Published' => 'Δημοσιευμένο',
+    'Latest Blog Posts' => 'Πρόσφατες Αναρτήσεις',
+    'Status' => 'Κατάσταση',
+    'Created Date' => 'Ημερομηνία Δημιουργίας',
+    'Post ID' => 'ID Ανάρτησης',
+    'Create New Post' => 'Δημιουργία νέας Ανάρτησης',
+    'View All Posts' => 'Εμφάνιση όλων των Αναρτήσεων',
+    'Most Visited Posts' => 'Δημοφιλείς Αναρτήσεις',
+    'Visits' => 'Επισκέψεις',
+    'Top Authors' => 'Κορυφαίοι Συντάκτες',
+    'Author Name' => 'Όνομα Συντάκτη',
+    'Count' => 'Αριθμός Δημοσιεύσεων',
+    'Top Rated' => 'Αναρτήσεις με υψηλή βαΘμολογία',
+    'Rate' => 'BαΘμολογία',
+    'Tag Cloud' => 'Ετικέτες αναρτήσεων',
+    'Similar Posts' => 'Σχετικές αναρτήσεις',
+    'Categories' => 'Κατηγορίες',
+    'Extra fields' => 'Επιπλέον πληροφορίες',
+   
 ];

@@ -4,7 +4,7 @@ use yii\helpers\Html;
 ?>
 <div class="box box-info">
     <div class="box-header with-border">
-        <h3 class="box-title"><?php echo $widget->title ?></h3>
+        <h3 class="box-title"><?php echo Yii::t('blog', $widget->title) ?></h3>
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -16,10 +16,10 @@ use yii\helpers\Html;
                 <thead>
                     <tr>
                         <th></th>
-                        <th>Post ID</th>
-                        <th>Description</th>
-                        <th>Status</th>
-                        <th>Created Date</th>
+                        <th><?= Yii::t('blog','Post ID') ?></th>
+                        <th><?= Yii::t('blog','Description') ?></th>
+                        <th><?= Yii::t('blog','Status') ?></th>
+                        <th><?= Yii::t('blog','Created Date') ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,7 +40,8 @@ use yii\helpers\Html;
                                 <td><?= $post->publishbadge ?></td>
                                 <td><?= Yii::$app->formatter->asDatetime($post->created_at) ?></td>
                             </tr>
-                        <?php }
+                            <?php
+                        }
                     }
                     ?>
                 </tbody>
@@ -48,7 +49,8 @@ use yii\helpers\Html;
         </div><!-- /.table-responsive -->
     </div><!-- /.box-body -->
     <div class="box-footer clearfix">
-        <?= Html::a(Yii::t('app', 'Create New Post'), ['/blog/posts/create'], ['class' => 'btn btn-sm btn-info btn-flat pull-left']) ?>  
-<?= Html::a(Yii::t('app', 'View All Posts'), ['/blog/posts'], ['class' => 'btn btn-sm btn-default btn-flat pull-right']) ?>
+
+        <?= Html::a(Yii::t('blog', 'Create New Post'), ['/blog/posts/create'], ['class' => 'btn btn-sm btn-info btn-flat pull-left']) ?>  
+        <?= Html::a(Yii::t('blog', 'View All Posts'), ['/blog/posts'], ['class' => 'btn btn-sm btn-default btn-flat pull-right']) ?>
     </div><!-- /.box-footer -->
 </div><!-- /.box -->        
