@@ -45,7 +45,7 @@ use yii\bootstrap\Tabs;
                             'filterModel' => $searchModel,
                             'columns' => [
                                 [
-                                    'header' => 'Name',
+                                    'attribute' => 'name',
                                     'format' => 'html',
                                     'value' => function($model, $key, $index, $grid) {
                                         $lvlVal = '';
@@ -69,15 +69,15 @@ use yii\bootstrap\Tabs;
                                 [
                                     'attribute' => 'active',
                                     'value' => function($model, $key, $index, $widget) {
-                                        return $model->active == true ? '<span class="label label-success">Active</span>' : '<span class="label label-danger">Inactive</span>';
+                                        return $model->active == true ? '<span class="label label-success">'. Yii::t('blog','Active').'</span>' : '<span class="label label-danger">'. Yii::t('blog','Inactive').'</span>';
                                     },
                                     'format' => 'html',
-                                    'filter' => \yii\bootstrap\Html::activeDropDownList($searchModel, 'active', ['0' => 'Inactive', '1' => 'Active'], ['class' => 'form-control', 'prompt' => 'Select...']),
+                                    'filter' => \yii\bootstrap\Html::activeDropDownList($searchModel, 'active', ['0' => Yii::t('blog','Inactive'), '1' => Yii::t('blog','Active')], ['class' => 'form-control', 'prompt' => Yii::t('blog','Select...')]),
                                     'contentOptions' => ['style' => 'width: 10%;']
                                 ],
                                 'description',
                                 [
-                                    'header' => 'Image',
+                                   'attribute' => 'image',
                                     'format' => 'raw',
                                     'value' => function($model, $key, $index, $grid) {
                                         if ($model->image) {

@@ -10,7 +10,7 @@ use plathir\smartblog\backend\models\Categorytree as Category;
 /* @var $searchModel app\models\Posts_s */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Static Pages';
+$this->title = Yii::t('blog','Static Pages');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="box box-info">
@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="posts-index">
 
             <p>
-                <?= Html::a('Create Static Page', ['create'], ['class' => 'btn btn-success']) ?>
+                <?= Html::a(Yii::t('blog','Create Static Page'), ['create'], ['class' => 'btn btn-success']) ?>
             </p>
             <?php
             $userModel = new $searchModel->module->userModel();
@@ -103,7 +103,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     [
                                         'attribute' => 'publish',
                                         'value' => function($model, $key, $index, $widget) {
-                                            return $model->publish == true ? '<span class="label label-success">Published</span>' : '<span class="label label-danger">Unpublished</span>';
+                                            return $model->publish == true ? '<span class="label label-success">'.Yii::t('blog','Published').'</span>' : '<span class="label label-danger">'.Yii::t('blog','Unpublished').'</span>';
                                         },
                                         'format' => 'html',
                                         'filter' => \yii\bootstrap\Html::activeDropDownList($searchModel, 'publish', ['0' => 'Unpublished', '1' => 'Published'], ['class' => 'form-control', 'prompt' => 'Select...']),

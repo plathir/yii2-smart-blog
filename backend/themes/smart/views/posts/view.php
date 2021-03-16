@@ -13,15 +13,15 @@ use \plathir\smartblog\common\widgets\RatingWidget;
 /* @var $this yii\web\View */
 /* @var $model app\models\Posts */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Posts', 'url' => ['index']];
+$this->title = Yii::t('blog', 'View Post') . ' : ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('blog', 'Posts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 
 <div class="box box-info">
     <div class="box-header with-border">
-        <h3 class="box-title"><?= 'View Post :' . Html::encode($this->title) ?></h3>
+        <h3 class="box-title"><?= Html::encode($this->title) ?></h3>
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -32,12 +32,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="posts-view">
             <p>
-                <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a(Yii::t('blog', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
                 <?=
-                Html::a('Delete', ['delete', 'id' => $model->id], [
+                Html::a(Yii::t('blog', 'Delete'), ['delete', 'id' => $model->id], [
                     'class' => 'btn btn-danger',
                     'data' => [
-                        'confirm' => 'Are you sure you want to delete this item?',
+                        'confirm' => Yii::t('blog', 'Are you sure you want to delete this item?'),
                         'method' => 'post',
                     ],
                 ])
@@ -50,34 +50,35 @@ $this->params['breadcrumbs'][] = $this->title;
             $appLanguage = Yii::$app->settings->getSettings('MasterContentLang');
             foreach (Yii::$app->urlManager->languages as $language) {
                 if ($language != $appLanguage) {
-                    if ($language == 'el') {
-                        $temp_lang = 'gr';
-                    } else {
-                        $temp_lang = $language;
+                    switch ($language) {
+                        case 'el':
+                           $temp_lang = 'gr';
+                            break;
+                       case 'en':
+                           $temp_lang = 'gb';
+                            break;
+                        default:
+                            $temp_lang = $language;
+                            break;
                     }
                     $exist = '';
+
                     foreach ($model->langtext as $texts) {
                         if ($texts->lang == $language) {
-                            $exist = Html::a('<i class="fa fa-trash-o"></i>&nbsp;' . 'Exist ', ['deltranslate', 'id' => $model->id, 'lang' => $language]);
+                            $exist = Html::a('<i class="fa fa-trash-o"></i>&nbsp;' . Yii::t('blog', 'Exist') . ' ', ['deltranslate', 'id' => $model->id, 'lang' => $language]);
                         }
                     }
-//                    $tr .= '<div class="row">';
-                    $tr .= Html::a('<i class="fa fa-pencil-square-o"></i>&nbsp;' . 'Translate ' . '<img src="https://www.countryflags.io/' . $temp_lang . '/flat/16.png">', ['translate', 'id' => $model->id, 'lang' => $language], ['class' => 'list-group-item list-group-item-info']);
-//                    if ($exist) {
-//                        $tr .= $exist;
-//                    }
-//                    $tr .= '</div>';
+                    $tr .= Html::a('<i class="fa fa-pencil-square-o"></i>&nbsp;' . Yii::t('blog', 'Translation') . ' ' . '<img src="https://www.countryflags.io/' . $temp_lang . '/shiny/16.png">', ['translate', 'id' => $model->id, 'lang' => $language], ['class' => 'list-group-item list-group-item-info']);
                 }
             }
             ?>  
-
 
             <?php
             $tr_html = '';
             if ($tr) {
                 $tr_html = '<br><div class="row"><div class="col-lg-3">' .
                         '<div class="panel panel-default">' .
-                        '<div class="panel-heading">Translations</div>' .
+                        '<div class="panel-heading">' . Yii::t('blog', 'Translations') . '</div>' .
                         '<div class="panel-body">' .
                         '<div class="list-group">' .
                         $tr .
@@ -88,18 +89,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         '<div class="col-lg-9">' .
                         '</div></div>';
             }
-
-//            $tr_html = '
-//    <ul class="list-group">
-//        <li class="list-group-item clearfix">
-//            userA <span class="label label-default">admin</span>
-//            <span class="pull-right button-group">
-//                <a href="/admin/userA" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Edit</a> 
-//                <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete</button>
-//            </span>
-//        </li>
-//    </ul>
-// ';
             ?>
 
 
@@ -120,14 +109,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             'intro_text:ntext',
                             [
                                 'attribute' => 'fulltext_html',
-                                'value' => function( $model ) {
+                                'value' => function($model) {
                                     return $model->fulltext_html;
                                 },
                                 'format' => 'raw',
                             ],
                             [
                                 'attribute' => 'post_image',
-                                'value' => $model->imageurl ,
+                                'value' => $model->imageurl,
                                 'format' => ['image', ['width' => '100', 'height' => '100']],
                             ],
                             [
@@ -159,7 +148,7 @@ $this->params['breadcrumbs'][] = $this->title;
             echo Tabs::widget([
                 'items' => [
                     [
-                        'label' => 'Post Contents',
+                        'label' => Yii::t('blog','Post Contents'),
                         'content' => $detailView
                         .
                         TagsWidget::widget([
@@ -171,7 +160,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'active' => true
                     ],
                     [
-                        'label' => 'Attachments',
+                        'label' => Yii::t('blog','Attachments'),
                         'content' => ListFilesWidget::widget([
                             'model' => $model,
                             'previewUrl' => $model->module->ImagePathPreview,
@@ -190,7 +179,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //                        'options' => ['id' => 'myveryownID1'],
 //                    ],
                     [
-                        'label' => 'Gallery',
+                        'label' => Yii::t('blog','Gallery'),
                         'content' => GalleryWidget::widget([
                             'galleryItems' => $model->gallery,
                             'imagePath' => $model->module->ImagePath . '/' . $model->id,

@@ -75,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </p>
             <div class="box box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Items</h3>
+                    <h3 class="box-title"><?= Yii::t('blog','Items') ?></h3>
                     <div class="box-tools pull-right">
                         <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                         <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -129,7 +129,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         $buttonDelete = Html::a(Yii::t('blog', 'Delete'), ['deleteitem', 'id' => $model->id], [
                                                     'class' => 'btn btn-danger btn-xs',
                                                     'data' => [
-                                                        'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                                                        'confirm' => Yii::t('blog', 'Are you sure you want to delete this item?'),
                                                         'method' => 'post',
                                                     ],
                                         ]);

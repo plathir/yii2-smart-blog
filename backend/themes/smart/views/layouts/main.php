@@ -26,8 +26,6 @@ if (\Yii::$app->view->theme) {
         </div>
     </div><!-- /.box-header -->
     <div class="box-body">
-        
-        
         <?= Html::a('<i class="fa fa-folder-open"></i>'. Yii::t('blog', 'File Manager'), ['/blog/posts/filemanager'], ['class' => 'btn btn-app']) ?>
         <?= Html::a('<i class="fa fa-gears"></i>'.Yii::t('blog', 'Settings'), ['/blog/settings'], ['class' => 'btn btn-app']) ?>
         <?= Html::a('<i class="fa fa-list"></i>'. Yii::t('blog', 'Categories'), ['/blog/category'], ['class' => 'btn btn-app']) ?>

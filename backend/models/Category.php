@@ -49,11 +49,13 @@ class Category extends \yii\db\ActiveRecord {
     }
 
     public function attributeLabels() {
+        
         return [
-            'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Name'),
-            'description' => Yii::t('app', 'Description'),
-            'image' => Yii::t('app', 'Image'),
+            'id' => Yii::t('blog', 'ID'),
+            'name' => Yii::t('blog', 'Name'),
+            'description' => Yii::t('blog', 'Description'),
+            'image' => Yii::t('blog', 'Image'),
+            'active' => Yii::t('blog', 'Active'),
         ];
     }
 

@@ -242,6 +242,7 @@ class PostsController extends Controller {
                 $modelLang->lang = Yii::$app->settings->getSettings('MasterContentLang');
 
                 if ($modelLang->save()) {
+                    Yii::$app->getSession()->setFlash('success', Yii::t('blog', 'Post : {id} Created ! ', ['id' => $model->id]));
                     return $this->redirect(['view', 'id' => $model->id]);
                 } else {
                     return $this->render('create', [
@@ -324,6 +325,7 @@ class PostsController extends Controller {
 
             return $this->render('userposts', [
                         'dataProvider' => $dataProvider,
+                        'userid' => $userid,
                         'username' => $username
             ]);
         } else {

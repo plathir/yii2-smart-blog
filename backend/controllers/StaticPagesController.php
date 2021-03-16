@@ -139,6 +139,7 @@ class StaticPagesController extends Controller {
                 $modelLang->lang = Yii::$app->settings->getSettings('MasterContentLang');
 
                 if ($modelLang->save()) {
+                    Yii::$app->getSession()->setFlash('success', Yii::t('blog', 'Static Page : {id} Created ! ', ['id' => $model->id]));
                     return $this->redirect(['view', 'id' => $model->id]);
                 } else {
                     return $this->render('create', [
@@ -179,6 +180,7 @@ class StaticPagesController extends Controller {
 
             if ($modelLang->save()) {
                 if ($model->save()) {
+                    Yii::$app->getSession()->setFlash('success', Yii::t('blog', 'Static Page : {id} updated ! ', ['id' => $model->id]));
                     return $this->redirect(['view', 'id' => $model->id]);
                 } else {
                     return $this->render('update', [
@@ -207,7 +209,9 @@ class StaticPagesController extends Controller {
      * @return mixed
      */
     public function actionDelete($id) {
-        $this->findModel($id)->delete();
+        if ( $this->findModel($id)->delete() ) {
+             Yii::$app->getSession()->setFlash('success', Yii::t('blog', 'Satic Page : {id} deleted ! ', ['id' => $id]));
+        }
         return $this->redirect(['index']);
     }
 
@@ -246,9 +250,13 @@ class StaticPagesController extends Controller {
             $modelLang = new StaticPagesLang();
             $modelLang->id = $id;
             $modelLang->lang = $lang;
-            $modelLang->description = Yii::$app->translate->translate($masterLang, $lang, $model->description)['text'][0];
-            $modelLang->intro_text = Yii::$app->translate->translate($masterLang, $lang, $model->intro_text, 'plain')['text'][0];
-            $modelLang->full_text = html::decode(Yii::$app->translate->translate($masterLang, $lang, $model->full_text)['text'][0]);
+            $modelLang->description = Yii::$app->translate->translate($masterLang, $lang, $model->description, 'plain');
+            $modelLang->intro_text = Yii::$app->translate->translate($masterLang, $lang, $model->intro_text, 'plain');
+            $modelLang->full_text = html::decode(Yii::$app->translate->translate($masterLang, $lang, $model->full_text));
+
+//            $modelLang->description = Yii::$app->translate->translate($masterLang, $lang, $model->description)['text'][0];
+//            $modelLang->intro_text = Yii::$app->translate->translate($masterLang, $lang, $model->intro_text, 'plain')['text'][0];
+//            $modelLang->full_text = html::decode(Yii::$app->translate->translate($masterLang, $lang, $model->full_text)['text'][0]);
         }
         if ($modelLang->load(Yii::$app->request->post()) && $modelLang->save()) {
             Yii::$app->session->setFlash('success', "Save translation successfully.");

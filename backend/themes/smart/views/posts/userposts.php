@@ -2,7 +2,9 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use plathir\user\common\helpers\UserHelper;
 
+$userHelper = new UserHelper();
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\Posts_s */
@@ -13,7 +15,16 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="box box-info">
     <div class="box-header with-border">
-        <h3 class="box-title"><?= Yii::t('blog', 'Posts Lists for user : ') . $username ?> </h3>
+        <h3 class="box-title"><?=
+            Yii::t('blog', 'Posts Lists for user').' : ' .
+            Html::img($userHelper->getProfileImage($userid, $this), ['alt' => '...',
+                'class' => 'img-circle',
+                'width' => '30',
+                'align' => 'center']) . $username;
+            ?>
+
+
+        </h3>
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>

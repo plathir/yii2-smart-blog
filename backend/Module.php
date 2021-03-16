@@ -39,12 +39,19 @@ class Module extends \yii\base\Module {
 
     public function init() {
 
+        parent::init();
+        $this->registerTranslations();
+        $this->assetBundle = blogAsset::register(Yii::$app->view);
+
         // The following three lines initialize i18n for kvtree
-        //$dir = '@vendor/kartik-v/yii2-tree-manager/messages';
-        $dir = Yii::getAlias('@backend/messages');
+//       $dir = '@vendor/kartik-v/yii2-tree-manager/messages';
+        // $dir = Yii::getAlias('@backend/messages');
         $cat = 'kvtree';
 
-//        $dir = Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/messages';
+        $dir = Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/messages';
+
+//        echo $dir;
+//        die();
         $this->initI18N($dir, $cat);
 
         $helper = new ThemesHelper();
@@ -89,12 +96,10 @@ class Module extends \yii\base\Module {
             ]
         ];
 
-        
-        parent::init();
-        $this->registerTranslations();
-        $this->assetBundle = blogAsset::register(Yii::$app->view);
 
-        parent::init();
+
+
+//        parent::init();
         // custom initialization code goes here
     }
 

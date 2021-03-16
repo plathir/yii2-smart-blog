@@ -18,6 +18,12 @@ use Yii;
  */
 class TagsController extends Controller {
 
+    public function __construct($id, $module) {
+        parent::__construct($id, $module);
+        $this->layout = "main";
+    }
+
+    
     /**
      * Lists all Posts models.
      * @return mixed

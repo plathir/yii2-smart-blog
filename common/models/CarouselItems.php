@@ -40,9 +40,9 @@ class CarouselItems extends \yii\db\ActiveRecord {
      */
     public function attributeLabels() {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'carousel_id' => Yii::t('app', 'Carousel ID'),
-            'post_id' => Yii::t('app', 'Post ID'),
+            'id' => Yii::t('blog', 'ID'),
+            'carousel_id' => Yii::t('blog', 'Carousel ID'),
+            'post_id' => Yii::t('blog', 'Post ID'),
         ];
     }
 

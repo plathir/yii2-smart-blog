@@ -58,6 +58,8 @@ class Posts extends \yii\db\ActiveRecord {
             'id' => Yii::t('blog', 'ID'),
             'slug' => Yii::t('blog', 'Slug'),
             'post_image' => Yii::t('blog', 'Image'),
+            'intro_text' => Yii::t('blog', 'Intro Text'),
+            'full_text' => Yii::t('blog', 'Full Text'),
             'user_created' => Yii::t('blog', 'User Created'),
             'created_at' => Yii::t('blog', 'Date Created'),
             'user_last_change' => Yii::t('blog', 'User Last Change'),
@@ -69,6 +71,7 @@ class Posts extends \yii\db\ActiveRecord {
             'gallery' => Yii::t('blog', 'Gallery'),
             'views' => Yii::t('blog', 'Views'),
             'description' => Yii::t('blog', 'Description'),
+            'fulltext_html' => Yii::t('blog', 'Fulltext html'),
         ];
     }
 
@@ -124,7 +127,7 @@ class Posts extends \yii\db\ActiveRecord {
 
 
     public function getTexts() {
-        return $this->hasMany(PostsLang::className(), ['id' => 'id' ]);
+        return $this->hasMany(PostsLang::className(), ['id' => 'id']);
     }
 
 }

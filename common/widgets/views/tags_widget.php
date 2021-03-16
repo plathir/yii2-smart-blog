@@ -1,7 +1,8 @@
 <?php
+
 use justinvoelker\tagging\TaggingWidget;
 
-echo '<strong>'.$widget->title.'</strong>';
+echo '<strong>' . Yii::t('blog', $widget->title) . '</strong>';
 echo
 TaggingWidget::widget([
     'items' => array_count_values(array_values(explode(',', $widget->tags))),

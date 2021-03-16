@@ -11,7 +11,7 @@ use \backend\widgets\SmartDate;
 /* @var $searchModel app\models\Posts_s */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('blog','Posts');
+$this->title = Yii::t('blog', 'Posts');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -61,7 +61,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         'headerOptions' => ['class' => 'hidden-xs hidden-sm'],
                         'contentOptions' => ['data-columnname' => 'Image', 'class' => 'hidden-xs hidden-sm hidden-md'],
                     ],
-                                
                     [
                         'attribute' => 'id',
                         'contentOptions' => ['style' => 'width: 7%;']
@@ -69,9 +68,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'description',
                         'value' => function ($model) {
-                          return Html::a($model->description, ['/blog/posts/view', 'id' => $model->id]);  
+                            return Html::a($model->description, ['/blog/posts/view', 'id' => $model->id]);
                         },
-                        'format' =>'raw',        
+                        'format' => 'raw',
                         'contentOptions' => ['style' => 'width: 15%;']
                     ],
                     [
@@ -85,7 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             }
                         },
                         'contentOptions' => ['style' => 'width: 15%;'],
-                        'headerOptions' => ['class' => 'hidden-xs hidden-sm hidden-md'],                                
+                        'headerOptions' => ['class' => 'hidden-xs hidden-sm hidden-md'],
                         'filter' =>
                         TreeViewInput::widget([
                             // single query fetch to render the tree
@@ -94,8 +93,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'category',
                             'showInactive' => true,
                             'query' => Category::find()->addOrderBy('root, lft'),
-                            'headingOptions' => ['label' => 'Categories',
-                            ],
+//                            'headingOptions' => ['label' => Yii::t('kvtree','Categories'),
+//                            ],
 //                                            'name' => 'kv-product', // input name
 //                                            'value' => '1,2,3', // values selected (comma separated for multiple select)
                             'asDropdown' => true, // will render the tree input widget as a dropdown.
@@ -130,7 +129,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         'filter' => SmartDate::widget(['type' => 'filterShortDate', 'model' => $searchModel, 'attribute' => 'created_at']),
                         'contentOptions' => ['style' => 'width: 12%;']
                     ],
-
                     [
                         'attribute' => 'user_last_change',
                         'value' => function($model, $key, $index, $widget) {
@@ -149,15 +147,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         'filterOptions' => ['class' => 'hidden-xs hidden-sm hidden-md'],
                         'headerOptions' => ['class' => 'hidden-xs hidden-sm hidden-md'],
                         'contentOptions' => ['data-columnname' => 'Upadted_at', 'style' => 'width: 12%;', 'class' => 'hidden-xs hidden-sm hidden-md'],
-                    ],         
-                     [
-                      'attribute' => 'publish',
-                       'filter' => \yii\bootstrap\Html::activeDropDownList($searchModel, 'publish', ['0' => 'Unpublished', '1' => 'Published'], ['class' => 'form-control', 'prompt' => 'Select...']),                         
+                    ],
+                    [
+                        'attribute' => 'publish',
+                        'filter' => \yii\bootstrap\Html::activeDropDownList($searchModel, 'publish', ['0' => Yii::t('blog', 'Unpublished'), '1' => Yii::t('blog', 'Published')], ['class' => 'form-control', 'prompt' => 'Select...']),
                         'value' => function($model, $key, $index, $widget) {
-                           return $model->publishbadge; 
-                        } ,
-                      'format' => 'html',   
-                     ],                               
+                            return $model->publishbadge;
+                        },
+                        'format' => 'html',
+                    ],
                     ['class' => 'yii\grid\ActionColumn',
                         'contentOptions' => ['style' => 'min-width: 70px;']
                     ],

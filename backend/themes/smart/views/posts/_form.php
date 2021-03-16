@@ -86,32 +86,12 @@ use mihaildev\elfinder\ElFinder;
                 }
                 ?>
 
-                <?php
-//                echo
-//                $form->field($model, 'full_text')->widget(\vova07\imperavi\Widget::className(), [
-//
-//                    'settings' => [
-//                        //  'lang' => 'en',
-//                        'minHeight' => 200,
-//                        //    'pastePlainText' => true,
-//                        //  'pasteImages' => true,
-//                        'plugins' => [
-//                            'clips',
-//                            'fullscreen'
-//                        ],
-////            'imageGetJson' => Url::to(['/blog/posts/get']),
-////            'imageUpload' => Url::to(['/blog/posts/image-upload']),
-////            'fileUpload' => Url::to(['/blog/posts/file-upload']),
-////            'clipboardUploadUrl' => Url::to(['/blog/posts/clipupl'])
-//                    ]
-//                ]);
-                ?>
                 <?=
                 $form->field($model, 'category')->widget(TreeViewInput::className(), [
                     'model' => $model,
                     'attribute' => 'category',
                     'query' => Category::find()->addOrderBy('root, lft'),
-                    'headingOptions' => ['label' => 'Categories'],
+                    'headingOptions' => ['label' => Yii::t('kvtree', 'Categories')],
                     //  'name' => 'categories', // input name
                     //  'value'             => '1,2,3',         // values selected (comma separated for multiple select)
                     'asDropdown' => true, // will render the tree input widget as a dropdown.
@@ -164,7 +144,7 @@ use mihaildev\elfinder\ElFinder;
             <div class="col-lg-3 col-md-3 col-sm-3">
                 <div class="panel panel-info">
                     <!-- Default panel contents -->
-                    <div class="panel-heading">Post Infos</div>
+                    <div class="panel-heading"><?= Yii::t('blog','Post Infos') ?></div>
                     <div class="panel-body">
                         <?php echo $form->field($model, 'publish')->widget(SwitchInput::classname(), []); ?>
 
@@ -216,7 +196,7 @@ use mihaildev\elfinder\ElFinder;
         </div>
 
         <div class="form-group">
-            <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Create' : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> ' . Yii::t('blog', 'Save') : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> ' . Yii::t('blog', 'Save Changes'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>        

@@ -8,9 +8,9 @@ use yii\helpers\HtmlPurifier;
 /* @var $this yii\web\View */
 /* @var $model app\models\Posts */
 
-$this->title = 'Static Page : ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Static Pages', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = Yii::t('blog','Static Page').' : ' . $model->id.' - '.$model->description;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('blog','Static Pages'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = $model->description;
 ?>
 
 
@@ -27,13 +27,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-lg-9">
 
             <p>
-                <?= Html::a('<i class="fa fa-pencil-square-o"></i>&nbsp;' . 'Update', ['update', 'id' => $model->id], ['class' => 'btn btn-success btn-flat']) ?>
+                <?= Html::a('<i class="fa fa-pencil-square-o"></i>&nbsp;' . Yii::t('blog','Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-success btn-flat']) ?>
 
                 <?=
-                Html::a('<i class="fa fa-trash-o"></i>&nbsp;' . 'Delete', ['delete', 'id' => $model->id], [
+                Html::a('<i class="fa fa-trash-o"></i>&nbsp;' . Yii::t('blog','Delete'), ['delete', 'id' => $model->id], [
                     'class' => 'btn btn-danger btn-flat',
                     'data' => [
-                        'confirm' => 'Are you sure you want to delete this item?',
+                        'confirm' => Yii::t('blog','Are you sure you want to delete this item?'),
                         'method' => 'post',
                     ],
                 ])
@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'updated_at:datetime',
                     [
                         'attribute' => 'publish',
-                        'value' => $model->publish == true ? '<span class="label label-success">Published</span>' : '<span class="label label-danger">Unpublished</span>',
+                        'value' => $model->publish == true ? '<span class="label label-success">'.Yii::t('blog','Published').'</span>' : '<span class="label label-danger">'.Yii::t('blog','Unpublished').'</span>',
                         'format' => 'html'
                     ],
                 ],
@@ -88,20 +88,27 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="col-lg-3">
             <div class="panel panel-default">
-                <div class="panel-heading">Translations</div>
+                <div class="panel-heading"><?= Yii::t('blog','Translations') ?></div>
                 <div class="panel-body">
                     <div class="list-group">
                         <?php
                         $appLanguage = Yii::$app->settings->getSettings('MasterContentLang');
                         foreach (Yii::$app->urlManager->languages as $language) {
                             if ($language != $appLanguage) {
-                                if ($language == 'el') {
-                                    $temp_lang = 'gr';
-                                } else {
-                                    $temp_lang = $language;
+
+                                switch ($language) {
+                                    case 'el':
+                                        $temp_lang = 'gr';
+                                        break;
+                                    case 'en':
+                                        $temp_lang = 'gb';
+                                        break;
+                                    default:
+                                        $temp_lang = $language;
+                                        break;
                                 }
                                 ?>
-                                <?= Html::a('<i class="fa fa-pencil-square-o"></i>&nbsp;' . 'Translate ' . '<img src="https://www.countryflags.io/' . $temp_lang . '/flat/16.png">', ['translate', 'id' => $model->id, 'lang' => $language], ['class' => 'list-group-item list-group-item-info']); ?>
+                                <?= Html::a('<i class="fa fa-pencil-square-o"></i>&nbsp;' . Yii::t('blog', 'Translation').' ' . '<img src="https://www.countryflags.io/' . $temp_lang . '/flat/16.png">', ['translate', 'id' => $model->id, 'lang' => $language], ['class' => 'list-group-item list-group-item-info']); ?>
                                 <?php
                             }
                         }
@@ -112,7 +119,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>  
         </div>
         <div class="col-lg-12">
-            <br><strong>Preview : </strong><br><br>
+            <br><strong><?= Yii::t('blog','Preview') ?> : </strong><br><br>
             <?= $model->full_text; ?>
             <?php
             //   $html = Yii::$app->translate->translate('en-US', 'el', $model->full_text);

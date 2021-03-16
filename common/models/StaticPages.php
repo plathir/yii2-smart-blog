@@ -49,10 +49,10 @@ class StaticPages extends \yii\db\ActiveRecord {
     public function attributeLabels() {
         return [
             'id' => Yii::t('blog', 'ID'),
-  //          'description' => Yii::t('blog', 'Description'),
+            'description' => Yii::t('blog', 'Description'),
             'slug' => Yii::t('blog', 'Slug'),
-  //          'intro_text' => Yii::t('blog', 'Intro Text'),
-  //          'full_text' => Yii::t('blog', 'Full Text'),
+            'intro_text' => Yii::t('blog', 'Intro Text'),
+            'full_text' => Yii::t('blog', 'Full Text'),
             'user_created' => Yii::t('blog', 'User Created'),
             'created_at' => Yii::t('blog', 'Date Created'),
             'user_last_change' => Yii::t('blog', 'User Last Change'),

@@ -9,7 +9,7 @@ class TagsWidget extends Widget {
     public $tags;
     public $callbackUrl = '/blog/posts/tags';
     public $linkClass = 'label label-primary';
-    public $title = 'Tags:';
+    public $title = 'Tags :';
     public $selection_parameters = [];
 
     public function init() {

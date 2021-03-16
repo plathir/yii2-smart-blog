@@ -70,8 +70,8 @@ class Carousel extends \yii\db\ActiveRecord {
             'created_by' => Yii::t('blog', 'Created By'),
             'updated_at' => Yii::t('blog', 'Updated At'),
             'updated_by' => Yii::t('blog', 'Updated By'),
-            'CreatedByName' => Yii::t('blog', 'Created by'),
-            'UpdatedByName' => Yii::t('blog', 'Updated by'),
+            'CreatedByName' => Yii::t('blog', 'Created By'),
+            'UpdatedByName' => Yii::t('blog', 'Updated By'),
         ];
     }
 

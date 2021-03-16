@@ -64,7 +64,7 @@ use lav45\aceEditor\AceEditorWidget;
             <div class="col-lg-3 col-md-3 col-sm-3">
                 <div class="panel panel-info">
                     <!-- Default panel contents -->
-                    <div class="panel-heading">Post Infos</div>
+                    <div class="panel-heading"><?= Yii::t('blog', 'Static Page Infos') ?></div>
                     <div class="panel-body">
                         <?php echo $form->field($model, 'publish')->widget(SwitchInput::classname(), []); ?>
 
@@ -116,7 +116,7 @@ use lav45\aceEditor\AceEditorWidget;
         </div>
 
         <div class="form-group">
-            <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Create' : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> ' . Yii::t('blog', 'Save') : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> ' . Yii::t('blog', 'Save Changes'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>        
