@@ -47,7 +47,8 @@ class PostsGlobalSearch extends \plathir\smartblog\backend\models\Posts implemen
         return [
             'description',
             'intro_text',
-            'full_text'
+            'full_text',
+            'tags'
         ];
     }
 

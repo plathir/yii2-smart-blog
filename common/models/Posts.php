@@ -109,6 +109,7 @@ class Posts extends \yii\db\ActiveRecord {
             if (!$tag_id) {
                 $newTag = new Tags();
                 $newTag->name = $tag;
+                $newTag->posts_cnt = 1;
                 if ($newTag->save()) {
                     $tag_id = $newTag->id;
                 }
