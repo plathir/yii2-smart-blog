@@ -17,7 +17,10 @@ if ($model->css && $model->code_editor) {
     <div class="row">
         <?php
         if ($model->full_text) {
-            echo yii\helpers\HtmlPurifier::process($model->full_text);
+   //         echo yii\helpers\HtmlPurifier::process($model->full_text,[
+//             'HTML.Allowed' => 'div[id|class],b,strong,i[class],em,a[href|title|target],ul[class],ol[class],li[class],p[style|class],br,span[style],img[width|height|alt|src]',
+ //           ]);
+            echo $model->full_text;
             echo '<br>';
         }
         ?>
