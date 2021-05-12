@@ -10,7 +10,8 @@ use yii\widgets\ListView;
 <div class="body-content">
     <div class="row-fluid">
         <?php
-        $view = $widget->TemplatePath . '/category_templates/_view_category_' . $widget->typeView . '_list.php';
+//        $view = $widget->TemplatePath . '/category_templates/_view_category_' . $widget->typeView . '_list.php';
+        $view = '/category_templates/_view_category_' . $widget->typeView . '_list.php';
         $provider = new ArrayDataProvider([
             'allModels' => $Categories,
 //            'pagination' => [

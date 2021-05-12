@@ -1,6 +1,7 @@
 <?php
 use plathir\smartblog\common\widgets\TagCloudWidget;
 use yii\helpers\Html;
+
 ?>
 
     <div class="row">

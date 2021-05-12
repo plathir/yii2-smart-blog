@@ -6,8 +6,9 @@ use yii\base\Widget;
 use plathir\smartblog\frontend\models\search\Posts_s;
 use plathir\smartblog\frontend\models\Carousel;
 use Yii;
+use plathir\smartblog\frontend\widgets\BaseWidget;
 
-class CarouselPosts extends Widget {
+class CarouselPosts extends BaseWidget {
 
     public $tags;
     public $posts = '';
@@ -27,14 +28,14 @@ class CarouselPosts extends Widget {
         ];
     }
 
-    public function run() {
+    public function run() {       
         $this->registerClientAssets();
         $listPosts = [];
         if ($this->posts) {
             $listPostsNum = explode(',', $this->posts);
             $listPosts = [];
             foreach ($listPostsNum as $postNum) {
-                $listPosts[] = PostsSearch::findOne($postNum);
+                $listPosts[] = Posts_s::findOne($postNum);
             }
         };
 
@@ -51,15 +52,6 @@ class CarouselPosts extends Widget {
                     'widget' => $this,
                     'posts' => $listPosts
         ]);
-    }
-
-    public function registerClientAssets() {
-        $view = $this->getView();
-        $assets = Asset::register($view);
-    }
-
-    public function getViewPath() {
-        return Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/widgets/themes/' . $this->Theme . '/views';
     }
 
 }

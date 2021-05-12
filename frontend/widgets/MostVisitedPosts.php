@@ -2,10 +2,9 @@
 
 namespace plathir\smartblog\frontend\widgets;
 
-use yii\base\Widget;
-use Yii;
+use plathir\smartblog\frontend\widgets\BaseWidget;
 
-class MostVisitedPosts extends Widget {
+class MostVisitedPosts extends BaseWidget {
 
     public $posts_num = 10;
     public $Theme = 'smart';
@@ -33,32 +32,6 @@ class MostVisitedPosts extends Widget {
                     'posts' => $posts,
                     'widget' => $this
         ]);
-    }
-
-    public function registerClientAssets() {
-        $view = $this->getView();
-        $assets = Asset::register($view);
-    }
-
-    public function getViewPath() {
-        return Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/widgets/themes/' . $this->Theme . '/views';
-    }
-
-    public function getTemplatePath() {
-        return '@vendor/plathir/yii2-smart-blog/frontend/themes/' . $this->Theme . '/views';
-    }
-
-    public function getFrontEndPath() {
-        return Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/themes/' . $this->Theme . '/views';
-    }
-
-    public function registerTranslations() {
-        /*         * This registers translations for the widgets module * */
-        Yii::$app->i18n->translations['blog'] = [
-            'class' => 'yii\i18n\PhpMessageSource',
-            'sourceLanguage' => 'en',
-            'basePath' => Yii::getAlias('@vendor/plathir/yii2-smart-blog/messages'),
-        ];
     }
 
 }

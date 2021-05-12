@@ -13,11 +13,11 @@ class RatingWidget extends Widget {
     public $onlyDisplay = false;
     public $size = 'xs';
     public $starCaptions = [
-//        '1' => '1 Αστέρι',
-//        '2' => '2 Αστέρι',
-//        '3' => '3',
-//        '4' => '4',
-//        '5' => 'Άριστο',
+        '1' => 'Bad',
+        '2' => 'Poor',
+        '3' => 'Good',
+        '4' => 'Very Good',
+        '5' => 'Excellent',
     ];
 
     public function init() {

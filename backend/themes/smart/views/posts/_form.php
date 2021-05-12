@@ -66,7 +66,7 @@ use mihaildev\elfinder\ElFinder;
                     case 'CKEditor':
                         echo $form->field($modelLang, 'full_text')->widget(CKEditor::className(), [
                             'editorOptions' => ElFinder::ckeditorOptions('blog/elfinder', [/* Some CKEditor Options */
-                                'entities_greek' => false
+                                'entities_greek' => false,
                             ]),
                         ]);
 
@@ -144,7 +144,7 @@ use mihaildev\elfinder\ElFinder;
             <div class="col-lg-3 col-md-3 col-sm-3">
                 <div class="panel panel-info">
                     <!-- Default panel contents -->
-                    <div class="panel-heading"><?= Yii::t('blog','Post Infos') ?></div>
+                    <div class="panel-heading"><?= Yii::t('blog', 'Post Infos') ?></div>
                     <div class="panel-body">
                         <?php echo $form->field($model, 'publish')->widget(SwitchInput::classname(), []); ?>
 
@@ -199,8 +199,18 @@ use mihaildev\elfinder\ElFinder;
             <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> ' . Yii::t('blog', 'Save') : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> ' . Yii::t('blog', 'Save Changes'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
 
-        <?php ActiveForm::end(); ?>        
+        <?php ActiveForm::end(); ?>      
+        <?php
+        $js = <<<JS
+              CKEDITOR.env.isCompatible = true;
+JS;
 
+        $this->registerJs($js);
+        ?>
+
+        <script>
+
+        </script>
     </div>
 
 </div>

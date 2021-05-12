@@ -6,9 +6,7 @@ use yii\widgets\ListView;
 <div class="body-content">
     <div class="row-fluid">
         <?php
-        //  $view = $widget->FrontEndPath . '/post_templates/_view_' . $widget->typeView . '_list.php';
         $view = $widget->TemplatePath . '/post_templates/_view_' . $widget->typeView . '_list.php';
-        //$view = 'post_templates/_view_' . $widget->typeView . '_list.php';
         $provider = new ArrayDataProvider([
             'allModels' => $posts,
 //            'pagination' => [
@@ -20,7 +18,7 @@ use yii\widgets\ListView;
             $layout = '<div class="container">
                     <div class="row">
                         <div class="panel panel-default">
-                            <div class="panel-heading">' . Yii::t('blog', 'Most Visted Posts') . '</div>
+                            <div class="panel-heading">' . Yii::t('blog', 'Most Visited Posts') . '</div>
                             <div class="panel-body">
                                 {items}
                            </div>
@@ -31,14 +29,12 @@ use yii\widgets\ListView;
             $layout = '{summary}{items}{pager}';
         }
 
-
-
         echo
         ListView::widget([
             'dataProvider' => $provider,
             //  'itemOptions' => ['class' => 'media'],
             'itemView' => function ($model, $key, $index, $widget) use ($view) {
-                return $this->render($view, ['model' => $model]);
+                return $this->render($view, ['model' => $model]);                
             },
             'layout' => $layout,
             'summary' => '',

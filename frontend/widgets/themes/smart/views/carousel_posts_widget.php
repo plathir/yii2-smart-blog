@@ -10,10 +10,10 @@ if ($widget->title) {
 $items = [];
 foreach ($posts as $post) {
 
-    if (strlen($post->description) < 150) {
-        $descr = $post->description;
+    if (strlen($post->Description) < 150) {
+        $descr = $post->Description;
     } else {
-        $descr = mb_substr($post->description, 0, 100) . '...';
+        $descr = mb_substr($post->Description, 0, 100) . '...';
     }
 
     if (strlen($post->intro_text) < 150) {

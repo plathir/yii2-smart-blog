@@ -32,14 +32,15 @@ use yii\widgets\Pjax;
                                 'max' => 5,
                                 'step' => 1,
                                 'showClear' => false,
+                                'showCaption' => false,
                                 'starCaptions' => $widget->starCaptions,
-                                 'language' => 'el',
+                                'language' => 'el',
                                 'theme' => 'krajee-fa',
                                 //       'filledStar' => '<i class="glyphicon glyphicon-heart"></i>',
                                 //       'emptyStar' => '<i class="glyphicon glyphicon-heart-empty"></i>',
                                 'size' => $widget->size]])->label(false);
                         ?>
-                        <?= Html::submitButton('<i class="fa fa-save"></i> Rate', ['class' => 'btn btn-sm btn-primary']) ?>
+                        <?= Html::submitButton('<i class="fa fa-save"></i> ' . Yii::t('blog', 'Rate'), ['class' => 'btn btn-sm btn-primary']) ?>
 
                         <?php ActiveForm::end(); ?>        
                     </div>   
@@ -57,6 +58,7 @@ use yii\widgets\Pjax;
                     'value' => $ratemodel->temprate,
                     'pluginOptions' => [
                         'displayOnly' => true,
+                        'showCaption' => false,
 //                    'size' => '10px']
                         'theme' => 'krajee-fa',
                         'size' => $widget->size]
@@ -72,12 +74,15 @@ use yii\widgets\Pjax;
             'value' => $ratemodel->temprate,
             'pluginOptions' => [
                 'displayOnly' => true,
+                'showCaption' => false,
                 'theme' => 'krajee-fa',
                 'size' => $widget->size]
         ]);
     }
     ?>
 
+    <script>
 
+    </script>
 
 </div>

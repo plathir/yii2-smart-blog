@@ -25,6 +25,7 @@ use kartik\widgets\SwitchInput;
         <?=
         $form->field($model, 'post_image')->widget(NewWidget::className(), [
             'uploadUrl' => Url::toRoute(['/blog/posts/uploadphoto']),
+            'maxSize' => 10145728,
             'previewUrl' => $model->module->ImagePathPreview,
             'tempPreviewUrl' => $model->module->ImageTempPathPreview,
             'KeyFolder' => $model->id,

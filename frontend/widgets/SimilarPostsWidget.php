@@ -2,12 +2,11 @@
 
 namespace plathir\smartblog\frontend\widgets;
 
-use yii\base\Widget;
 use yii\base\InvalidConfigException;
 use \plathir\smartblog\frontend\helpers\PostHelper;
-use Yii;
+use plathir\smartblog\frontend\widgets\BaseWidget;
 
-class SimilarPostsWidget extends Widget {
+class SimilarPostsWidget extends BaseWidget {
 
     public $postID;
     public $Theme = 'smart';
@@ -31,18 +30,4 @@ class SimilarPostsWidget extends Widget {
                     'widget' => $this
         ]);
     }
-
-    public function registerClientAssets() {
-        $view = $this->getView();
-        $assets = Asset::register($view);
-    }
-
-    public function getViewPath() {
-        return Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/widgets/themes/' . $this->Theme . '/views';
-    }
-
-    public function getTemplatePath() {
-        return '@vendor/plathir/yii2-smart-blog/frontend/themes/' . $this->Theme . '/views';
-    }
-
 }

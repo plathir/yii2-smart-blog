@@ -58,6 +58,7 @@ return [
     'Tag Cloud' => 'Ετικέτες αναρτήσεων',
     'Similar Posts' => 'Σχετικές αναρτήσεις',
     'Categories' => 'Κατηγορίες',
+    'Top Categories' => 'Κορυφαίες Κατηγορίες',
     'Extra fields' => 'Επιπλέον πληροφορίες',
     'Intro Text' => 'Κείμενο εισαγωγής',
     'Full Text' => 'Πλήρες Κείμενο',
@@ -111,5 +112,6 @@ return [
     'Update {modelClass}: ' => 'Αλλαγή {modelClass}: ',
     'ID Ανάρτησης' => 'ID Ανάρτησης',
     'Add' => 'Προσθήκη',
+    'Rate' => 'Βαθμολόγηση',
    
 ];

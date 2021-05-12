@@ -9,17 +9,19 @@ if ($widget->title) {
 $items = [];
 if ($posts) {
     foreach ($posts as $post) {
-        if (strlen($post->description) < 150) {
-            $descr = $post->description;
+
+        if (strlen($post->Description) < 150) {
+            $descr = $post->Description;
         } else {
-            $descr = substr($post->description, 0, 150) . '...';
+            $descr = substr($post->Description, 0, 150) . '...';
         }
 
-        if (strlen($post->intro_text) < 150) {
-            $intro = $post->intro_text;
+        if (strlen($post->Intro_text) < 150) {
+            $intro = $post->Intro_text;
         } else {
-            $intro = substr($post->intro_text, 0, 150) . '...';
+            $intro = substr($post->Intro_text, 0, 150) . '...';
         }
+
         $items[] = [
             // equivalent to the above
             'content' => '<img src="' . $post->imageUrl . '" max-height: ' . $widget->height . '; width="100%"/>',
@@ -29,6 +31,7 @@ if ($posts) {
         ];
     }
 }
+
 if ($items) {
     echo Carousel::widget([
         'items' => $items,

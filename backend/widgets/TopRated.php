@@ -2,11 +2,9 @@
 
 namespace plathir\smartblog\backend\widgets;
 
-use yii\base\Widget;
-use plathir\smartblog\backend\helpers\PostHelper;
-use Yii;
+use plathir\smartblog\backend\widgets\BaseWidget;
 
-class TopRated extends Widget {
+class TopRated extends BaseWidget {
 
     public $posts_num = 10;
     public $Theme = 'default';
@@ -31,15 +29,6 @@ class TopRated extends Widget {
                     'posts' => $topRated,
                     'widget' => $this
         ]);
-    }
-
-    public function registerClientAssets() {
-        $view = $this->getView();
-        $assets = Asset::register($view);
-    }
-
-    public function getViewPath() {
-        return Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/backend/widgets/themes/' . $this->Theme . '/views';
     }
 
 }

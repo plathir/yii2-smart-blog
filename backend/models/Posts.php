@@ -152,10 +152,10 @@ class Posts extends \plathir\smartblog\common\models\Posts {
                 $main_descr = $texts->description;
             }
         }
+
         if (!$descr) {
             $descr = $main_descr;
         }
-
         return $descr;
     }
 

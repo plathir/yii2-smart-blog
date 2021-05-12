@@ -47,7 +47,7 @@ use yii\widgets\Pjax;
                 </div>
 
                 <div class="form-group">
-                    <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Create' : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+                    <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> '.Yii::t('blog','Save') : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> '.Yii::t('blog','Save Changes'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
                 </div>
 
                 <?php ActiveForm::end(); ?>

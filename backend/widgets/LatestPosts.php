@@ -2,12 +2,9 @@
 
 namespace plathir\smartblog\backend\widgets;
 
-use yii\base\Widget;
-use yii\base\InvalidConfigException;
-use plathir\smartblog\backend\helpers\PostHelper;
-use Yii;
+use plathir\smartblog\backend\widgets\BaseWidget;
 
-class LatestPosts extends Widget {
+class LatestPosts extends BaseWidget {
 
     public $latest_num = 10;
     public $Theme = 'default';
@@ -32,15 +29,4 @@ class LatestPosts extends Widget {
                     'widget' => $this
         ]);
     }
-
-    public function registerClientAssets() {
-        $view = $this->getView();
-        $assets = Asset::register($view);
-    }
-
-    public function getViewPath() {
-
-        return Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/backend/widgets/themes/' . $this->Theme . '/views';
-    }
-
 }

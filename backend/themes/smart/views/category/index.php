@@ -20,6 +20,7 @@ use yii\bootstrap\Tabs;
         <div class="posts-index">
             <?php
             echo Tabs::widget([
+                'id' => 'category_tabs',
                 'items' => [
                     [
                         'label' => Yii::t('blog', 'Categories'),

@@ -77,6 +77,7 @@ class PostsController extends Controller {
             ],
             'uploadphoto' => [
                 'class' => '\plathir\cropper\actions\UploadAction',
+              //  'maxSize'=> 10000000,
                 'width' => $this->module->store_image_width,
                 'height' => $this->module->store_image_height,
                 'thumbnail' => true,

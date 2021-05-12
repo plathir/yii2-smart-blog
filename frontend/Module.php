@@ -42,7 +42,7 @@ class Module extends \yii\base\Module {
         $helper = new ThemesHelper();
         $path = $helper->ModuleThemePath('blog', 'frontend', dirname(__FILE__) . "/themes/$this->Theme");
         $path = $path .'/views';
-
+                
         $this->setViewPath($path);
 
         $this->controllerMap = [

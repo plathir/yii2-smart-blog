@@ -2,12 +2,11 @@
 
 namespace plathir\smartblog\backend\widgets;
 
-use yii\base\Widget;
-use Yii;
+use plathir\smartblog\backend\widgets\BaseWidget;
 
-class TagCloud extends Widget {
+class TagCloud extends BaseWidget {
 
-    public $Theme = 'default';
+    public $Theme = 'smart';
     public $title = 'Tag Cloud';
     public $selection_parameters = [];
 
@@ -25,15 +24,4 @@ class TagCloud extends Widget {
             'widget' => $this
         ]);
     }
-
-    public function registerClientAssets() {
-        $view = $this->getView();
-        $assets = Asset::register($view);
-    }
-
-    public function getViewPath() {
-
-        return Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/backend/widgets/themes/' . $this->Theme . '/views';
-    }
-
 }

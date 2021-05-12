@@ -19,7 +19,7 @@ use yii\widgets\ListView;
                 <div class="container">
                     <div class="row">
                         <div class="panel panel-default">
-                            <div class="panel-heading">' . Yii::t('blog', 'Latest Posts') . '</div>
+                            <div class="panel-heading">' . Yii::t('blog', 'Latest Blog Posts') . '</div>
                             <div class="panel-body">
                                 {summary}{items}{pager}
                            </div>

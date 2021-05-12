@@ -13,9 +13,9 @@ use \plathir\smartblog\common\widgets\RatingWidget;
 /* @var $this yii\web\View */
 /* @var $model app\models\Posts */
 
-$this->title = Yii::t('blog', 'View Post') . ' : ' . $model->id;
+$this->title = Yii::t('blog', 'View Post') . ' : ' . $model->id. ' - ' . $model->description;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('blog', 'Posts'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $model->id;
 ?>
 
 
@@ -32,10 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="posts-view">
             <p>
-                <?= Html::a(Yii::t('blog', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a('<i class="fa fa-fw fa-edit"></i> '.Yii::t('blog', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-flat']) ?>
                 <?=
-                Html::a(Yii::t('blog', 'Delete'), ['delete', 'id' => $model->id], [
-                    'class' => 'btn btn-danger',
+                Html::a('<i class="fa fa-fw fa-trash"></i> '.Yii::t('blog', 'Delete'), ['delete', 'id' => $model->id], [
+                    'class' => 'btn btn-danger btn-flat',
                     'data' => [
                         'confirm' => Yii::t('blog', 'Are you sure you want to delete this item?'),
                         'method' => 'post',

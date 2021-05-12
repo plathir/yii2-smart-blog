@@ -2,11 +2,12 @@
 
 namespace plathir\smartblog\frontend\widgets;
 
-use yii\base\Widget;
-use plathir\smartblog\frontend\helpers\PostHelper;
-use Yii;
 
-class TopRated extends Widget {
+use plathir\smartblog\frontend\helpers\PostHelper;
+
+use plathir\smartblog\frontend\widgets\BaseWidget;
+
+class TopRated extends BaseWidget {
 
     public $posts_num = 10;
     public $Theme = 'default';
@@ -25,7 +26,7 @@ class TopRated extends Widget {
     public function run() {
         $this->registerClientAssets();
         $this->registerTranslations();
-        $helper = new \plathir\smartblog\frontend\helpers\PostHelper();
+        $helper = new PostHelper();
         $topRated = $helper->getTopRated($this->posts_num);
 
         return $this->render('top_rated_posts_widget', [
@@ -33,23 +34,4 @@ class TopRated extends Widget {
                     'widget' => $this
         ]);
     }
-
-    public function registerClientAssets() {
-        $view = $this->getView();
-        $assets = Asset::register($view);
-    }
-
-    public function getViewPath() {
-        return Yii::getAlias('@vendor') . '/plathir/yii2-smart-blog/frontend/widgets/themes/' . $this->Theme . '/views';
-    }
-
-    public function registerTranslations() {
-        /*         * This registers translations for the widgets module * */
-        Yii::$app->i18n->translations['blog'] = [
-            'class' => 'yii\i18n\PhpMessageSource',
-            'sourceLanguage' => 'en',
-            'basePath' => Yii::getAlias('@vendor/plathir/yii2-smart-blog/messages'),
-        ];
-    }
-
 }
