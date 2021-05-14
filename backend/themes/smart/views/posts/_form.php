@@ -200,17 +200,6 @@ use mihaildev\elfinder\ElFinder;
         </div>
 
         <?php ActiveForm::end(); ?>      
-        <?php
-        $js = <<<JS
-              CKEDITOR.env.isCompatible = true;
-JS;
-
-        $this->registerJs($js);
-        ?>
-
-        <script>
-
-        </script>
     </div>
 
 </div>
