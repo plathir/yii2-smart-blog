@@ -9,6 +9,7 @@ use plathir\smartblog\common\models\PostsRating;
 use \Yii;
 use plathir\smartblog\backend\models\Category;
 use plathir\blog\backend\blogAsset;
+use yii\helpers\Html;
 
 class PostHelper {
 
@@ -256,6 +257,73 @@ class PostHelper {
     public function getBlogNoImage($id, $view = null) {
         $bundle = blogAsset::register($view);
         return $bundle->baseUrl . '/img/no_photo.png';
+    }
+
+    public function getTranslateButtons($model) {
+        $tr = '';
+        $appLanguage = Yii::$app->settings->getSettings('MasterContentLang');
+        foreach (Yii::$app->urlManager->languages as $language) {
+            if ($language != $appLanguage) {
+                switch ($language) {
+                    case 'el':
+                        $temp_lang = 'gr';
+                        break;
+                    case 'en':
+                        $temp_lang = 'gb';
+                        break;
+                    default:
+                        $temp_lang = $language;
+                        break;
+                }
+                $exist = '';
+
+                foreach ($model->langtext as $texts) {
+                    if ($texts->lang == $language) {
+                        $exist = Html::a('<i class="fa fa-trash-o"></i>&nbsp;' . Yii::t('blog', 'Exist') . ' ', ['deltranslate', 'id' => $model->id, 'lang' => $language]);
+                    }
+                }
+                $tr .= Html::a('<i class="fa fa-pencil-square-o"></i>&nbsp;' . Yii::t('blog', 'Translation') . ' ' . '<img src="https://www.countryflags.io/' . $temp_lang . '/shiny/16.png">', ['translate', 'id' => $model->id, 'lang' => $language], ['class' => 'list-group-item list-group-item-info']);
+            }
+        }
+
+        if ($tr) {
+
+            $tr_html = '';
+            if ($tr) {
+                $tr_html = '<br><div class="row"><div class="col-lg-3">' .
+                        '<div class="panel panel-default">' .
+                        '<div class="panel-heading">' . Yii::t('blog', 'Translations') . '</div>' .
+                        '<div class="panel-body">' .
+                        '<div class="list-group">' .
+                        $tr .
+                        '</div>' .
+                        '</div>' .
+                        '</div>' .
+                        '</div>' .
+                        '<div class="col-lg-9">' .
+                        '</div></div>';
+            }
+            return $tr_html;
+        }
+    }
+
+    public function getFlagByLang($lang) {
+        $temp_lang = '';
+        switch ($lang) {
+            case 'el':
+                $temp_lang = 'gr';
+                break;
+            case 'en':
+                $temp_lang = 'gb';
+                break;
+            default:
+                $temp_lang = $language;
+                break;
+        }
+
+        $flag_url = '<img src="https://www.countryflags.io/' . $temp_lang . '/shiny/16.png">';
+        
+        return $flag_url;
     }
 
 }

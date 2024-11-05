@@ -54,7 +54,9 @@ use lav45\aceEditor\AceEditorWidget;
                 } else {
                     echo $form->field($modelLang, 'full_text')->widget(CKEditor::className(), [
                         'editorOptions' => ElFinder::ckeditorOptions('blog/elfinder', [/* Some CKEditor Options */
-                            'entities_greek' => false
+                            'entities_greek' => false,
+                            'embed_provider' => '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}',
+                            'extraPlugins' => 'image2,uploadimage,uploadfile,embed, colorbutton, justify, font',
                         ]),
                     ]);
                 }

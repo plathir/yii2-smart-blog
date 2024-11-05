@@ -9,11 +9,12 @@ use \plathir\smartblog\backend\widgets\SimilarPostsWidget;
 use \plathir\smartblog\common\widgets\GalleryWidget;
 use kartik\widgets\StarRating;
 use \plathir\smartblog\common\widgets\RatingWidget;
+use \plathir\smartblog\backend\helpers\PostHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Posts */
 
-$this->title = Yii::t('blog', 'View Post') . ' : ' . $model->id. ' - ' . $model->description;
+$this->title = Yii::t('blog', 'View Post') . ' : ' . $model->id . ' - ' . $model->description;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('blog', 'Posts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $model->id;
 ?>
@@ -32,9 +33,9 @@ $this->params['breadcrumbs'][] = $model->id;
 
         <div class="posts-view">
             <p>
-                <?= Html::a('<i class="fa fa-fw fa-edit"></i> '.Yii::t('blog', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-flat']) ?>
+                <?= Html::a('<i class="fa fa-fw fa-edit"></i> ' . Yii::t('blog', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-flat']) ?>
                 <?=
-                Html::a('<i class="fa fa-fw fa-trash"></i> '.Yii::t('blog', 'Delete'), ['delete', 'id' => $model->id], [
+                Html::a('<i class="fa fa-fw fa-trash"></i> ' . Yii::t('blog', 'Delete'), ['delete', 'id' => $model->id], [
                     'class' => 'btn btn-danger btn-flat',
                     'data' => [
                         'confirm' => Yii::t('blog', 'Are you sure you want to delete this item?'),
@@ -44,56 +45,11 @@ $this->params['breadcrumbs'][] = $model->id;
                 ?>
             </p>
 
-
             <?php
-            $tr = '';
-            $appLanguage = Yii::$app->settings->getSettings('MasterContentLang');
-            foreach (Yii::$app->urlManager->languages as $language) {
-                if ($language != $appLanguage) {
-                    switch ($language) {
-                        case 'el':
-                           $temp_lang = 'gr';
-                            break;
-                       case 'en':
-                           $temp_lang = 'gb';
-                            break;
-                        default:
-                            $temp_lang = $language;
-                            break;
-                    }
-                    $exist = '';
+            // Translations
+            $post_helper = new PostHelper();
+            $tr_html = $post_helper->getTranslateButtons($model);
 
-                    foreach ($model->langtext as $texts) {
-                        if ($texts->lang == $language) {
-                            $exist = Html::a('<i class="fa fa-trash-o"></i>&nbsp;' . Yii::t('blog', 'Exist') . ' ', ['deltranslate', 'id' => $model->id, 'lang' => $language]);
-                        }
-                    }
-                    $tr .= Html::a('<i class="fa fa-pencil-square-o"></i>&nbsp;' . Yii::t('blog', 'Translation') . ' ' . '<img src="https://www.countryflags.io/' . $temp_lang . '/shiny/16.png">', ['translate', 'id' => $model->id, 'lang' => $language], ['class' => 'list-group-item list-group-item-info']);
-                }
-            }
-            ?>  
-
-            <?php
-            $tr_html = '';
-            if ($tr) {
-                $tr_html = '<br><div class="row"><div class="col-lg-3">' .
-                        '<div class="panel panel-default">' .
-                        '<div class="panel-heading">' . Yii::t('blog', 'Translations') . '</div>' .
-                        '<div class="panel-body">' .
-                        '<div class="list-group">' .
-                        $tr .
-                        '</div>' .
-                        '</div>' .
-                        '</div>' .
-                        '</div>' .
-                        '<div class="col-lg-9">' .
-                        '</div></div>';
-            }
-            ?>
-
-
-
-            <?php
             $userModel = new $model->module->userModel();
             $categoryModel = new plathir\smartblog\backend\models\Category();
 
@@ -148,7 +104,7 @@ $this->params['breadcrumbs'][] = $model->id;
             echo Tabs::widget([
                 'items' => [
                     [
-                        'label' => Yii::t('blog','Post Contents'),
+                        'label' => Yii::t('blog', 'Post Contents'),
                         'content' => $detailView
                         .
                         TagsWidget::widget([
@@ -160,7 +116,7 @@ $this->params['breadcrumbs'][] = $model->id;
                         'active' => true
                     ],
                     [
-                        'label' => Yii::t('blog','Attachments'),
+                        'label' => Yii::t('blog', 'Attachments'),
                         'content' => ListFilesWidget::widget([
                             'model' => $model,
                             'previewUrl' => $model->module->ImagePathPreview,
@@ -179,7 +135,7 @@ $this->params['breadcrumbs'][] = $model->id;
 //                        'options' => ['id' => 'myveryownID1'],
 //                    ],
                     [
-                        'label' => Yii::t('blog','Gallery'),
+                        'label' => Yii::t('blog', 'Gallery'),
                         'content' => GalleryWidget::widget([
                             'galleryItems' => $model->gallery,
                             'imagePath' => $model->module->ImagePath . '/' . $model->id,

@@ -6,6 +6,7 @@ use Yii;
 use plathir\smartblog\backend\models\PostsRating;
 use plathir\smartblog\common\models\Tags;
 use plathir\smartblog\common\models\PostsLang;
+use plathir\smartblog\backend\models\Categorytree;
 
 /**
  * This is the model class for table "smartblog_posts".
@@ -121,14 +122,145 @@ class Posts extends \yii\db\ActiveRecord {
         }
     }
 
-//    public function afterFind() {
-//        $this->views++;
-//        $this->save();
-//    }
-
 
     public function getTexts() {
         return $this->hasMany(PostsLang::className(), ['id' => 'id']);
     }
 
+    function getImageUrl() {
+        if ($this->post_image) {
+            return Yii::getAlias($this->module->ImagePathPreview) . '/' . $this->id . '/' . $this->post_image;
+        } else {
+            return $this->module->assetBundle->baseUrl . '/img/nophoto.png';
+         //   return Yii::getAlias($this->module->ImagePathPreview) . '/nophoto.png';
+        }
+    }
+
+    function getImageUrlThumb() {
+        if ($this->post_image) {
+            return Yii::getAlias($this->module->ImagePathPreview) . '/' . $this->id . '/thumbs/' . $this->post_image;
+        } else {
+            return $this->module->assetBundle->baseUrl . '/img/nophoto_thumb.png';
+        }
+    }
+    
+    public function getPublishbadge() {
+        $badge = '';
+        switch ($this->publish) {
+            case 0:
+                $badge = '<span class="label label-danger">'.Yii::t('blog','Unpublished').'</span>';
+                break;
+            case 1:
+                $badge = '<span class="label label-success">'.Yii::t('blog','Published').'</span>';
+                break;
+            default:
+                break;
+        }
+
+        return $badge;
+    }
+
+    public function getFulltext_html() {
+
+        switch ($this->module->editor) {
+            case 'CKEditor':
+                return $this->full_text;
+            case 'markdown':
+                return Markdown::process($this->full_text, 'gfm');
+        }
+    }
+
+    public function getUrlpath() {
+        $category = Categorytree::findOne($this->category);
+        return $category->path;
+    }
+
+    public function getRoute() {
+        return ['posts/view', 'id' => $this->id, 'slug' => $this->slug];
+    }
+
+    public function getUrl() {
+        return \yii\helpers\Url::to($this->getRoute());
+    }
+
+    public function getLangtext() {
+        return $this->hasMany(PostsLang::className(), ['id' => 'id']);
+    }
+
+    public function getDescription() {
+
+        $descr = '';
+        $main_descr = '';
+        foreach ($this->langtext as $texts) {
+            if ($texts->lang == Yii::$app->language) {
+                $descr = $texts->description;
+            }
+            if ($texts->lang == Yii::$app->settings->getSettings('MasterContentLang')) {
+                $main_descr = $texts->description;
+            }
+        }
+
+        if (!$descr) {
+            $descr = $main_descr;
+        }
+        return $descr;
+    }
+
+    public function getSlugdescr() {
+        $main_descr = '';
+        foreach ($this->langtext as $texts) {
+            if ($texts->lang == Yii::$app->settings->getSettings('MasterContentLang')) {
+                $main_descr = $texts->description;
+            }
+        }
+
+        if ((!$main_descr) && ($this->descr)) {
+            return $this->descr;
+        } else {
+            return $main_descr;
+        }
+    }
+
+    public function getFull_text() {
+        $full_text = '';
+        $main_full_text = '';
+        foreach ($this->langtext as $texts) {
+            if ($texts->lang == Yii::$app->language) {
+                $full_text = $texts->full_text;
+            }
+            if ($texts->lang == Yii::$app->settings->getSettings('MasterContentLang')) {
+                $main_full_text = $texts->full_text;
+            }
+        }
+
+        if (!$full_text) {
+            $full_text = $main_full_text;
+        }
+        return $full_text;
+    }
+
+    public function getIntro_text() {
+        $intro_text = '';
+        $main_intro_text = '';
+        foreach ($this->langtext as $texts) {
+            if ($texts->lang == Yii::$app->language) {
+                $intro_text = $texts->intro_text;
+            }
+            if ($texts->lang == Yii::$app->settings->getSettings('MasterContentLang')) {
+                $main_intro_text = $texts->intro_text;
+            }
+        }
+
+        if (!$intro_text) {
+            $intro_text = $main_intro_text;
+        }
+        return $intro_text;
+    }    
+    
+    
+    
+    
+    
+    
+    
 }

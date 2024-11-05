@@ -65,8 +65,28 @@ use mihaildev\elfinder\ElFinder;
                 switch ($model->module->editor) {
                     case 'CKEditor':
                         echo $form->field($modelLang, 'full_text')->widget(CKEditor::className(), [
-                            'editorOptions' => ElFinder::ckeditorOptions('blog/elfinder', [/* Some CKEditor Options */
-                                'entities_greek' => false,
+                            'editorOptions' => ElFinder::ckeditorOptions('blog/elfinder',
+                                    [
+                                        /* Some CKEditor Options */
+  //                                      'preset' => 'full',
+                                        'entities_greek' => false,
+                                        'embed_provider' => '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}',
+                                        'extraPlugins' => 'image2,uploadimage,uploadfile,embed, colorbutton, justify, font ',
+//                                'filebrowserBrowseUrl' => $model->module->mediaUrl,
+//                                'filebrowserUploadUrl' => $model->module->mediaUrl
+//      // Configure your file manager integration. This example uses CKFinder 3 for PHP.
+//      filebrowserBrowseUrl: '/apps/ckfinder/3.4.5/ckfinder.html',
+//      filebrowserImageBrowseUrl: '/apps/ckfinder/3.4.5/ckfinder.html?type=Images',
+//      filebrowserUploadUrl: '/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Files',
+//      filebrowserImageUploadUrl: '/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Images',
+//
+//      // Upload dropped or pasted images to the CKFinder connector (note that the response type is set to JSON).
+//      uploadUrl: '/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
+//
+//      // Reduce the list of block elements listed in the Format drop-down to the most commonly used.
+//      format_tags: 'p;h1;h2;h3;pre',
+//      // Simplify the Image and Link dialog windows. The "Advanced" tab is not needed in most cases.
+//      removeDialogTabs: 'image:advanced;link:advanced',
                             ]),
                         ]);
 
@@ -120,14 +140,14 @@ use mihaildev\elfinder\ElFinder;
                 ])
                 ?>
                 <div class="row-fluid">
-                    <?php
-                    echo $form->field($model, 'attachments')->widget(UplWidget::className(), [
-                        'uploadUrl' => Url::toRoute(['/blog/posts/uploadfile']),
-                        'previewUrl' => $model->module->ImagePathPreview,
-                        'tempPreviewUrl' => $model->module->ImageTempPathPreview,
-                        'KeyFolder' => $model->id,
-                    ]);
-                    ?>
+                <?php
+                echo $form->field($model, 'attachments')->widget(UplWidget::className(), [
+                    'uploadUrl' => Url::toRoute(['/blog/posts/uploadfile']),
+                    'previewUrl' => $model->module->ImagePathPreview,
+                    'tempPreviewUrl' => $model->module->ImageTempPathPreview,
+                    'KeyFolder' => $model->id,
+                ]);
+                ?>
                 </div>
                 <div class="row-fluid">
                     <?php
@@ -146,22 +166,22 @@ use mihaildev\elfinder\ElFinder;
                     <!-- Default panel contents -->
                     <div class="panel-heading"><?= Yii::t('blog', 'Post Infos') ?></div>
                     <div class="panel-body">
-                        <?php echo $form->field($model, 'publish')->widget(SwitchInput::classname(), []); ?>
+<?php echo $form->field($model, 'publish')->widget(SwitchInput::classname(), []); ?>
 
-                        <?php
-                        echo $form->field($model, 'created_at')->widget(DateControl::classname(), [
-                            'type' => DateControl::FORMAT_DATETIME,
-                            'ajaxConversion' => true,
-                            'saveFormat' => 'php:U',
-                            'options' => [
-                                'layout' => '{picker}{input}',
-                                'pluginOptions' => [
-                                    'autoclose' => true,
-                                    'todayBtn' => true,
-                                ]
-                            ]
-                        ]);
-                        ?>
+<?php
+echo $form->field($model, 'created_at')->widget(DateControl::classname(), [
+    'type' => DateControl::FORMAT_DATETIME,
+    'ajaxConversion' => true,
+    'saveFormat' => 'php:U',
+    'options' => [
+        'layout' => '{picker}{input}',
+        'pluginOptions' => [
+            'autoclose' => true,
+            'todayBtn' => true,
+        ]
+    ]
+]);
+?>
                         <?php
                         $userModel = new $model->module->userModel();
                         $items = \yii\helpers\ArrayHelper::map($userModel::find()->where('status = 10')->all(), 'id', $model->module->userNameField);
@@ -196,10 +216,10 @@ use mihaildev\elfinder\ElFinder;
         </div>
 
         <div class="form-group">
-            <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> ' . Yii::t('blog', 'Save') : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> ' . Yii::t('blog', 'Save Changes'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+<?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> ' . Yii::t('blog', 'Save') : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> ' . Yii::t('blog', 'Save Changes'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
 
-        <?php ActiveForm::end(); ?>      
+            <?php ActiveForm::end(); ?>      
     </div>
 
 </div>

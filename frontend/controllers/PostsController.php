@@ -13,6 +13,7 @@ use plathir\smartblog\frontend\helpers\PostHelper;
 use yii\data\ArrayDataProvider;
 use \plathir\smartblog\frontend\models\Category;
 use yii\helpers\Url;
+use yii\helpers\Html;
 
 /**
  * PostsController implements the CRUD actions for Posts model.
@@ -61,6 +62,7 @@ class PostsController extends Controller {
                             'delete',
                             'uploadphoto',
                             'uploadfile',
+                            'translate',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -128,11 +130,19 @@ class PostsController extends Controller {
      * @return mixed
      */
     public function actionView($id, $path = "", $slug = "") {
+        $model = $this->findModel($id);
+        $this->addViews($model);        
         return $this->render('view', [
-                    'model' => $this->findModel($id),
+                    'model' => $model,
         ]);
     }
 
+    
+    private function addViews($model) {
+        $model->views++;
+        $model->save();
+    }
+    
     /**
      * Creates a new Posts model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -213,7 +223,7 @@ class PostsController extends Controller {
                 if ($modelLang->save()) {
                     if ($model->save()) {
                         Yii::$app->getSession()->setFlash('success', Yii::t('blog', 'Post : {id} updated ! ', ['id' => $model->id]));
-                        return $this->redirect(['view', 'id' => $model->id]);
+                        return $this->redirect(['view', 'id' => $model->id ]);
                     } else {
                         return $this->render('update', [
                                     'model' => $model,
@@ -400,4 +410,28 @@ class PostsController extends Controller {
         ]);
     }
 
+    public function actionTranslate($id, $lang) {
+        $model = $this->findModel($id);
+        $modelLang = PostsLang::find()->where(['id' => $id, 'lang' => $lang])->One();
+
+        if (!$modelLang) {
+            $masterLang = Yii::$app->settings->getSettings('MasterContentLang');
+            $modelLang = new PostsLang();
+            $modelLang->id = $id;
+            $modelLang->lang = $lang;
+            $modelLang->description = Yii::$app->translate->translate($masterLang, $lang, $model->description, 'plain');
+            $modelLang->intro_text = Yii::$app->translate->translate($masterLang, $lang, $model->intro_text, 'plain');
+            $modelLang->full_text = html::decode(Yii::$app->translate->translate($masterLang, $lang, $model->full_text));
+        }
+        if ($modelLang->load(Yii::$app->request->post()) && $modelLang->save()) {
+            Yii::$app->session->setFlash('success', "Save translation successfully.");
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('translation', [
+                        'model' => $model,
+                        'modelLang' => $modelLang,
+            ]);
+        }
+    }
+    
 }

@@ -29,7 +29,7 @@ use yii\widgets\ListView;
 //                    </div>
 //                </div>';
 //        } else {
-        $layout = '{summary}{items}{pager}';
+        $layout = '{summary}{items}<div class="row-fluid">{pager}</div>';
 //        }
 
         echo '<h3>Similar Posts </h3><hr>';

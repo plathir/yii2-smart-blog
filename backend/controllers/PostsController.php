@@ -212,7 +212,7 @@ class PostsController extends Controller {
      */
     public function actionView($id) {
         $model = $this->findModel($id);
-        $this->addViews($model);
+      //  $this->addViews($model);
         return $this->render('view', [
                     'model' => $model,
         ]);

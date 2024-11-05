@@ -21,7 +21,7 @@ use kartik\widgets\SwitchInput;
 
     <div class="panel-body">  
         <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdPost']]); ?>        
-         <?= $form->field($modelLang, 'description')->textInput(['maxlength' => 255]) ?>
+        <?= $form->field($modelLang, 'description')->textInput(['maxlength' => 255]) ?>
         <?=
         $form->field($model, 'post_image')->widget(NewWidget::className(), [
             'uploadUrl' => Url::toRoute(['/blog/posts/uploadphoto']),
@@ -38,28 +38,34 @@ use kartik\widgets\SwitchInput;
         <?= $form->field($modelLang, 'intro_text')->textarea(['rows' => 6]) ?>                
 
         <?php
-                switch ($model->module->editor) {
-                    case 'CKEditor':
-                        echo $form->field($modelLang, 'full_text')->widget(CKEditor::className(), [
-                            'editorOptions' => ElFinder::ckeditorOptions('blog/elfinder', [/* Some CKEditor Options */
-                                'entities_greek' => false
-                            ]),
-                        ]);
+        switch ($model->module->editor) {
+            case 'CKEditor':
+               
+                echo $form->field($modelLang, 'full_text')->widget(CKEditor::className(), [
+                    'editorOptions' => ElFinder::ckeditorOptions('blog/elfinder', [/* Some CKEditor Options */
+                        'entities_greek' => false,
+                   //     'preset' => 'full',
+                        'embed_provider' => '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}',
+                        'extraPlugins' => 'image2,uploadimage,embed, colorbutton, justify, font',        
+                         'removePlugins' => 'image',
+                        //'extraPlugins' => 'image2,uploadimage,uploadfile,embed, colorbutton, justify, font',                        
+                    ]),
+                ]);
 
-                        break;
-                    case 'markdown':
-                        echo $form->field($modelLang, 'full_text')->widget(\yii2mod\markdown\MarkdownEditor::class, [
-                            'editorOptions' => [
-                                'showIcons' => ["code", "table"],
-                                'renderingConfig' => [
-                                    'codeSyntaxHighlighting' => true,
-                                ]
-                            ],
-                        ]);
-                        break;
-                    default:
-                        break;
-                }
+        break;
+            case 'markdown':
+                echo $form->field($modelLang, 'full_text')->widget(\yii2mod\markdown\MarkdownEditor::class, [
+                    'editorOptions' => [
+                        'showIcons' => ["code", "table"],
+                        'renderingConfig' => [
+                            'codeSyntaxHighlighting' => true,
+                        ]
+                    ],
+                ]);
+                break;
+            default:
+                break;
+        }
         ?>        
 
         <?=
@@ -114,10 +120,10 @@ use kartik\widgets\SwitchInput;
         ?>        
         <?php echo $form->field($model, 'publish')->widget(SwitchInput::classname(), []); ?>
         <div class="form-group">
-            <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Create' : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Create' : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
 
-        <?php ActiveForm::end(); ?>            
+<?php ActiveForm::end(); ?>            
     </div>
 </div>
 

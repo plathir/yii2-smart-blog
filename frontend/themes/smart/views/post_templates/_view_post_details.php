@@ -8,6 +8,7 @@ use plathir\upload\ListFilesWidget;
 use plathir\smartblog\common\widgets\RatingWidget;
 use yii\helpers\Url;
 use dosamigos\disqus\Comments;
+use \plathir\smartblog\backend\helpers\PostHelper;
 
 $userHelper = new UserHelper();
 
@@ -19,7 +20,7 @@ $post_url_update = urldecode(Url::to(['/blog/posts/update/', 'path' => $model->u
         <div class="post-details-header"><?= Html::a($model->description, $post_url) ?>
             &nbsp;
             <?php
-            if  ( \yii::$app->user->can('BlogUpdatePost', ['post' => $model] ) || \yii::$app->user->can('BlogUpdateOwnPost', ['post' => $model]) ) {
+            if (\yii::$app->user->can('BlogUpdatePost', ['post' => $model]) || \yii::$app->user->can('BlogUpdateOwnPost', ['post' => $model])) {
                 echo Html::a('<i class="fa fa-edit"></i>', $post_url_update, ['class' => 'pull-right btn btn-success btn-sm button-edit']);
             }
             ?>
@@ -44,6 +45,18 @@ $post_url_update = urldecode(Url::to(['/blog/posts/update/', 'path' => $model->u
             <div class="post-details-image-box col-xs-12 col-sm-12 col-lg-12">
                 <img class="img-responsive" src="<?= $model->imageurl; ?>">
             </div>
+
+            <div class="col-xs-12 col-sm-12 col-lg-12">
+                <?php
+                // Translations
+                if (\yii::$app->user->can('BlogUpdatePost', ['post' => $model]) || \yii::$app->user->can('BlogUpdateOwnPost', ['post' => $model])) {
+                    $post_helper = new PostHelper();
+                    $tr_html = $post_helper->getTranslateButtons($model);
+                    echo $tr_html;
+                }
+                ?>               
+            </div>            
+
 
             <div class="blog-intro-text">
                 <?= $model->fulltext_html ?> 
@@ -85,7 +98,7 @@ $post_url_update = urldecode(Url::to(['/blog/posts/update/', 'path' => $model->u
     </div>
 </div>
 <?php
-if (Yii::$app->settings->getSettings('DisqusShortname') && Yii::$app->settings->getSettings('Comments') ) {
+if (Yii::$app->settings->getSettings('DisqusShortname') && Yii::$app->settings->getSettings('Comments')) {
     echo Comments::widget([
         'shortname' => Yii::$app->settings->getSettings('DisqusShortname'),
         'identifier' => $model->id

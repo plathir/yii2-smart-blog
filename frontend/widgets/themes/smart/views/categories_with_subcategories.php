@@ -36,7 +36,7 @@ use yii\widgets\ListView;
             if ($widget->typeView == 'grid') {
                 $layout = '<div class="row">{summary}{items}{pager}</div>';
             } else {
-                $layout = '<div class="container"><div class="row">{summary}{items}{pager}</div></div>';
+                $layout = '<div class="container"><div class="row">{summary}{items}</div><div class="row-fluid">{pager}</div></div>';
             }
         }
 

@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]);
 
-            $layout = '{summary}{items}{pager}';
+            $layout = '{summary}{items}<div class="row-fluid">{pager}</div>';
 //            Pjax::begin();
             echo ListView::widget([
                 'dataProvider' => $provider,
